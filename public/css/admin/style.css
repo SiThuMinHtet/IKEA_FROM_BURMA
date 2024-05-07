@@ -1,0 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Jost&family=Lato&family=Poppins&display=swap');
+
+:root {
+    --body_color: #383854;
+    --primary_color: #2E2E48;
+    --login_publish_color:#475BE8;
+    --cancle_btn_color: #F7941D;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'lato', sans-serif;
+}
+
+

@@ -1,0 +1,124 @@
+body {
+    font-family: 'Lato',sans-serif;
+    height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: var(--body_color);
+}
+
+.login-container {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    background: var(--primary_color);
+}
+
+.login-form p {
+    color: white;
+    text-align: center;
+    font-size: 22px;
+}
+
+form div label {
+    margin: 10px 0;
+    color: white;
+}
+
+
+/* form button {
+    cursor: pointer;
+    color: white;
+    margin: 20px 0;
+    padding: 10px;
+    background: var(--login_publish_color);
+    border-radius: 5px;
+   
+}
+
+form button a{
+    text-decoration: none;
+    color: white;
+} */
+
+
+form div {
+    width: 100%;
+}
+form div a{
+    cursor: pointer;
+    color: white;
+    margin: 20px 0;
+    padding: 10px 120px;
+    background: var(--login_publish_color);
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login-img img {
+    width: 100%;
+}
+
+/* new-edit */
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    padding: 10px 0;
+}
+
+form div input {
+    height: 40px;
+    border-radius: 5px;
+    background: none;
+    outline: none;
+    border: 1px solid white;
+    color: white;
+}
+
+@media (min-width:320px) and (max-width:600px){
+    .login-container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: none;
+        background-image: url(/Images/admin\ login.png);
+        backdrop-filter: blur(100px);
+    }
+
+    .login-container .login-form {
+        margin: 200px 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .login-container .login-form p {
+        color: white;
+    }
+
+    .login-form form div label{
+        color: white;
+    }
+
+    .login-form form div input{
+        border:1px solid white;
+    }
+
+    .login-img {
+        display: none;
+    }
+
+    .login-img img {
+        padding-bottom: 50px;
+        width: 70%;
+    }
+    
+}
