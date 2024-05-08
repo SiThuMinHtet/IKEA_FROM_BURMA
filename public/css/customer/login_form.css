@@ -1,0 +1,88 @@
+.log-in-container {
+    margin: 50px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: auto;
+    gap: 50px;
+}
+
+.log-in input {
+    height: 50px;
+    width: 100%;
+}
+
+.log-in label:after {
+    content: "*";
+    color: red;
+}
+
+.first-log-btn {
+    margin: 50px 0;
+    padding: 10px 10px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.log-in a  {
+    text-decoration: none;
+}
+
+.log-in div {
+    padding-top: 10px;
+}
+
+.Register input {
+    width: 100%;
+    height: 50px;
+}
+
+.Register label:after {
+    content: "*";
+    color: red;
+}
+
+.Register div {
+    padding-top: 10px;
+}
+
+.Register button {
+    margin: 50px 0;
+    padding: 10px 10px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+.sec-log-btn {
+    background:none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+@media (max-width:426px) {
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .detail-nav {
+        margin: 50px 50px;
+        padding: 0;
+    }
+
+    .log-in-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .first-log-btn {
+        margin: 10px 0;
+    }
+
+    .Register div button {
+        margin: 10px 0;
+    }
+}

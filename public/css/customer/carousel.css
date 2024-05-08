@@ -1,0 +1,255 @@
+body {
+  background-color: white;
+}
+
+.nav-link div p {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link img {
+    height: 16px;
+    width: 16px;
+    padding: 10px;
+}
+
+.wrapper {
+    display: flex;
+    max-width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    background-color: white;
+  }
+  
+  .wrapper i {
+    top: 50%;
+    height: 44px;
+    width: 44px;
+    color: var(--primary-text);
+    cursor: pointer;
+    font-size: 1.15rem;
+    position: absolute;
+    text-align: center;
+    line-height: 44px;
+    background: var(--accent-color);
+    transform: translateY(-50%);
+  }
+
+  .wrapper i:first-child {
+    left: 20px;
+    z-index: 2;
+    background: #fff;
+  }
+  
+  .wrapper i:last-child {
+    right: 20px;
+    background: #fff;
+  }
+  
+  .wrapper .carousel {
+    overflow: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+  }
+  
+  .carousel.dragging {
+    cursor: grab;
+    scroll-behavior: auto;
+  }
+  
+  .carousel.dragging img {
+    pointer-events: none;
+  }
+  
+  .carousel .card {
+    position: relative;
+    display: inline-block;
+    width: calc(100% / 3);
+    height: 340px;
+  }
+  
+  .carousel img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    user-select: none;
+  }
+  
+  @media screen and (max-width: 900px) {
+    .carousel img {
+      width: calc(100% / 2);
+    }
+  }
+  
+  @media screen and (max-width: 550px) {
+    .carousel img {
+      width: 100%;
+    }
+  }
+
+.mini-heading {
+    padding-left: 100px ;
+    display: flex;
+    gap: 10px;
+}
+
+
+
+#shop {
+    margin: 20px 100px;
+    font-size: 20px;
+}
+
+.shop-dropbtn {
+  background:white;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .shop-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .shop-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .shop-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* .shop-dropdown-content a:hover {background-color: #f1f1f1} */
+  
+  .shop-dropdown:hover .shop-dropdown-content {
+    display: block;
+  }
+  
+  .shop-dropdown:hover .shop-dropbtn {
+    color: red;
+  }
+
+  .shop-nav {
+    padding: 0 100px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* .shop-nav-left {
+    padding-left: 50px;
+  } */
+
+  .shop-dropbtn img {
+    height: 15px;
+    width: 15px;
+  }
+  .shop-dropbtn-last img {
+    height: 15px;
+    width: 15px;
+  }
+  
+  .shop-dropbtn-last {
+    background-color: white;
+    padding: 10px;
+  }
+
+  /* shop-product-grid */
+
+  .shop-product-grid .menu {
+    margin-top: 50px;
+    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2,1fr);
+    padding: 0 100px;
+    background: white;
+    padding-bottom: 100px;
+    text-align: center;
+  }
+
+  .shop-product-item {
+    position: relative;
+    background: white;
+  }
+  
+  .shop-product-item a {
+    text-decoration: none;
+  }
+  
+  .shop-product-item span {
+    position: absolute;
+    padding: 5px;
+    margin: 10px;
+    background: black;
+    color: white;
+    right: 0;
+  }
+  
+  .shop-product-item img {
+    background: #F5F5F5;
+    height: 90%;
+    width: 100%;
+  }
+  
+  .shop-product-item p {
+    font-size: 15px;
+    margin: 0 0;
+  }
+  
+  .shop-item-1 span{
+    background: tomato;
+  }
+  .shop-item-4 span{
+    background: tomato;
+  }
+  .shop-item-5 span{
+    background: red;
+  }
+  .shop-item-6 span:first-child{
+    background:red;
+  }
+
+  .shop-item-6 .shop-item-6-span {
+    background-color: tomato;
+    top: 50px;
+  }
+
+  .shop-item-7 span {
+    background-color: tomato;
+  }
+
+  .shop-item-13 span {
+    background-color: tomato;
+  }
+
+  .shop-item-15 span {
+    background-color: red;
+  }
+
+.shop-price {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.shop-last-section {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.shop-last-section button {
+  padding: 10px;
+  background-color: none;
+}

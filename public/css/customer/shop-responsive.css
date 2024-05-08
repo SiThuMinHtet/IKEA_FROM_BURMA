@@ -1,0 +1,227 @@
+@media (max-width:1036px) {
+    .nav-link {
+        padding: 0;
+        margin: 0 20px;
+    }
+    
+    .navbar {
+        padding: 0;
+        margin: 0 20px;
+    }
+
+    .navbar div a {
+        padding: 0 10px;
+    }
+
+    .shop-nav {
+        padding: 0;
+        margin: 0 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mini-heading {
+        padding: 0 20px;
+    }
+
+    #shop {
+        margin: 0;
+        padding: 0 20px;
+    }
+
+    .shop-dropdown button {
+        font-size: 16px;
+        padding: 0;
+    }
+
+    .shop-product-grid .menu {
+        padding: 0 20px;
+    }
+
+    .shop-product-item img {
+        height: 75%;
+    }
+
+    .carousel img {
+        width: calc(100% );
+    }
+}
+
+
+@media (max-width:756px) {
+    .wrapper {
+        width: 100%;
+    }
+
+    .shop-product-grid .menu {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(8,1fr);
+        padding: 0 10px;
+        margin: 30px 0;
+        gap: 5px;
+    }
+
+    .shop-product-item img {
+        height: 75%;
+    }
+
+    
+
+    .navbar div a {
+        padding: 0 10px;
+    }
+
+    .shop-nav {
+        padding: 0;
+        margin: 0 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mini-heading {
+        padding: 0 10px;
+    }
+
+    #shop {
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    .shop-dropdown button {
+        font-size: 16px;
+        padding: 20px 0;
+        margin: 10px 0;
+    }
+
+    .hamburger {
+        display: block;
+      }
+    
+      .navbar {
+        z-index: 10;
+        padding: 0;
+        margin: 0 10px;
+        position: fixed;
+        left: -200%;
+        top: 70px;
+        gap: 0; 
+        flex-direction: row;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+      .navbar.active {
+        left: 0;
+    }
+
+    .nav-link {
+        display: none;
+    }
+
+    .first-nav-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px 0;
+      }
+
+      .sec-nav-icon {
+        display: flex;
+        flex-direction: column;
+        padding-right: 50px;
+        gap: 30px;
+      }
+
+}
+
+
+@media (min-width:320px) and (max-width:425px) {
+
+    .wrapper {
+        width: 100%;
+    }
+
+    .shop-product-grid .menu {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(8,1fr);
+        padding: 0 10px;
+        margin: 30px 0;
+        gap: 5px;
+    }
+
+    .shop-product-item img {
+        height: 75%;
+    }
+
+    
+
+    .navbar div a {
+        padding: 0 10px;
+    }
+
+    .shop-nav {
+        padding: 0;
+        margin: 0 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mini-heading {
+        padding: 0 10px;
+    }
+
+    #shop {
+        margin: 0;
+        padding: 0 10px;
+    }
+
+    .shop-dropdown button {
+        font-size: 16px;
+        padding: 20px 0;
+        margin: 10px 0;
+    }
+
+    .hamburger {
+        display: block;
+      }
+    
+      .navbar {
+        z-index: 10;
+        padding: 0;
+        margin: 0 10px;
+        position: fixed;
+        left: -200%;
+        top: 70px;
+        gap: 0; 
+        flex-direction: row;
+        width: 100%;
+        transition: 0.3s;
+    }
+
+      .navbar.active {
+        left: 0;
+    }
+
+    .nav-link {
+        display: none;
+    }
+
+    .first-nav-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding: 20px 0;
+      }
+
+      .sec-nav-icon {
+        display: flex;
+        flex-direction: column;
+        padding-right: 50px;
+        gap: 30px;
+      }
+
+    
+}
+
+
+
