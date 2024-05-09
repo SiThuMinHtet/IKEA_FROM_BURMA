@@ -1,5 +1,10 @@
 <?php
 
+// use App\Models\User;
+// use App\Models\Staff;
+// use App\Models\Customer;
+// use Illuminate\Support\Facades\App;
+
 return [
 
     /*
@@ -36,9 +41,18 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'web' =>
+        [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'admin'=>[
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        'customer' =>[
+            'driver' => 'session',
+            'provider' => 'customer',
         ],
     ],
 
@@ -62,13 +76,17 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staff::class,
+        ],
+        'customer' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
     ],
 
     /*

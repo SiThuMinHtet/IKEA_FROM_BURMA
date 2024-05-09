@@ -60,13 +60,22 @@
                         Staff Name
                     </th>
                     <th>
-                        Address
-                    </th>
-                    <th>
                         Email
                     </th>
                     <th>
-                        Role(s)
+                        Address
+                    </th>
+                    <th>
+                        Age
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        Roles
+                    </th>
+                    <th>
+                        Image
                     </th>
                     <th>
                         Status
@@ -75,209 +84,46 @@
                         Action
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-1">
-                        Active
-                    </td>
+                @foreach ($stafflist as $staff)
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>
+                            {{ $staff->id }}
+                        </td>
+                        <td>
+                            {{ $staff->name }}
+                        </td>
+                        <td>
+                            {{ $staff->email }}
+                        </td>
+                        <td>
+                            {{ $staff->address }}
+                        </td>
+                        <td>
+                            {{ $staff->age }}
+                        </td>
+                        <td>
+                            {{ $staff->phone }}
+                        </td>
+                        <td>
+                            {{ $staff->rolename }}
+                        </td>
+                        <td>
+                            {{ $staff->image }}
+                        </td>
+                        <td>
+                            {{ $staff->status }}
+                        </td>
+                        <td class="action">
+                            <a href="{{ route('staff.edit') }}"><img src="{{ asset('image/admin/icons/action.png') }}"
+                                    alt=""></a> |
+                            <a href=""><img src="{{ asset('image/admin/icons/bin.png') }}" alt=""></a>
+                        </td>
+                    </tr>
+                @endforeach
 
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-2">
-                        Inactive
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-3">
-                        Suspended
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-4">
-                        Active
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-5">
-                        Active
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-6">
-                        Active
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td data-label="Staff ID">
-                        HFJ7784872
-                    </td>
-                    <td data-label="Staff Name">
-                        Leronado Luris
-                    </td>
-                    <td data-label="Address">
-                        331 Wright Court
-                    </td>
-                    <td data-label="Email">
-                        leronado@gmail.com
-                    </td>
-                    <td data-label="Roles">
-                        Super Admin
-                        <img src="icons/drop_down.png" alt="">
-                    </td>
-                    <td data-label="Status" class="status status-7">
-                        Active
-                    </td>
-
-                    <td data-label="Action">
-                        <a href="edit_staff_user.html"><img src="icons/action.png" alt=""></a>
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
 
             </table>
         </div>

@@ -186,7 +186,7 @@ body {
     padding: 50px 100px;
 }
 
-.address input {
+.address textarea {
     height: 40px;
     width: 90%;
     border-radius: 5px;
@@ -310,6 +310,15 @@ body {
     outline: none;
     outline: none;
     border: 1px solid white;
+}
+
+.date-of-birth input{
+    background: none;
+    border: white 1px solid;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    color: white;
 }
 
 /* profile-image  */

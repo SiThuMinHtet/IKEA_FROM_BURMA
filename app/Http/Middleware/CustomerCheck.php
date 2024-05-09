@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminCheck
+class CustomerCheck
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class AdminCheck
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (auth('admin')->user()->usertype == 'admin') {
+            if (auth('customer')->user()->usertype == 'customer') {
                 return $next($request);
             } else {
                 return redirect('/')->with('error', 'You don\'t have Customer Access!');
