@@ -143,7 +143,11 @@ body {
     left: 0;
     width: 90%;
 }
-
+/* action */
+.action{
+    display: flex;
+    flex-direction: row;
+}
 
 
 /* add_product */

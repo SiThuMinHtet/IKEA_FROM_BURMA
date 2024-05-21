@@ -10,4 +10,9 @@ class Staff extends Authenticatable
 {
     // use HasFactory;
     protected $table = 'staffs';
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
 }

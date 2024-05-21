@@ -12,13 +12,14 @@
 <body>
     <div class="login-container">
         <div class="login-img">
-            <img src="Images/admin login.png" alt="">
+            <img src="{{ asset('image/admin/admin login.png') }}" alt="">
         </div>
         <div class="login-form">
             <p>Admin Login</p>
             <form action="{{ route('AdminLoginProcess') }}" method="post">
-                <input type="hidden" value="admin" name="usertype">
+
                 @csrf
+                <input type="hidden" value="admin" name="usertype">
                 <div>
                     <label for="email">Email</label> <br>
                     <input type="text" name="email" id="email" size="40">

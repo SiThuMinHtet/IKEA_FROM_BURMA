@@ -1,4 +1,3 @@
-
 @extends('layouts.AdminLayout')
 @section('title')
     Customer Management
@@ -19,8 +18,12 @@
 
         <div class="search-sort">
             <div class="search">
-                <input type="text" placeholder="Search...">
-                <img src="icons/search.png" alt="">
+                <form action="{{ route('CustomerSearch') }}" method="POST">
+                    @csrf
+                    <input name="search" type="text" placeholder="Search...">
+                    <button type="submit">Search</button>
+                    <img src="icons/search.png" alt="">
+                </form>
             </div>
 
             <div class="sort">
@@ -43,6 +46,9 @@
                         <input type="checkbox" name="" id="">
                     </th>
                     <th>
+                        Id
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
@@ -52,153 +58,75 @@
                         Phone
                     </th>
                     <th>
+                        Address
+                    </th>
+                    <th>
                         Joinging Date
+                    </th>
+
+                    <th>
+                        Image
                     </th>
                     <th>
                         Action
                     </th>
                 </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" name="" id="">
-                    </td>
-                    <td>
-                        Sebastian Patterson
-                    </td>
-                    <td>
-                        Sebastian Patterson@teleworm.us
-                    </td>
-                    <td>
-                        918-743-7787
-                    </td>
-                    <td>
-                        Nov 30 2023
-                    </td>
-                    <td>
-                        <img src="icons/action.png" alt="">
-                        <img src="icons/bin.png" alt="">
-                    </td>
-                </tr>
+
+                @foreach ($customerlist as $customer)
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="" id="">
+                        </td>
+                        <td>
+                            {{ $customer->id }}
+                        </td>
+                        <td>
+                            {{ $customer->name }}
+                        </td>
+                        <td>
+                            {{ $customer->email }}
+                        </td>
+                        <td>
+                            {{ $customer->phone }}
+                        </td>
+                        <td>
+                            {{ $customer->address }}
+                        </td>
+                        <td>
+                            {{ $customer->joining_date }}
+                        </td>
+
+                        <td>
+                            <img style="max-height: 80px; max-width: 100px;"
+                                src="{{ asset('image/customer/customerinfo/' . $customer->image) }}" />
+                            {{-- {{ $staff->image }} --}}
+                        </td>
+                        <td class="action">
+                            <div>
+                                {{-- <div>
+                                    <a href=""></a>
+                                    <img src="{{ asset('image/admin/icons/action.png') }}" alt="">
+                                </div> --}}
+
+
+                                <div>
+                                    @if (auth('admin')->user()->role_id == 3)
+                                        <img src="{{ asset('image/admin/icons/bin.png') }}" alt="" disabled>
+                                    @else
+                                        <a href="{{ url('/admin/customerlist/delete/' . $customer->id) }}"><img
+                                                src="{{ asset('image/admin/icons/bin.png') }}" alt=""></a>
+                                    @endif
+
+                                </div>
+                            </div>
+
+
+                        </td>
+                    </tr>
+                @endforeach
+
+
             </table>
-        </div>
-    </div>
-    <div class="Pagination">
-        <div>
-            <i class="fa-solid fa-less-than"></i>
-        </div>
-        <div>
-            1
-        </div>
-        <div id="blue">
-            2
-        </div>
-        <div>
-            <i class="fa-solid fa-greater-than"></i>
         </div>
     </div>
 @endsection

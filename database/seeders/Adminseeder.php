@@ -28,7 +28,7 @@ class Adminseeder extends Seeder
                 'uuid' => Str::uuid()->toString(),
                 'status' => 'Active',
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
         );
     }

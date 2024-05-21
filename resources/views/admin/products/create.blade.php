@@ -1,122 +1,121 @@
 @extends('layouts.AdminLayout')
+
+{{-- @dd($product_image[0]->image); --}}
+{{-- @dd($product_data); --}}
+@php
+    $updateStatus = false;
+    if (isset($product_data)) {
+        $updateStatus = true;
+    }
+@endphp
+
 @section('title')
-    Add Product
+    {{ $updateStatus == true ? 'Edit' : 'Add' }} Product
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/admin/product_add.css') }}">
 @endsection
 @section('header')
-    Add Product
+    {{ $updateStatus == true ? 'Edit' : 'Add' }} Product
 @endsection
 
 @section('content')
     <div class="add-product-container">
-        <div class="add-product-heading">
-            <div class="add-product-heading-left">
-                <h3>Add Product</h3>
-            </div>
-
-            <div class="add-product-heading-right">
-                <div class="noti-bell">
-                    <img src="icons/noti_bell.png" alt="">
-                    <span></span>
-                </div>
-
-                <img src="Images/profile.png" alt="">
-            </div>
-        </div>
-
 
         <!-- add-image -->
-        <div class="add-image-container">
-            <div class="add-image">
-                <h4>Add Images</h4>
-                <div class="sample-img-lg">
-                    <img src="icons/sample_image.png" alt="">
-                    <div>
-                        <input type="file" id="file" accept="image/*">
-                        <label for="file">Browse Image</label>
+        <form action="{{ $updateStatus == true ? route('ProductEditProcess') : route('ProductCreateProcess') }}"
+            method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="id" value="{{ $updateStatus == true ? $product_data->id : '' }}">
+            @csrf
+            @if ($updateStatus == true)
+                @method('PATCH')
+            @endif
+            <div class="add-image-container">
+
+                <div class="product-detail">
+                    <div class="image">
+                        @if ($updateStatus == true)
+                            <img style="max-width: 100px; max-height:100px"
+                                src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
+                        @else
+                            <input type="file" name="image[]">
+                        @endif
+
                     </div>
+                    <div class="input product-name">
+                        <label for="name">Product Name</label>
+                        <input id="name" type="text" name="name"
+                            value="{{ $updateStatus == true ? $product_data->name : '' }}">
+                    </div>
+                    <div class="input">
+                        <label for="catagory">Catagory</label>
+                        <select name="category" id="category" class="category">
+
+                            @foreach ($categorylist as $category)
+                                <option value="{{ $category->id }}"
+                                    @isset($product_data){{ $product_data->category_id === $category->id ? 'selected' : '' }}
+                                    @endisset>
+                                    {{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- tesing --}}
+                    <div class="input">
+                        <label for="code">Product Code</label>
+                        <select name="code" id="code" class="code">
+                            <option value="codeid">Select Code</option>
+                            @foreach ($codelist as $code)
+                                <option value="{{ $code->id }}"
+                                    @isset($product_data)
+                                      
+                                   {{ $product_data->code_id === $code->id ? 'selected' : '' }} @endisset>
+                                    {{ $code->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="input">
+                        <label for="supplier">Supplier</label>
+                        <select name="supplier" class="supplier">
+                            @foreach ($supplierlist as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+                    <div class="input stock">
+                        <label for="stock">Stock</label>
+                        <input id="stock" type="text" name="stock"
+                            value="{{ $updateStatus == true ? $product_data->stock : '' }}">
+                    </div>
+
+
+
+                    <div class="input price">
+                        <label for="price">Price</label>
+                        <input id="price" type="text" name="price"
+                            value="{{ $updateStatus == true ? $product_data->price : '' }}">
+                    </div>
+                    <div class="input Description">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description">{{ $updateStatus == true ? $product_data->description : '' }}</textarea>
+                    </div>
+                    <div class="add-product-btn">
+                        <button class="cancle-btn">Cancle</button>
+                        <button class="publish-btn" type="submit">Publish Product</button>
+                    </div>
+
                 </div>
 
-                <div class="sample-img-sm">
-                    <img src="icons/sample_image.png" alt="">
-                    <p>smaple-image.jpg <br> 234 KB </p>
-                    <img id="cancle-btn" src="icons/cancle_button.png" alt="">
-                </div>
-                <div class="sample-img-sm">
-                    <img src="icons/sample_image.png" alt="">
-                    <p>smaple-image.jpg <br> 234 KB </p>
-                    <img id="cancle-btn" src="icons/cancle_button.png" alt="">
-                </div>
-                <div class="sample-img-sm">
-                    <img src="icons/sample_image.png" alt="">
-                    <p>smaple-image.jpg <br> 234 KB </p>
-                    <img id="cancle-btn" src="icons/cancle_button.png" alt="">
-                </div>
             </div>
 
-
-            <div class="product-detail">
-                <div class="input product-name">
-                    <label for="name">Product Name</label>
-                    <input id="name" type="text">
-                </div>
-                <div class="input cartagory">
-                    <label for="catagory">Catagory</label>
-                    <select name="" id="catagory">
-                        <option value="">Bed</option>
-                        <option value="">Sofa</option>
-                        <option value="">Chair</option>
-                        <option value="">Lamp</option>
-
-                    </select>
-                </div>
-                <div class="input price">
-                    <label for="price">Price</label>
-                    <input id="price" type="text">
-                </div>
-                <div class="input Description">
-                    <label for="description">Description</label>
-                    <textarea name="" id="description"></textarea>
-                </div>
-                <h3 class="tags-heading">Tags</h3>
-                <div class="tags-container">
-
-                    <div class="tags" id="tag-blue">
-                        <p>Cabinet</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                    <div class="tags">
-                        <p>Sofa</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                    <div class="tags">
-                        <p>Kitchen</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                    <div class="tags">
-                        <p>Table</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                    <div class="tags">
-                        <p>Bed</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                    <div class="tags">
-                        <p>Chair</p>
-                        <img src="icons/cancle_button.png" alt="">
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 
-    <div class="add-product-btn">
-        <button class="cancle-btn">Cancle</button>
-        <button class="publish-btn">Publish Product</button>
-    </div>
+
+    </form>
 @endsection
 
 @section('js')

@@ -2,6 +2,7 @@
 @section('title')
     Home
 @endsection
+{{-- @dd($grid_items); --}}
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}" />
@@ -39,44 +40,51 @@
     <div class="hero-grid-container">
         <div class="grid-item item-1">
             <p>
-                BED <br />
-                70 Products
+                {{ $grid_items[0]['name'] }}
+                <br />
+                {{ $grid_items[0]['products_count'] }} Products
             </p>
-            <a href="Catagory.html"><img src="images/white bed.png" alt="" /></a>
+            <a href=""><img src="{{ asset('image/customer/white bed.png') }}" alt="" /></a>
         </div>
+
         <div class="grid-item item-2">
             <p>
-                SOFA <br />
-                50 Products
+                {{ $grid_items[1]['name'] }}
+                <br />
+                {{ $grid_items[1]['products_count'] }} Products
             </p>
-            <a href=""><img src="images/black chair.png" alt="" /></a>
+            <a href=""><img src="{{ asset('image/customer/black chair.png') }}" alt="" /></a>
         </div>
+
         <div class="grid-item item-3">
             <p>
-                LAMP <br />
-                30 Products
+                {{ $grid_items[2]['name'] }}
+                <br />
+                {{ $grid_items[2]['products_count'] }} Products
             </p>
-            <a href=""><img src="images/lamp.png" alt="" /></a>
+            <a href=""><img src="{{ asset('image/customer/lamp.png') }}" alt="" /></a>
         </div>
         <div class="grid-item item-4">
             <p>
-                CABINET<br />
-                40 Products
+                {{ $grid_items[3]['name'] }}
+                <br />
+                {{ $grid_items[3]['products_count'] }} Products
             </p>
-            <a href=""><img src="images/cabinet.png" alt="" /></a>
+            <a href=""><img src="{{ asset('image/customer/cabinet.png') }}" alt="" /></a>
         </div>
         <div class="grid-item item-5">
             <p>
-                TABLE<br />
-                20 Products
+                {{ $grid_items[4]['name'] }}
+                <br />
+                {{ $grid_items[4]['products_count'] }} Products
             </p>
-            <a href=""><img src="images/table.png" alt="" /></a>
+            <a href=""><img src="{{ asset('image/customer/table.png') }}" alt="" /></a>
         </div>
 
         <a href="">
             <p>
                 Explore more
-                <img src="images/right-arrow-svgrepo-com.svg" alt="" />
+                <img src="{{ asset('image/customer/right-arrow-svgrepo-com.svg') }}" alt="" />
             </p>
         </a>
     </div>

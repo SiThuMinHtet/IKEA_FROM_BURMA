@@ -38,18 +38,44 @@
 
         <div class="Register">
             <h2>Register</h2>
-            <div>
-                <label>Email address</label>
-                <input type="text" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="text" required>
-            </div>
+            <form action="{{ route('CustomerCreateProcess') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label>Name</label>
+                    <input type="text" required name="name">
+                </div>
+                <div>
+                    <label>Email address</label>
+                    <input type="text" required name="email">
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="text" required name="password">
+                </div>
+                <div>
+                    <label>Phone</label>
+                    <input type="text" required name="phone">
+                </div>
+                <div>
+                    <label>Image</label>
+                    <input type="file" name="image">
+                </div>
+                <div>
+                    <label>Address</label>
+                    {{-- <textarea name="address" id="" cols="30" rows="10"></textarea> --}}
+                    <input type="text" required name="address">
+                </div>
 
-            <div>
-                <button>REGISTER</button>
-            </div>
+                <div>
+                    <label>Joining Date</label>
+                    <input type="date" required name="joining_date">
+                </div>
+
+                <div>
+                    <button type="submit">REGISTER</button>
+                </div>
+            </form>
+
 
         </div>
     </div>

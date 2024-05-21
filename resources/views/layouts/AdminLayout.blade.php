@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <!-- <link rel="stylesheet" href="css/product_add.css"> -->
+    <link rel="stylesheet" href="{{ asset('css/admin/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
     @yield('css')
 </head>
@@ -57,11 +57,18 @@
                 <span class="tooltip">Staff List</span>
             </li>
             <li>
-                <a href="">
+                <a href="{{ route('Category') }}">
                     <img src="{{ asset('image/admin/icons/reports.png') }}" alt="">
-                    <span class="links_name">Reports</span>
+                    <span class="links_name">Category</span>
                 </a>
-                <span class="tooltip">Reports</span>
+                <span class="tooltip">Category</span>
+            </li>
+            <li>
+                <a href="{{ route('Supplier.List') }}">
+                    <img src="{{ asset('image/admin/icons/reports.png') }}" alt="">
+                    <span class="links_name">Supplier</span>
+                </a>
+                <span class="tooltip">Supplier</span>
             </li>
         </ul>
         <div class="side-bar-bottom">
@@ -74,7 +81,7 @@
                     <span class="tooltip">Setting</span>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{{ route('Admin.logout') }}">
                         <img src="{{ asset('image/admin/icons/logout.png') }}" alt="">
                         <span class="links_name">Logout</span>
                     </a>

@@ -23,8 +23,8 @@
                 We have sold 123 items
             </div>
 
-            <div class="progress">
-            </div>
+            {{-- <div class="progress">
+            </div> --}}
         </div>
         <div class="today-revenue">
             <div class="card-text">
@@ -33,8 +33,8 @@
                 Avaliable to payout
             </div>
 
-            <div class="progress">
-            </div>
+            {{-- <div class="progress">
+            </div> --}}
         </div>
         <div class="today-order">
             <div class="card-text">
@@ -42,9 +42,9 @@
                 <span>$18.2K</span> <br>
                 Avaliable to payout
             </div>
-
+            {{-- 
             <div class="progress">
-            </div>
+            </div> --}}
         </div>
         <div class="total-revenue">
             <div class="revenue">
@@ -52,16 +52,16 @@
                     <p>Todays Revenue</p>
                 </div>
                 <!-- <div class="profit-loss">
-                                                                        <div class="profit">
-                                                                            <span></span>
-                                                                            <p>Profit</p>
-                                                                        </div>
-                                                                        <div class="loss">
-                                                                            <span></span>
-                                                                            <p>Loss</p>
-                                                                        </div>
+                                                                            <div class="profit">
+                                                                                <span></span>
+                                                                                <p>Profit</p>
+                                                                            </div>
+                                                                            <div class="loss">
+                                                                                <span></span>
+                                                                                <p>Loss</p>
+                                                                            </div>
 
-                                                                    </div> -->
+                                                                        </div> -->
             </div>
 
             <div class="up-percent">

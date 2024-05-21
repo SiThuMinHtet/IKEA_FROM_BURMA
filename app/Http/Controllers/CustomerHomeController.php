@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CustomerHomeController extends Controller
@@ -10,7 +11,9 @@ class CustomerHomeController extends Controller
     //
     public function customerhome()
     {
-        return view('customer.home');
+        $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Cabinet', 'Lamp', 'Table'])->withCount('products')
+            ->get();
+        return view('customer.home', compact('grid_items'));
     }
 
     public function shop()

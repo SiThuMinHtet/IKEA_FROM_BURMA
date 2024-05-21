@@ -54,12 +54,15 @@ class LoginController extends Controller
         );
 
         $validateData['password'] = bcrypt($validateData['password']);
+        // dd($validateData['password']);
         $input = $request->all();
         $userdata = array('email' => $input['email'], 'password' => $input['password']);
-        // dd($userdata);
+
         if ($input['usertype'] == 'admin') {
             if (auth('admin')->attempt($userdata)) {
+                // dd($userdata);
                 $user = auth('admin')->user();
+
                 if ($user->status == "Active") {
                     return redirect()->route('Dashboard');
                 } else {
@@ -68,7 +71,7 @@ class LoginController extends Controller
                 }
             } else {
                 Auth::logout();
-                return redirect()->route('AdminLogin')->with('error', 'Wrong Emailn and Password');
+                return redirect()->route('AdminLogin')->with('error', 'Wrong Email and Password');
             }
         }
 
@@ -87,7 +90,7 @@ class LoginController extends Controller
                 return redirect()->route('CustomerLogin')->with('error', 'Wrong Email and Password');
             }
         } else {
-            dd('reach here');
+            // dd('reach here');
             return redirect('CustomerLogin')->with('error', 'You don\'t have Account Access!');
         }
     }
@@ -103,6 +106,6 @@ class LoginController extends Controller
     {
         Auth::logout();
         Session::flush();
-        return redirect()->route('adminlogin');
+        return redirect()->route('AdminLogin');
     }
 }

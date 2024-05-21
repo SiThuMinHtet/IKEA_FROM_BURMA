@@ -17,10 +17,15 @@
         </div>
 
         <div class="search-sort">
-            <div class="search">
-                <input type="text" placeholder="Search...">
-                <img src="icons/search.png" alt="">
-            </div>
+            <form action="{{ route('StaffSearch') }}" method="POST">
+                @csrf
+                <div class="search">
+                    <input type="text" name="search" placeholder="Search...">
+                    <button type="submit">Search</button>
+                    <img src="icons/search.png" alt="">
+                </div>
+            </form>
+
 
             <div class="sort">
                 <select name="" id="">
@@ -44,8 +49,6 @@
                         Staff</button></a>
             </div>
         </div>
-
-
 
         <div class="customer-table">
             <table>
@@ -110,16 +113,29 @@
                         <td>
                             {{ $staff->rolename }}
                         </td>
+
                         <td>
-                            {{ $staff->image }}
+                            <img style="max-height: 80px; max-width: 100px;"
+                                src="{{ asset('image/admin/staffinfo/' . $staff->image) }}" />
+                            {{-- {{ $staff->image }} --}}
                         </td>
                         <td>
                             {{ $staff->status }}
                         </td>
                         <td class="action">
-                            <a href="{{ route('staff.edit') }}"><img src="{{ asset('image/admin/icons/action.png') }}"
-                                    alt=""></a> |
-                            <a href=""><img src="{{ asset('image/admin/icons/bin.png') }}" alt=""></a>
+                            <div>
+                                <div>
+                                    <a href="{{ url('/admin/staffedit/' . $staff->id) }}"><img
+                                            src="{{ asset('image/admin/icons/action.png') }}" alt=""></a>
+                                </div>
+                                |
+                                <div>
+                                    <a href="{{ url('/admin/stafflist/delete/' . $staff->id) }}"><img
+                                            src="{{ asset('image/admin/icons/bin.png') }}" alt=""></a>
+                                </div>
+                            </div>
+
+
                         </td>
                     </tr>
                 @endforeach

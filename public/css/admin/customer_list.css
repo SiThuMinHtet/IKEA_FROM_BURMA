@@ -279,6 +279,11 @@ table th,td {
     padding: 20px 20px;
 }
 
+/* action */
+.action div {
+    display: flex;
+}
+
 .Pagination {
     display: flex;
     position: absolute;

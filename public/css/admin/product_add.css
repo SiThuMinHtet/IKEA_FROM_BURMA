@@ -174,12 +174,30 @@ body {
     background: #4CE13F;
     border-radius: 50%;
 }
+/* category */
+.category, .code , .supplier{
+    height: 50px;
+    margin: 0 10%;
+    border-radius: 5px;
+    background-color: var(--primary_color);
+    color: white;
+}
+
+/* image */
+
+.image{
+    border: 1px solid white;
+    outline: none;
+    background: none;
+    height: 100px;
+    border-radius: 5px;
+    color: white;
+    margin: 20px 10%;
+}
 
 /* add-image */
  .add-image-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
     gap: 10px;
     margin: 20px 0;
     color: white;
@@ -237,7 +255,6 @@ body {
 }
 
 .input {
-   
     display: flex;
     flex-direction: column;
     padding-top: 20px;
@@ -315,8 +332,8 @@ body {
 }
 
 .add-product-btn {
-    position: absolute;
-    right: 8%;
+    display: flex;
+   margin: 20px 10%;
 }
 
 .cancle-btn {

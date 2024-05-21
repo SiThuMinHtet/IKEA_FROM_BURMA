@@ -5,6 +5,7 @@ body {
    justify-content: center;
    align-items: center;
    background: var(--body_color);
+   color: white;
 }
 
 .login-container {
@@ -27,7 +28,8 @@ form div label {
 }
 
 
-/* form button {
+form button {
+    width: 100%;
     cursor: pointer;
     color: white;
     margin: 20px 0;
@@ -40,7 +42,7 @@ form div label {
 form button a{
     text-decoration: none;
     color: white;
-} */
+}
 
 
 form div {
