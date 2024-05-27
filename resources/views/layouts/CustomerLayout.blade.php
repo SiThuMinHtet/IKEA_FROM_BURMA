@@ -13,16 +13,17 @@
     <nav class="nav-link">
         <ul>
             <li>
-                <a href=""><img id="facebook" src="images/facebook.svg" alt="" /></a>
+                <a href=""><img id="facebook" src="{{ asset('image/customer/facebook.svg') }}"
+                        alt="" /></a>
             </li>
             <li>
-                <a href=""><img src="images/instagram.png" alt="" /></a>
+                <a href=""><img src="{{ asset('image/customer/instagram.png') }}" alt="" /></a>
             </li>
             <li>
-                <a href=""><img src="images/youtube.svg" alt="" /></a>
+                <a href=""><img src="{{ asset('image/customer/youtube.svg') }}" alt="" /></a>
             </li>
             <li>
-                <a href=""><img src="images/telegram-original.svg" alt="" /></a>
+                <a href=""><img src="{{ asset('image/customer/telegram-original.svg') }}" alt="" /></a>
             </li>
         </ul>
 
@@ -75,18 +76,29 @@
             <a href="{{ route('Blog') }}">Blog</a>
             <a href="{{ route('About') }}">About Us</a>
             <a href="{{ route('Contact') }}">Contact Us</a>
+
+            @if (auth('customer')->user() != null)
+                <a href="{{ route('Customer.logout') }}">Log Out</a>
+            @else
+                <a href="{{ route('CustomerLogin') }}">Log In</a>
+            @endif
+
+
+
+
+
         </div>
 
         <div class="sec-nav-icon">
             <a href="">
-                <img src="images/search.svg" alt="" />
+                <img src="{{ asset('image/customer/search.svg') }}" alt="" />
             </a>
-            <a href="">
-                <img src="images/user.svg" alt="" />
+            <a href="{{ route('CustomerLogin') }}">
+                <img src="{{ asset('image/customer/user.svg') }}" alt="" />
             </a>
-            <a class="cart-img" href="{{ route('Cart') }}">
+            <a class="cart-img" href="{{ route('cart.index') }}">
                 <img src="{{ asset('image/customer/cart.png') }}" alt="" />
-                <span>2</span>
+                {{-- <span>{{count()}}</span> --}}
             </a>
         </div>
 

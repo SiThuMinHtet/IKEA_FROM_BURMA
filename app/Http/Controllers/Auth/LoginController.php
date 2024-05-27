@@ -78,8 +78,10 @@ class LoginController extends Controller
         if ($input['usertype'] == 'customer') {
             // dd('hi mom');
             if (auth('customer')->attempt($userdata)) {
+                // dd($userdata);
                 $user = auth('customer')->user();
                 if ($user->status == "Active") {
+                    // dd($user);
                     return redirect()->route('CustomerHome');
                 } else {
                     Auth::logout();
@@ -99,7 +101,7 @@ class LoginController extends Controller
     {
         Auth::logout();
         Session::flush();
-        return redirect()->route('CustomerLogin');
+        return redirect()->route('CustomerHome');
     }
 
     public function Adminlogout()

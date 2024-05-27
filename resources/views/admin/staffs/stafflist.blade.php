@@ -78,9 +78,6 @@
                         Roles
                     </th>
                     <th>
-                        Image
-                    </th>
-                    <th>
                         Status
                     </th>
                     <th>
@@ -95,8 +92,16 @@
                         <td>
                             {{ $staff->id }}
                         </td>
-                        <td>
-                            {{ $staff->name }}
+                        <td class="staff_name">
+                            <div>
+                                <img style="max-height: 80px; max-width: 100px;"
+                                    src="{{ asset('image/admin/staffinfo/' . $staff->image) }}" />
+                                {{-- {{ $staff->image }} --}}
+                            </div>
+                            <div>
+                                {{ $staff->name }}
+                            </div>
+
                         </td>
                         <td>
                             {{ $staff->email }}
@@ -114,11 +119,7 @@
                             {{ $staff->rolename }}
                         </td>
 
-                        <td>
-                            <img style="max-height: 80px; max-width: 100px;"
-                                src="{{ asset('image/admin/staffinfo/' . $staff->image) }}" />
-                            {{-- {{ $staff->image }} --}}
-                        </td>
+
                         <td>
                             {{ $staff->status }}
                         </td>
@@ -146,18 +147,7 @@
     </div>
 
     <div class="Pagination">
-        <div>
-            <i class="fa-solid fa-less-than"></i>
-        </div>
-        <div>
-            1
-        </div>
-        <div id="blue">
-            2
-        </div>
-        <div>
-            <i class="fa-solid fa-greater-than"></i>
-        </div>
+        {{ $stafflist->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

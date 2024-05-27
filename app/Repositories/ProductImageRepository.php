@@ -83,7 +83,7 @@ class ProductImageRepository
 
         $productlist = $query
             ->select('products.*', 'category.name as category', 'product_photos.image')
-            ->get();
+            ->paginate(6);
         return view('admin.products.productlist', compact('productlist'));
         // dd($search);
     }

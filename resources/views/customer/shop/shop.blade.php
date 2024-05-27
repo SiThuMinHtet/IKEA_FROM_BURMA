@@ -1,3 +1,4 @@
+{{-- @dd($productlist); --}}
 @extends('layouts.CustomerLayout')
 @section('title')
     Shop
@@ -15,19 +16,19 @@
         <i id="left" class="fa-solid fa-angle-left"></i>
         <div class="carousel">
             <div class="card">
-                <img src="./images/slider/slider-img1.jpg" alt="img" draggable="false">
+                <img src="{{ asset('image/customer/slider/slider-img1.jpg') }}" alt="img" draggable="false">
             </div>
             <div class="card">
-                <img src="./images/slider/slider-img2.jpg" alt="img" draggable="false">
+                <img src="{{ asset('image/customer/slider/slider-img2.jpg') }}" alt="img" draggable="false">
             </div>
             <div class="card">
-                <img src="./images/slider/slider-img3.jpg" alt="img" draggable="false">
+                <img src="{{ asset('image/customer/slider/slider-img3.jpg') }}" alt="img" draggable="false">
             </div>
             <div class="card">
-                <img src="./images/slider/slider-img4.jpg" alt="img" draggable="false">
+                <img src="{{ asset('image/customer/slider/slider-img4.jpg') }}" alt="img" draggable="false">
             </div>
             <div class="card">
-                <img src="./images/slider/slider-img5.jpg" alt="img" draggable="false">
+                <img src="{{ asset('image/customer/slider/slider-img5.jpg') }}" alt="img" draggable="false">
             </div>
         </div>
         <i id="right" class="fa-solid fa-angle-right"></i>
@@ -96,14 +97,22 @@
     <!-- shop-product-grid -->
     <div class="shop-product-grid">
         <div id="bed" class="menu">
-            <div class="shop-product-item shop-item-1">
-                <span>HOT</span>
-                <a href=""><img src="images/lamp-2.png" alt="" />
-                    <p>Globe Electric Tech Series</p>
-                    <p>$460.00</p>
-                </a>
-            </div>
-            <div class="shop-product-item shop-item-2">
+            @foreach ($productlist as $product)
+                <div class="shop-product-item shop-item-1">
+                    <a href="{{ route('Detail', $product->id) }}">
+                        <img src="{{ asset('img/products/' . $product->image) }}"
+                            alt="" />
+                        <p>{{ $product->name }}Globe Electric Tech Series</p>
+                        <p>{{ $product->price }}</p>
+                    </a>
+                </div>
+            @endforeach
+
+
+
+
+
+            {{-- <div class="shop-product-item shop-item-2">
                 <a href="">
                     <img src="images/shop/chair-sofa.jpg" alt="" />
                     <p>Cylindo Accent Arm Chair</p>
@@ -232,15 +241,15 @@
                     <p>$500.00</p>
                 </a>
             </div>
+        </div> --}}
         </div>
-    </div>
 
-    <div class="shop-last-section">
-        <p>You've viewed 16 or 50 products</p>
-        <button>LOAD MORE</button>
-    </div>
-@endsection
+        <div class="shop-last-section">
+            <p>You've viewed 16 or 50 products</p>
+            <button>LOAD MORE</button>
+        </div>
+    @endsection
 
-@section('js')
-    <script src="{{ asset('js/customer/shop.js') }}"></script>
-@endsection
+    @section('js')
+        <script src="{{ asset('js/customer/shop.js') }}"></script>
+    @endsection

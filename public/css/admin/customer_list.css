@@ -205,10 +205,29 @@ body {
     gap: 20px;
 }
 
-.search {
+/* .search {
     display: flex;
    position: relative;
+} */
+
+.customer_search input{
+    text-indent: 10px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 5px;
+    outline: none;
+    background: none;
+    color: white;
 }
+
+.customer_search button{
+        padding: 10px;
+        background: var(--login_publish_color);
+        color: white;
+        align-items: center;
+        gap: 10px;
+        border-radius: 5px;
+    }
 
 .search input {
     height: 40px;
@@ -279,34 +298,70 @@ table th,td {
     padding: 20px 20px;
 }
 
+.customer_name{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
 /* action */
 .action div {
     display: flex;
-}
-
-.Pagination {
-    display: flex;
-    position: absolute;
-    right: 0;
-    gap: 20px;
-    margin-right: 100px;
-    padding: 50px 0;
-}
-
-.Pagination div {
-   color: white;
-    height: 50px;
-    width: 50px;
-    border: 1px solid var(--login_publish_color);
-    display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 5px;
 }
+
+
 
 #blue {
     background: var(--login_publish_color);
 }
+
+/* pagination */
+.Pagination{
+    padding-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    display:flex;
+    justify-content: right;
+}
+.Pagination ul
+ {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    list-style-type: none;
+    text-decoration: none;
+ }
+ .Pagination li {
+    padding:10px 15px;
+    box-shadow: 0 1px 5px 0 rgba(75, 75, 75, 0.19);
+    border-radius: 10px;
+    background-color:none;
+    border: 1px solid var(--login_publish_color);
+    color: white;
+ }
+
+ .Pagination .active {
+    background-color: var(--login_publish_color); /* Change background color for active page */
+    color: white; /* Ensure text color contrasts with red background */
+}
+
+.Pagination li:not(.active) {
+    color: white; /* Change the text color for non-active pages */
+    text-decoration: none; /* Remove any text decoration */
+}
+
+.Pagination li a {
+    color: inherit; /* Inherit the text color from li */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.Pagination li:not(.active) a:hover {
+    text-decoration: underline; /* Optional: underline on hover for better UX */
+}
+
+
 
 @media (max-width:1000px) {
     .profile, .customer, .Pagination, .date-search-sort {

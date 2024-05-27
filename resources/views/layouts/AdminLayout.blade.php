@@ -65,7 +65,7 @@
             </li>
             <li>
                 <a href="{{ route('Supplier.List') }}">
-                    <img src="{{ asset('image/admin/icons/reports.png') }}" alt="">
+                    <img src="{{ asset('image/admin/icons/home.png') }}" alt="">
                     <span class="links_name">Supplier</span>
                 </a>
                 <span class="tooltip">Supplier</span>

@@ -145,7 +145,7 @@ body {
 
 /* add-product */
 .add-product-container {
-    margin: 10px 100px;
+    margin: 10px 20px 10px 90px;
 }
 
 .add-product-heading {
@@ -192,7 +192,20 @@ body {
     height: 100px;
     border-radius: 5px;
     color: white;
-    margin: 20px 10%;
+    margin: 40px 10% 0px 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image input[type="file"]{
+    display: none;
+}
+
+.image label{
+    margin: 0;
+    cursor: pointer;
 }
 
 /* add-image */
@@ -252,7 +265,11 @@ body {
     background: var(--primary_color);
     margin: 10px 0 ;
     border-radius: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
 }
+
 
 .input {
     display: flex;
@@ -267,6 +284,7 @@ body {
     height: 50px;
     border-radius: 5px;
     color: white;
+   text-indent: 10px;
 }
 
 .input input, label {
@@ -362,8 +380,6 @@ body {
 @media (min-width:650px) and (max-width:1000px) {
     .add-image-container {
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: 1fr;
     }
 
     .add-product-container {
@@ -377,8 +393,6 @@ body {
 @media (min-width:510px) and (max-width:650px) {
     .add-image-container {
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: 1fr;
     }
 
     .add-product-container {
@@ -399,8 +413,6 @@ body {
 @media (min-width:320px) and (max-width:510px) {
     .add-image-container {
         display: grid;
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: 1fr;
     }
 
     .add-image {

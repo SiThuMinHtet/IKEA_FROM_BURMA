@@ -34,84 +34,86 @@
             <div class="add-image-container">
 
                 <div class="product-detail">
-                    <div class="image">
-                        @if ($updateStatus == true)
-                            <img style="max-width: 100px; max-height:100px"
-                                src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
-                        @else
-                            <input type="file" name="image[]">
-                        @endif
+                    <div class="product_grid_1">
+                        <div class="image">
+                            @if ($updateStatus == true)
+                                <img style="max-width: 100px; max-height:100px"
+                                    src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
+                            @else
+                                <label for="image">Image</label>
+                                <input type="file" id="image" name="image[]" multiple>
+                            @endif
 
-                    </div>
-                    <div class="input product-name">
-                        <label for="name">Product Name</label>
-                        <input id="name" type="text" name="name"
-                            value="{{ $updateStatus == true ? $product_data->name : '' }}">
-                    </div>
-                    <div class="input">
-                        <label for="catagory">Catagory</label>
-                        <select name="category" id="category" class="category">
+                        </div>
+                        <div class="input product-name">
+                            <label for="name">Product Name</label>
+                            <input id="name" type="text" name="name"
+                                value="{{ $updateStatus == true ? $product_data->name : '' }}">
+                        </div>
+                        <div class="input">
+                            <label for="catagory">Catagory</label>
+                            <select name="category" id="category" class="category">
 
-                            @foreach ($categorylist as $category)
-                                <option value="{{ $category->id }}"
-                                    @isset($product_data){{ $product_data->category_id === $category->id ? 'selected' : '' }}
-                                    @endisset>
-                                    {{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                                @foreach ($categorylist as $category)
+                                    <option value="{{ $category->id }}"
+                                        @isset($product_data){{ $product_data->category_id === $category->id ? 'selected' : '' }}
+                                        @endisset>
+                                        {{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    {{-- tesing --}}
-                    <div class="input">
-                        <label for="code">Product Code</label>
-                        <select name="code" id="code" class="code">
-                            <option value="codeid">Select Code</option>
-                            @foreach ($codelist as $code)
-                                <option value="{{ $code->id }}"
-                                    @isset($product_data)
-                                      
-                                   {{ $product_data->code_id === $code->id ? 'selected' : '' }} @endisset>
-                                    {{ $code->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
 
-                    <div class="input">
-                        <label for="supplier">Supplier</label>
-                        <select name="supplier" class="supplier">
-                            @foreach ($supplierlist as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="input">
+                            <label for="code">Product Code</label>
+                            <select name="code" id="code" class="code">
+                                <option value="codeid">Select Code</option>
+                                @foreach ($codelist as $code)
+                                    <option value="{{ $code->id }}"
+                                        @isset($product_data)
+                                          
+                                       {{ $product_data->code_id === $code->id ? 'selected' : '' }} @endisset>
+                                        {{ $code->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
+                    <div class="product_grid_2">
+                        <div class="input">
+                            <label for="supplier">Supplier</label>
+                            <select name="supplier" class="supplier">
+                                @foreach ($supplierlist as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="input stock">
-                        <label for="stock">Stock</label>
-                        <input id="stock" type="text" name="stock"
-                            value="{{ $updateStatus == true ? $product_data->stock : '' }}">
+
+                        <div class="input stock">
+                            <label for="stock">Stock</label>
+                            <input id="stock" type="text" name="stock"
+                                value="{{ $updateStatus == true ? $product_data->stock : '' }}">
+                        </div>
+
+
+
+                        <div class="input price">
+                            <label for="price">Price</label>
+                            <input id="price" type="text" name="price"
+                                value="{{ $updateStatus == true ? $product_data->price : '' }}">
+                        </div>
+                        <div class="input Description">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description">{{ $updateStatus == true ? $product_data->description : '' }}</textarea>
+                        </div>
+                        <div class="add-product-btn">
+                            <button class="cancle-btn">Cancle</button>
+                            <button class="publish-btn" type="submit">Publish Product</button>
+                        </div>
                     </div>
-
-
-
-                    <div class="input price">
-                        <label for="price">Price</label>
-                        <input id="price" type="text" name="price"
-                            value="{{ $updateStatus == true ? $product_data->price : '' }}">
-                    </div>
-                    <div class="input Description">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description">{{ $updateStatus == true ? $product_data->description : '' }}</textarea>
-                    </div>
-                    <div class="add-product-btn">
-                        <button class="cancle-btn">Cancle</button>
-                        <button class="publish-btn" type="submit">Publish Product</button>
-                    </div>
-
                 </div>
-
             </div>
-
     </div>
 
 

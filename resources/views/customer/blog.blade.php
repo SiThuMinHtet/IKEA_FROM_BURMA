@@ -24,7 +24,7 @@
         <div class="card-galley">
             <div class="card-column">
                 <div class="card">
-                    <img src="images/card/how to choose right.jpg">
+                    <img src="{{ asset('image/customer/card/how to choose right.jpg') }}">
                     <div class="card-date">
                         <p>Jan 2, 2020</p>
                         <p>3 comments</p>
@@ -36,7 +36,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/fix up your dining.jpg">
+                    <img src="{{ asset('image/customer/card/fix up your dining.jpg') }}">
                     <div class="card-date">
                         <p>Dec 1, 2019</p>
                         <p>0 comments</p>
@@ -48,7 +48,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/how to choose right.jpg">
+                    <img src="{{ asset('image/customer/card/how to choose right.jpg') }}">
                     <div class="card-date">
                         <p>Sep 1, 2019</p>
                         <p>0 comments</p>
@@ -62,7 +62,7 @@
             </div>
             <div class="card-column">
                 <div class="card">
-                    <img src="images/card/how to make the most.jpg">
+                    <img src="{{ asset('image/customer/card/how to make the most.jpg') }}">
                     <div class="card-date">
                         <p>Jan 1, 2020</p>
                         <p>2 comments</p>
@@ -74,7 +74,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/discounted high end.jpg">
+                    <img src="{{ asset('image/customer/card/discounted high end.jpg') }}">
                     <div class="card-date">
                         <p>Nov 10, 2019</p>
                         <p>0 comments</p>
@@ -86,7 +86,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/red white and blue.jpg">
+                    <img src="{{ asset('image/customer/card/red white and blue.jpg') }}">
                     <div class="card-date">
                         <p>Oct 24, 2019</p>
                         <p>3 comments</p>
@@ -100,7 +100,7 @@
             </div>
             <div class="card-column">
                 <div class="card">
-                    <img src="images/card/discounted high end.jpg">
+                    <img src="{{ asset('image/customer/card/discounted high end.jpg') }}">
                     <div class="card-date">
                         <p>Dec 15, 2019</p>
                         <p>1 comments</p>
@@ -112,7 +112,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/all things freehold.jpg">
+                    <img src="{{ asset('image/customer/card/all things freehold.jpg') }}">
                     <div class="card-date">
                         <p>Nov 20, 2019</p>
                         <p>0 comments</p>
@@ -124,7 +124,7 @@
                     <button>READ MORE</button>
                 </div>
                 <div class="card">
-                    <img src="images/card/6 ideas for furnishing.jpg">
+                    <img src="{{ asset('image/customer/card/6 ideas for furnishing.jpg') }}">
                     <div class="card-date">
                         <p>Aug 22, 2019</p>
                         <p>0 comments</p>

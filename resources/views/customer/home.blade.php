@@ -1,3 +1,4 @@
+{{-- @dd($productlist); --}}
 @extends('layouts.CustomerLayout')
 @section('title')
     Home
@@ -8,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}">
 @endsection
-
 @section('content')
     <div class="hero-container">
         <div class="mySlides fade">
@@ -36,7 +36,6 @@
 
         </div>
     </div>
-
     <div class="hero-grid-container">
         <div class="grid-item item-1">
             <p>
@@ -88,350 +87,37 @@
             </p>
         </a>
     </div>
+    {{-- @dd($productlist); --}}
 
     <!-- new-product -->
     <div class="new-product">
         <h1>NEW PRODUCTS</h1>
         <div class="product-nav">
-            <button class="" onclick="openMenu('bed')"><a>Bed</a></button>
-            <button class="" onclick="openMenu('sofa')"><a>Sofa</a></button>
-            <button class="" onclick="openMenu('lamp')"><a>Lamp</a></button>
-            <button class="" onclick="openMenu('cabinet')"><a>Cabinet</a></button>
-            <button class="" onclick="openMenu('table')"><a>Table</a></button>
+            <a href="{{ route('ShowList', ['category' => 'Bed']) }}">Bed</a>
+            <a href="{{ route('ShowList', ['category' => 'Sofa']) }}">Sofa</a>
+            <a href="{{ route('ShowList', ['category' => 'Cabinet']) }}">Cabinet</a>
+            <a href="{{ route('ShowList', ['category' => 'Table']) }}">Table</a>
+            <a href="{{ route('ShowList', ['category' => 'Lamp']) }}">Lamp</a>
         </div>
     </div>
 
 
     <div class="new-product-grid">
-        <div id="bed" class="menu">
-            <div class="new-product-item new-item-1">
-                <span>SALE</span>
-                <a href=""><img src="images/white bed.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-2">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/black chair.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-3">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/white bed.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-4">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/black chair.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-5">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/white bed.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-6">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/black chair.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-7">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/white bed.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-8">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/black chair.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-        </div>
 
-        <div id="sofa" class="menu" style="display: none">
-            <div class="new-product-item new-item-1">
-                <span>SALE</span>
-                <a href=""><img src="images/Sofa/sofa-1.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-2">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-3">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-3.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-4">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-4.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-5">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-1.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-6">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-7">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-3.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-8">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/Sofa/sofa-4.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-        </div>
+        {{-- <div id="bed" class="menu">
+            @foreach ($productlist as $product)
+                <div class="new-product-item new-item-1">
+                    <a href="">
+                        <img style="max-height: 350px; max-width:200px;"
+                            src="{{ asset('img/products/' . $product->image) }}" alt="" />
+                        <p>{{ $product->name }}</p>
+                        <p>{{ $product->price }}</p>
+                    </a>
 
-        <div id="lamp" class="menu" style="display: none">
-            <div class="new-product-item new-item-1">
-                <span>SALE</span>
-                <a href=""><img src="images/lamp-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-2">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/lamp.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-3">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/lamp-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-4">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/lamp.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-5">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/lamp-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-6">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/lamp.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-7">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/lamp-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-8">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/lamp.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-        </div>
+                </div>
+            @endforeach
+        </div> --}}
 
-        <div id="cabinet" class="menu" style="display: none">
-            <div class="new-product-item new-item-1">
-                <span>SALE</span>
-                <a href=""><img src="images/cabinet-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-2">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/cabinet.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-3">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/cabinet-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-4">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/cabinet.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-5">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/cabinet-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-6">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/cabinet.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-7">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/cabinet-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-8">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/cabinet.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-        </div>
-
-        <div id="table" class="menu" style="display: none">
-            <div class="new-product-item new-item-1">
-                <span>SALE</span>
-                <a href=""><img src="images/table-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-2">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/table.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-3">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/table-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-4">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/table.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-5">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/table-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-6">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/table.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-7">
-                <span>SALE</span>
-                <a href="">
-                    <img src="images/cabinet-2.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-            <div class="new-product-item new-item-8">
-                <span>SOLD OUT</span>
-                <a href="">
-                    <img src="images/cabinet.png" alt="" />
-                    <p>Cylindo Accent Arm Chair</p>
-                    <p>$699.00</p>
-                </a>
-            </div>
-        </div>
     </div>
 
     <!-- up to 60% off -->

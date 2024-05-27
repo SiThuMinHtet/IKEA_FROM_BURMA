@@ -23,7 +23,8 @@ class CustomerController extends Controller
     {
         $customerlist = DB::table('customers')
             ->where('customers.status', '=', 'Active')
-            ->select('customers.*')->get();
+            ->select('customers.*')
+            ->paginate(2);
         // dd($customerlist);
         return view('admin.customers.customerlist', compact('customerlist'));
     }
@@ -65,5 +66,10 @@ class CustomerController extends Controller
         $staffdelete->status = "Inactive";
         $staffdelete->update();
         return redirect()->route('CustomerList');
+    }
+
+    public function showLoginForm()
+    {
+        return view('customer.login');
     }
 }

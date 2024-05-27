@@ -39,7 +39,7 @@ class StaffRepository
 
         $stafflist = $query
             ->select('staffs.*', 'roles.name as rolename')
-            ->get();
+            ->paginate(1);
         return view('admin.staffs.stafflist', compact('stafflist'));
     }
 }

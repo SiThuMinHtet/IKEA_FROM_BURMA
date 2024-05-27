@@ -38,7 +38,7 @@ class CustomerRepository
 
         $customerlist = $query
             ->select('customers.*')
-            ->get();
+            ->paginate(2);
         return view('admin.customers.customerlist', compact('customerlist'));
     }
 }

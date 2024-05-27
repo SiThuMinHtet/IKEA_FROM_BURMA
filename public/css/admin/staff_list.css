@@ -294,28 +294,57 @@ table th,td {
     height: 100%;
 }
 
+.staff_name{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
 
 /* pagination */
-
-.Pagination {
-    display: flex;
-    position: absolute;
-    right: 0;
-    gap: 20px;
+.Pagination{
+    padding-top: 10px;
+    margin-left: 100px;
     margin-right: 100px;
-    padding: 50px 0;
+    display:flex;
+    justify-content: right;
+}
+.Pagination ul
+ {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    list-style-type: none;
+    text-decoration: none;
+ }
+ .Pagination li {
+    padding:10px 15px;
+    box-shadow: 0 1px 5px 0 rgba(75, 75, 75, 0.19);
+    border-radius: 10px;
+    background-color:none;
+    border: 1px solid var(--login_publish_color);
+    color: white;
+ }
+
+ .Pagination .active {
+    background-color: var(--login_publish_color); /* Change background color for active page */
+    color: white; /* Ensure text color contrasts with red background */
 }
 
-.Pagination div {
-   color: white;
-    height: 50px;
-    width: 50px;
-    border: 1px solid var(--login_publish_color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
+.Pagination li:not(.active) {
+    color: white; /* Change the text color for non-active pages */
+    text-decoration: none; /* Remove any text decoration */
 }
+
+.Pagination li a {
+    color: inherit; /* Inherit the text color from li */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.Pagination li:not(.active) a:hover {
+    text-decoration: underline; /* Optional: underline on hover for better UX */
+}
+
 
 #blue {
     background: var(--login_publish_color);

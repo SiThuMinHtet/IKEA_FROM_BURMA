@@ -12,11 +12,7 @@
 @section('content')
     <div class="product-mng-container">
         <div class="product-mng">
-            {{-- <div class="product-mng-search">
-                <input type="text" placeholder="Search...">
-                <img src="{{ asset('image/admin/icons/search.png') }}" alt="">
-            </div> --}}
-            <div>
+            <div class="product_search">
                 <form action="{{ route('ProductSearch') }}" method="POST">
                     @csrf
                     <input name="search" type="text" placeholder="Search">
@@ -62,7 +58,7 @@
                     <tr>
                         <td>
                             <img src="{{ asset('img/products/' . $product->image) }}" alt=""
-                                style="max-width: 100px; max-height: 100px">
+                                style="max-width: 70px; max-height: 70px">
                         </td>
                         <td>{{ $product->id }}</td>
                         <td>{{ $product->name }}</td>
@@ -87,21 +83,12 @@
                 @endforeach
             </table>
         </div>
+
+
     </div>
 
     <div class="Pagination">
-        <div>
-            <i class="fa-solid fa-less-than"></i>
-        </div>
-        <div>
-            1
-        </div>
-        <div id="blue">
-            2
-        </div>
-        <div>
-            <i class="fa-solid fa-greater-than"></i>
-        </div>
+        {{ $productlist->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

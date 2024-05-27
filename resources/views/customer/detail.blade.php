@@ -1,3 +1,9 @@
+{{-- @dd($products); --}}
+{{-- @dd($categorylist); --}}
+{{-- @dd($codelist); --}}
+{{-- @dd($product_image); --}}
+{{-- @dd($primary_image); --}}
+{{-- @dd(session()->all()); --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,26 +31,40 @@
     </div>
     <div class="item-detail">
         <div class="detail-img">
-            <img src="/images/Detail/modway olivia bed detail.png" alt="">
+
+            <img src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
         </div>
 
         <div class="detail-info">
-            <h2>Modway Olivia Bed</h2>
-            <p class="item-price-detail"><b>$1,200.00</b></p>
+            <h2>{{ $products->name }}</h2>
+            <p class="item-price-detail"><b>{{ $products->price }} MMK</b></p>
             <p class="item-text">
                 The All in One Fully Upholstered Shelter Queen Bed upholstered bed is designed to add a contemporary
                 flair to many of today's modern homes. The button tufted headboard is inset w/two wings, giving it a
                 contemporary shelter feel. Also features a matching low profile tootboard and hinged/folding side rails.
             </p>
-            <div class="detail-btn">
-                <input type="number">
-                <button><a href="{{ route('Cart') }}">ADD TO CART</a></button>
-                <p></p>
-                <p></p>
+            <div class="detail_btn_group">
+                <div>
+                    <input type="number">
+                </div>
+
+                <div class="detail-btn">
+                    {{-- <a href="{{ route('cart.add', $products->id) }}">Add To Cart</a> --}}
+                    <form action="{{ route('cart.add', $products->id) }}" method="POST">
+                        @csrf
+                        <button type="submit">Add To Cart</button>
+                    </form>
+
+                    {{-- <button type="submit">ADD TO CART</button> --}}
+
+
+                    <button><a href="">BUY IT NOW</a></button>
+                </div>
             </div>
+
             <p>
-                SKU: BE-006 <br>
-                Categories: Bed <br>
+                SKU: {{ $products->code_name }}<br>
+                Categories:{{ $categorylist->name }} <br>
                 Tags: theme-sky, upstore, WooCommerce, WordPress
             </p>
             <div class="detail-social-icon">
@@ -57,10 +77,10 @@
             </div>
         </div>
 
-        <div class="sm-img">
+        {{-- <div class="sm-img">
             <img src="/images/Detail/modway olivia bed detail.png" alt="">
             <img src="/images/shop/modwayy.jpg" alt="">
-        </div>
+        </div> --}}
 
     </div>
 
@@ -72,9 +92,7 @@
 
         <div id="description" class="menu">
             <p>
-                The All in One Fully Upholstered Shelter Queen Bed upholstered bed is designed to add a contemporary
-                flair to many of today's modern homes. The button tufted headboard is inset w/two wings, giving it a
-                contemporary shelter feel. Also features a matching low profile tootboard and hinged/folding side rails.
+                {{ $products->description }}
                 <br>
                 <b>Features</b> <br>
             </p>
@@ -91,15 +109,7 @@
         </div>
         <div id="additional" class="menu" style="display: none">
             <p class="cutoff-text">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Asperiores consequuntur quia adipisci sed quis
-                tenetur quod molestiae quos corrupti eius itaque impedit facere aliquam, atque nesciunt architecto
-                suscipit, incidunt officia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis iure sit
-                commodi delectus eveniet tempora, expedita possimus eius, eligendi quidem impedit laboriosam natus
-                dolores nulla. Vitae, quia. Possimus, fugiat sunt. Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Reprehenderit nihil vitae aut sunt ab quaerat qui quos cumque, nulla sequi modi laboriosam cum
-                explicabo nostrum dolorum expedita! Odio, modi numquam? Lorem ipsum dolor, sit amet consectetur
-                adipisicing elit. Magni ipsum ipsam sit magnam quos! Quaerat laudantium autem nobis, laborum eos maiores
-                obcaecati debitis magnam corporis similique sit minima. Aliquid, mollitia!
+                {{ $products->additionalinfo }}
             </p>
             <input class="expand-btn" type="checkbox">
         </div>
@@ -142,10 +152,16 @@
         </div>
     </div>
 
-
-
-    <script src="./js/script.js"></script>
-    <script src="./js/shop.js"></script>
+    <script>
+        function openMenu(menuItem) {
+            var i;
+            var x = document.getElementsByClassName("menu");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(menuItem).style.display = "grid";
+        }
+    </script>
 </body>
 
 </html>

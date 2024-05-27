@@ -16,7 +16,9 @@
         </div>
         <div class="login-form">
             <p>Admin Login</p>
-            <form action="{{ route('AdminLoginProcess') }}" method="post">
+
+
+            <form action="{{ route('LoginProcess') }}" method="post">
 
                 @csrf
                 <input type="hidden" value="admin" name="usertype">

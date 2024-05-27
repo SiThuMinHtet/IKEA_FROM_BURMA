@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 
 // Route::get('/', function () {
 //     return view('admin.dashboard');
@@ -22,30 +23,68 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+//Route start
+// Route::middleware('auth')->group(function () {
+// });
+
+
+//Route end
+
 
 Route::get('/', [CustomerHomeController::class, 'customerhome'])->name('CustomerHome');
 
-Route::prefix('/customer')->group(function () {
-    Route::get('/login', [CustomerHomeController::class, 'login'])->name('CustomerLogin');
+Route::get('/customer/login', [CustomerController::class, 'showLoginForm'])->name('CustomerLogin');
+Route::post('/customer/loginprocess', [LoginController::class, 'login'])->name('LoginProcess');
 
-    Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
-    Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('Category');
-    Route::get('/shop/blog', [CustomerHomeController::class, 'blog'])->name('Blog');
-    Route::get('/shop/cart', [CustomerHomeController::class, 'cart'])->name('Cart');
-    Route::get('/shop/detail', [CustomerHomeController::class, 'detail'])->name('Detail');
-    Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About');
-    Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
-    Route::get('/shop/checkout', [CustomerHomeController::class, 'checkout'])->name('Checkout');
+
+Route::get('/customerlist/create', [CustomerController::class, 'customercreate'])->name('CustomerCreate');
+Route::post('/customerlist/create/process', [CustomerController::class, 'customercreateprocess'])->name('CustomerCreateProcess');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.removeItem');
+Route::post('/cart/increase/{id}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
+Route::post('/cart/decrease/{id}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+
+
+Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
+Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('Category');
+Route::get('/shop/blog', [CustomerHomeController::class, 'blog'])->name('Blog');
+Route::get('/shop/detail/{id}', [CustomerHomeController::class, 'detail'])->name('Detail');
+Route::get('/shop/detail/process', [CustomerHomeController::class, 'detailprocess'])->name('DetailProcess');
+Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About');
+Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
+Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');
+Route::get('/shop/checkout', [CustomerHomeController::class, 'checkout'])->name('Checkout');
+
+Route::middleware(['customer'])->group(function () {
+    // dd(Auth::user());
+    // dd(session()->all());
+    Route::prefix('/customer')->group(function () {
+        //edit 
+        //edit process
+        Route::get('/logout', [loginController::class, 'Customerlogout'])->name('Customer.logout');
+    });
 });
 
+
+
+// Route::get('/login', [CustomerHomeController::class, 'login'])->name('CustomerLogin');
+// Route::get('/shop/cart', [CustomerHomeController::class, 'cart'])->name('Cart');
+// Route::get('product/list', [CustomerHomeController::class, 'productlist'])->name('ProductList');
+
+
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('AdminLogin');
-Route::post('/admin/loginprocess', [LoginController::class, 'login'])->name('AdminLoginProcess');
-Route::get('/logout', [loginController::class, 'Adminlogout'])->name('Admin.logout');
+Route::post('/admin/loginprocess', [LoginController::class, 'login'])->name('LoginProcess');
+
 Route::middleware(['admin'])->group(function () {
+
+    // dd(Auth::user());
     Route::prefix('/admin')->group(function () {
         //order
         Route::get('/orderlist', [OrderController::class, 'list'])->name('OrderList');
 
+        Route::get('/logout', [loginController::class, 'Adminlogout'])->name('Admin.logout');
         //product
         Route::get('/productlist', [ProductController::class, 'productlist'])->name('ProductList');
         Route::get('/productlist/create', [ProductController::class, 'productcreate'])->name('ProductCreate');
@@ -78,8 +117,7 @@ Route::middleware(['admin'])->group(function () {
 
         //customer
         Route::get('/customerlist', [CustomerController::class, 'customerlist'])->name('CustomerList');
-        Route::get('/customerlist/create', [CustomerController::class, 'customercreate'])->name('CustomerCreate');
-        Route::post('/customerlist/create/process', [CustomerController::class, 'customercreateprocess'])->name('CustomerCreateProcess');
+
         Route::get('/customerlist/delete/{id}', [CustomerController::class, 'customerdelete'])->name('CustomerDelete');
 
         //staff

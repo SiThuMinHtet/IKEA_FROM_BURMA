@@ -147,6 +147,7 @@ body {
 .action{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 
@@ -180,15 +181,16 @@ body {
 }
 
 .profile {
-    margin: 10px 100px;
+    margin: 10px 20px 10px 90px;
 }
 
 /* product-management */
 
 
 .product-mng-container {
-    margin-left: 100px;
-    margin-right:80px;
+    position: relative;
+    margin-left: 90px;
+    margin-right:20px;
     padding: 20px;
     background: var(--primary_color);
 }
@@ -197,7 +199,29 @@ body {
     justify-content: space-between;
 }
 
-.product-mng-search {
+/* search */
+
+.product_search input{
+    text-indent: 10px;
+    height: 40px;
+    border: 1px solid white;
+    border-radius: 5px;
+    outline: none;
+    background: none;
+    color: white;
+}
+
+.product_search button{
+        padding: 10px;
+        background: var(--login_publish_color);
+        color: white;
+        align-items: center;
+        gap: 10px;
+        border-radius: 5px;
+    }
+
+
+/* .product-mng-search {
     position: relative;
 }
 
@@ -215,7 +239,9 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
-}
+} */
+
+/* new product btn */
 
 .new-product-btn button {
     display: flex;
@@ -257,26 +283,50 @@ tr th img {
 }
 
 /* pagination */
-
-.Pagination {
-    display: flex;
-    position: absolute;
-    right: 0;
-    gap: 20px;
+.Pagination{
+    padding-top: 10px;
+    margin-left: 100px;
     margin-right: 100px;
-    padding: 50px 0;
+    display:flex;
+    justify-content: right;
+}
+.Pagination ul
+ {
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    list-style-type: none;
+    text-decoration: none;
+ }
+ .Pagination li {
+    padding:10px 15px;
+    box-shadow: 0 1px 5px 0 rgba(75, 75, 75, 0.19);
+    border-radius: 10px;
+    background-color:none;
+    border: 1px solid var(--login_publish_color);
+    color: white;
+ }
+
+ .Pagination .active {
+    background-color: var(--login_publish_color); /* Change background color for active page */
+    color: white; /* Ensure text color contrasts with red background */
 }
 
-.Pagination div {
-   color: white;
-    height: 50px;
-    width: 50px;
-    border: 1px solid var(--login_publish_color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
+.Pagination li:not(.active) {
+    color: white; /* Change the text color for non-active pages */
+    text-decoration: none; /* Remove any text decoration */
 }
+
+.Pagination li a {
+    color: inherit; /* Inherit the text color from li */
+    text-decoration: none; /* Remove underline from links */
+}
+
+.Pagination li:not(.active) a:hover {
+    text-decoration: underline; /* Optional: underline on hover for better UX */
+}
+
+
 
 #blue {
     background: var(--login_publish_color);

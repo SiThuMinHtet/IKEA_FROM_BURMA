@@ -17,7 +17,7 @@
         </div>
 
         <div class="search-sort">
-            <div class="search">
+            <div class="customer_search">
                 <form action="{{ route('CustomerSearch') }}" method="POST">
                     @csrf
                     <input name="search" type="text" placeholder="Search...">
@@ -63,10 +63,6 @@
                     <th>
                         Joinging Date
                     </th>
-
-                    <th>
-                        Image
-                    </th>
                     <th>
                         Action
                     </th>
@@ -80,8 +76,15 @@
                         <td>
                             {{ $customer->id }}
                         </td>
-                        <td>
-                            {{ $customer->name }}
+                        <td class="customer_name">
+                            <div>
+                                <img style="max-height: 80px; max-width: 80px;"
+                                    src="{{ asset('image/customer/customerinfo/' . $customer->image) }}" />
+                            </div>
+                            <div>
+                                {{ $customer->name }}
+                            </div>
+
                         </td>
                         <td>
                             {{ $customer->email }}
@@ -96,19 +99,9 @@
                             {{ $customer->joining_date }}
                         </td>
 
-                        <td>
-                            <img style="max-height: 80px; max-width: 100px;"
-                                src="{{ asset('image/customer/customerinfo/' . $customer->image) }}" />
-                            {{-- {{ $staff->image }} --}}
-                        </td>
+
                         <td class="action">
                             <div>
-                                {{-- <div>
-                                    <a href=""></a>
-                                    <img src="{{ asset('image/admin/icons/action.png') }}" alt="">
-                                </div> --}}
-
-
                                 <div>
                                     @if (auth('admin')->user()->role_id == 3)
                                         <img src="{{ asset('image/admin/icons/bin.png') }}" alt="" disabled>
@@ -128,6 +121,10 @@
 
             </table>
         </div>
+
+    </div>
+    <div class="Pagination">
+        {{ $customerlist->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

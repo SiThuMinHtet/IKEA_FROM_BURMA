@@ -20,20 +20,25 @@
     <div class="log-in-container">
         <div class="log-in">
             <h2>Login</h2>
-            <div>
-                <label>Username or email address</label>
-                <input type="text" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="text" required>
-            </div>
+            <form action="{{ route('LoginProcess') }}" method="POST">
+                @csrf
+                <input type="hidden" value="customer" name="usertype">
+                <div>
+                    <label>Email address</label>
+                    <input type="text" required name="email">
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="text" required name="password">
+                </div>
 
-            <div>
-                <button class="first-log-btn">LOG IN</button>
-                <button class="sec-log-btn">Remember me</button>
-            </div>
-            <a href="">Lost your password?</a>
+                <div>
+                    <button class="first-log-btn" type="submit">LOG IN</button>
+                    <button class="sec-log-btn">Remember me</button>
+                </div>
+                <a href="">Lost your password?</a>
+            </form>
+
         </div>
 
         <div class="Register">

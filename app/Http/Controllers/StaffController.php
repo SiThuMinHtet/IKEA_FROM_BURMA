@@ -24,7 +24,8 @@ class StaffController extends Controller
         $stafflist = DB::table('staffs')
             ->join('roles', 'roles.id', '=', 'staffs.role_id')
             ->where('staffs.status', '=', 'Active')
-            ->select('staffs.*', 'roles.name as rolename')->get();
+            ->select('staffs.*', 'roles.name as rolename')
+            ->paginate(1);
         // dd($stafflist);
         return view('admin.staffs.stafflist', compact('stafflist'));
     }

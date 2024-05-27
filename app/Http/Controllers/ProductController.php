@@ -32,10 +32,12 @@ class ProductController extends Controller
             ->join('codes', 'codes.id', '=', 'products.code_id')
             ->join('staffs', 'staffs.id', '=', 'products.staff_id')
             ->join('suppliers', 'suppliers.id', '=', 'products.supplier_id')
+            ->where('product_photos.primaryphoto', '=', 1)
             // ->where('admins.id' , '=' , auth('admin')->user()->id)
             ->select('products.*', 'category.name as category', 'product_photos.image')
             // ->where( 'product_image.primary_img' , '=' , '1' , 'AND' , 'products', 'product_image.product_id', '=', 'products.id'  )
-            ->get();
+            // ->get();
+            ->paginate(6);
         return view('admin.products.productlist', compact('productlist'));
     }
 

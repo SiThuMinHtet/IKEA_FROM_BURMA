@@ -30,8 +30,9 @@ body {
 
 .detail-btn {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 .detail-btn button {
@@ -46,16 +47,15 @@ body {
     color: white;
 }
 
-.detail-btn p {
-    border: 1px solid black;
-    width: 30px;
-    height: 30px;
-    padding-right: 10px;
-}
-
-.detail-btn input {
+.detail-info input {
     width: 50px;
     height: 35px;
+    text-indent: 10px;
+}
+
+.detail_btn_group{
+    display: flex;
+    gap: 10px;
 }
 
 .detail-grid {
