@@ -82,11 +82,6 @@
             @else
                 <a href="{{ route('CustomerLogin') }}">Log In</a>
             @endif
-
-
-
-
-
         </div>
 
         <div class="sec-nav-icon">

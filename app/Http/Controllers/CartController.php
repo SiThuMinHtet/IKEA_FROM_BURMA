@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    //
     public function addToCart(Request $request, $productId)
     {
         $user = Auth::guard('customer')->user();
@@ -21,9 +20,7 @@ class CartController extends Controller
             $userId = $user->id;
 
             $product = Product::findOrFail($productId);
-            // dd($product);
             $productPhotos = $product->image;
-            // dd($productPhotos);
 
             $cartItem = Cart::where('customer_id', $userId)
                 ->where('product_id', $productId)
@@ -48,7 +45,7 @@ class CartController extends Controller
             // Guest user
             $cart = session()->get('cart', []);
             $product = Product::findOrFail($productId);
-            $productPhotos = $product->image;
+            $productPhotos = Product_photo::where('product_id', $productId)->get();
 
             if (isset($cart[$productId])) {
                 $cart[$productId]['quantity'] += 1;
@@ -60,7 +57,7 @@ class CartController extends Controller
                     'price' => $product->price,
                     'totalprice' => $product->price,
                     'name' => $product->name,
-                    'photos' => $productPhotos->pluck('image')->toArray(), // Store photo paths in session
+                    'photos' => $productPhotos->pluck('image')->toArray(),
                 ];
             }
 
@@ -72,23 +69,45 @@ class CartController extends Controller
 
     public function increaseQuantity(Request $request, $id)
     {
-        // Assuming you have a Cart model and 'id' is the cart item identifier
-        $cartItem = Cart::find($id);
-        $cartItem->quantity += 1;
-        $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
-        $cartItem->save();
+        $user = Auth::guard('customer')->user();
+
+        if ($user) {
+            $cartItem = Cart::find($id);
+            if ($cartItem) {
+                $cartItem->quantity += 1;
+                $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
+                $cartItem->save();
+            }
+        } else {
+            $cart = session()->get('cart', []);
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] += 1;
+                $cart[$id]['totalprice'] = $cart[$id]['quantity'] * $cart[$id]['price'];
+                session()->put('cart', $cart);
+            }
+        }
 
         return redirect()->back();
     }
 
     public function decreaseQuantity(Request $request, $id)
     {
-        // Assuming you have a Cart model and 'id' is the cart item identifier
-        $cartItem = Cart::find($id);
-        if ($cartItem->quantity > 1) {
-            $cartItem->quantity -= 1;
-            $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
-            $cartItem->save();
+        $user = Auth::guard('customer')->user();
+
+        if ($user) {
+            $cartItem = Cart::find($id);
+            if ($cartItem && $cartItem->quantity > 1) {
+                $cartItem->quantity -= 1;
+                $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
+                $cartItem->save();
+            }
+        } else {
+            $cart = session()->get('cart', []);
+            if (isset($cart[$id]) && $cart[$id]['quantity'] > 1) {
+                $cart[$id]['quantity'] -= 1;
+                $cart[$id]['totalprice'] = $cart[$id]['quantity'] * $cart[$id]['price'];
+                session()->put('cart', $cart);
+            }
         }
 
         return redirect()->back();
@@ -108,7 +127,7 @@ class CartController extends Controller
         return view('customer.cart', compact('cartItems'));
     }
 
-    public function removeItem($cartItemId)
+    public function removeItem(Request $request, $cartItemId)
     {
         $user = Auth::guard('customer')->user();
 

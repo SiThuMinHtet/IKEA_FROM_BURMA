@@ -42,10 +42,10 @@ Route::post('/customerlist/create/process', [CustomerController::class, 'custome
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
-Route::post('/cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.removeItem');
+// Route::post('/cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.removeItem');
 Route::post('/cart/increase/{id}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
 Route::post('/cart/decrease/{id}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
-
+Route::post('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.removeItem');
 
 Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
 Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('Category');
@@ -56,6 +56,7 @@ Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About
 Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
 Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');
 Route::get('/shop/checkout', [CustomerHomeController::class, 'checkout'])->name('Checkout');
+Route::post('/shop/sort', [CustomerHomeController::class, 'sort'])->name('Sort');
 
 Route::middleware(['customer'])->group(function () {
     // dd(Auth::user());

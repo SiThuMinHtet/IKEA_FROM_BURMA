@@ -1,5 +1,5 @@
-{{-- @dd($cartItems);
-{{ dd($cart) }} --}}
+{{-- @dd($cartItems); --}}
+{{-- {{ dd($cart) }} --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,21 +74,25 @@
                     </tr>
                 @endforeach
             @else
+                {{-- @dd($productPhotos); --}}
                 @foreach ($cartItems as $productId => $cartItem)
                     <tr>
                         <td class="product_image">
                             <div>
                                 <form action="{{ route('cart.removeItem', $productId) }}" method="POST">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit">Remove</button>
                                 </form>
                             </div>
                             <div>
-                                @foreach ($cartItem['photos'] as $photo)
-                                    <img src="{{ asset('img/products/' . $photo) }}" alt="Product Photo"
-                                        width="100">
-                                @endforeach
+                                @if (isset($cartItem['photos']) && !empty($cartItem['photos']))
+                                    @foreach ($cartItem['photos'] as $photo)
+                                        <img src="{{ asset('img/products/' . $photo) }}" alt="Product Photo"
+                                            width="100">
+                                    @endforeach
+                                @else
+                                    <p>No photos available</p>
+                                @endif
                             </div>
                             <div>
                                 <p>{{ $cartItem['name'] }}</p>

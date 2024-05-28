@@ -83,29 +83,46 @@ class CustomerHomeController extends Controller
         return view('customer.checkout');
     }
 
-    // public function showlist(Request $request)
-    // {
-    //     $category = $request->category;
-    //     $grid_items =  Category::whereIn('name', ['Bed', 'Sofa', 'Cabinet', 'Lamp', 'Table'])->withCount('products')
-    //         ->get();
-    //     $productlist = DB::table('products')
-    //         ->join('category', 'category.id', '=', 'products.category_id')
-    //         ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
-    //         ->where('category.name', '=', $category)
-    //         ->select('products.*', 'category.name as category', 'product_photos.image')
-    //         ->take(8)->get();
+    public function sort(Request $request)
+    {
+        $cartarray = $request->session()->get('cartdata') ?? []; //get cartdata array from session
+        $price = 'products.price';
+        $sort = $request->sort;
+        $categoryname = $request->categoryname;
+        // dd($sort);
+        $query = DB::table('products')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->where('products.status', '=', 'Active');
 
-    //     return view('customer.home', compact('productlist', 'category', 'grid_items'));
-    // }
-
-    //     public function productlist()
-    //     {
-    //         $productlist = DB::table('products')
-    //             ->join('category', 'category.id', '=', 'products.category_id')
-    //             ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
-    //             ->select('products.*', 'category.name as category', 'product_photos.image')
-    //             ->get();
-    //         dd($productlist);
-    //         return view('customer.shop.shop', compact('productlist'));
-    //     }
+        if (!empty($request->sort)) {
+            if ($categoryname == null) {
+                if ($sort != 'sort') {
+                    if ($sort == 'low_to_high_price') {
+                        $query->orderBy($price, 'asc');
+                    } else if ($sort == 'high_to_low_price') {
+                        $query->orderBy($price, 'desc');
+                    } else {
+                        $query->orderBy('products.id', 'desc');
+                    }
+                } else {
+                    $query;
+                }
+            } else {
+                if ($sort != 'sort') {
+                    $categoryname = $request->categoryname;
+                    if ($sort == 'low_to_high_price') {
+                        $query->orderBy($price, 'asc')->where('categories.name', '=', $categoryname);
+                    } else if ($sort == 'high_to_low_price') {
+                        $query->orderBy($price, 'desc')->where('categories.name', '=', $categoryname);
+                    } else {
+                        $query->orderBy('products.id', 'desc')->where('categories.name', '=', $categoryname);
+                    }
+                } else {
+                    $query->where('categories.name', '=', $categoryname);
+                }
+            }
+            $products = $query->select('products.*', 'categories.name as categoryname')->get();
+            return view('customer_pages.products', compact('products', 'categoryname', 'cartarray'));
+        }
+    }
 }

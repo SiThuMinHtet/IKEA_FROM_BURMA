@@ -49,7 +49,6 @@
                 </div>
 
                 <div class="detail-btn">
-                    {{-- <a href="{{ route('cart.add', $products->id) }}">Add To Cart</a> --}}
                     <form action="{{ route('cart.add', $products->id) }}" method="POST">
                         @csrf
                         <button type="submit">Add To Cart</button>
