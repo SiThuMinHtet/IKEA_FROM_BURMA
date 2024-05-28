@@ -1,4 +1,5 @@
 {{-- @dd($productlist); --}}
+@dd($categorylist);
 @extends('layouts.CustomerLayout')
 @section('title')
     Shop
@@ -51,47 +52,77 @@
 
         <div class="shop-nav-right">
             <div class="shop-dropdown">
-                <button class="shop-dropbtn">CATAGORIES <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn">PRICE <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn">COLOR <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn">MATERIAL <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn-last">SORT BY LATEST <img src="images/greater-than-symbol.png"
+                {{-- <button class="shop-dropbtn">CATAGORIES <img src="{{ asset('image/customer/greater-than-symbol.png') }}"
                         alt=""></button>
                 <div class="shop-dropdown-content">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
-                </div>
+                </div> --}}
+                <form action="{{ route('customer.shop.sortCategory') }}" method="GET" id="sortCateForm">
+                    @csrf
+                    <select name="sort" id="sortCate" onchange="document.getElementById('sortCateForm').submit()">
+                        @foreach ($collection as $item)
+                            <option value="" {{ request('sortCate') == 'latest' ? 'selected' : '' }}>
+                            </option>
+                        @endforeach
+
+                    </select>
+                </form>
+            </div>
+            <div class="shop-dropdown">
+                <form action="{{ route('customer.shop.sortPrice') }}" method="GET" id="sortPriceForm">
+                    @csrf
+                    <select name="sortPrice" id="sortPrice" onchange="document.getElementById('sortPriceForm').submit()">
+                        <option value="price" {{ request('sortPrice') == 'price' ? 'selected' : '' }}>
+                            Price</option>
+                        <option value="Low2High" {{ request('sortPrice') == 'Low2High' ? 'selected' : '' }}>Lower to Higher
+                            Price</option>
+                        <option value="High2Low" {{ request('sortPrice') == 'High2Low' ? 'selected' : '' }}>Higher to Lower
+                            Price
+                        </option>
+                    </select>
+                </form>
+                {{-- <button class="shop-dropbtn">PRICE <img src="images/greater-than-symbol.png" alt=""></button>
+                <div class="shop-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a> --}}
             </div>
         </div>
+        <div class="shop-dropdown">
+            <button class="shop-dropbtn">COLOR <img src="images/greater-than-symbol.png" alt=""></button>
+            <div class="shop-dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div>
+        <div class="shop-dropdown">
+            <button class="shop-dropbtn">MATERIAL <img src="images/greater-than-symbol.png" alt=""></button>
+            <div class="shop-dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div>
+        <div class="shop-dropdown">
+            <form action="{{ route('customer.shop.sort') }}" method="GET" id="sortForm">
+                @csrf
+                <select name="sort" id="sortSelect" onchange="document.getElementById('sortForm').submit()">
+                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Sort by Latest</option>
+                    <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Sort by Popularity
+                    </option>
+                </select>
+            </form>
+
+            {{-- <div class="shop-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div> --}}
+        </div>
+    </div>
     </div>
 
     <!-- shop-product-grid -->
@@ -100,8 +131,7 @@
             @foreach ($productlist as $product)
                 <div class="shop-product-item shop-item-1">
                     <a href="{{ route('Detail', $product->id) }}">
-                        <img src="{{ asset('img/products/' . $product->image) }}"
-                            alt="" />
+                        <img src="{{ asset('img/products/' . $product->image) }}" alt="" />
                         <p>{{ $product->name }}Globe Electric Tech Series</p>
                         <p>{{ $product->price }}</p>
                     </a>

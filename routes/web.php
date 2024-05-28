@@ -56,7 +56,9 @@ Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About
 Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
 Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');
 Route::get('/shop/checkout', [CustomerHomeController::class, 'checkout'])->name('Checkout');
-Route::post('/shop/sort', [CustomerHomeController::class, 'sort'])->name('Sort');
+Route::get('/shop/sort', [CustomerHomeController::class, 'sort'])->name('customer.shop.sort');
+Route::get('/shop/sort/price', [CustomerHomeController::class, 'sortprice'])->name('customer.shop.sortPrice');
+Route::get('/shop/sort/category', [CustomerHomeController::class, 'sortcategory'])->name('customer.shop.sortCategory');
 
 Route::middleware(['customer'])->group(function () {
     // dd(Auth::user());
