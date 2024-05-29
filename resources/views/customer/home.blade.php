@@ -8,17 +8,18 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 @endsection
 @section('content')
     <div class="hero-container">
         <div class="mySlides fade">
-            <img src="images/hero-img.jpg" alt="" />
+            <img src="{{ asset('image/customer/hero-img.jpg') }}" alt="" />
         </div>
         <div class="mySlides fade">
-            <img src="images/blue sofa.jpg" alt="" />
+            <img src="{{ asset('image/customer/blue sofa.jpg') }}" alt="" />
         </div>
         <div class="mySlides fade">
-            <img src="images/gray sofa.jpg" alt="" />
+            <img src="{{ asset('image/customer/gray sofa.jpg') }}" alt="" />
         </div>
 
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -28,10 +29,13 @@
             <h3>SALE OFF 30%</h3>
             <h1>Classic 2023 Interior Designs</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <a href="shop.html">
-                <button>
-                    Shop Now <img src="images/right-arrow-svgrepo-com.svg" alt="" />
-                </button>
+            <a href="{{ route('Shop') }}">
+                <div>
+                    Shop Now
+                </div>
+                <div>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </div>
             </a>
 
         </div>

@@ -23,6 +23,6 @@ class   AdminCheck
                 return $next($request);
             }
         }
-        return redirect('/')->with('error', 'You don\'t have Customer Access!');
+        return redirect('/admin/login/')->with('error', 'You don\'t have Customer Access!');
     }
 }

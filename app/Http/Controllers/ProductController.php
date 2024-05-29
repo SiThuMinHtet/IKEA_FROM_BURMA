@@ -70,6 +70,7 @@ class ProductController extends Controller
         // $request->image->move(public_path('img/staff/'));
 
         $img = $request->image;
+        // dd($request);
         // dd($img);
 
 

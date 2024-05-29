@@ -1,6 +1,6 @@
 @extends('layouts.AdminLayout')
 
-{{-- @dd($product_image[0]->image); --}}
+{{-- @dd($product_image); --}}
 {{-- @dd($product_data); --}}
 @php
     $updateStatus = false;
@@ -35,7 +35,7 @@
 
                 <div class="product-detail">
                     <div class="product_grid_1">
-                        <div class="image">
+                        {{-- <div class="image">
                             @if ($updateStatus == true)
                                 <img style="max-width: 100px; max-height:100px"
                                     src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
@@ -43,8 +43,25 @@
                                 <label for="image">Image</label>
                                 <input type="file" id="image" name="image[]" multiple>
                             @endif
+                        </div> --}}
+                        <div class="image">
+                            @if ($updateStatus == true && !empty($product_images))
+                                @foreach ($product_image as $image)
+                                    <img style="max-width: 100px; max-height: 100px"
+                                        src="{{ asset('img/products/' . $image->image) }}" alt="">
+                                @endforeach
+                            @endif
 
+                            <label for="image">Images</label>
+                            <input type="file" id="image" name="image[]" multiple onchange="previewImages(event)">
+
+                            <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <!-- Preview of uploaded images will be displayed here -->
+                            </div>
                         </div>
+
+
+
                         <div class="input product-name">
                             <label for="name">Product Name</label>
                             <input id="name" type="text" name="name"
@@ -121,4 +138,31 @@
 @endsection
 
 @section('js')
+    <script>
+        function previewImages(event) {
+            const imagePreviewContainer = document.getElementById('image-preview');
+            imagePreviewContainer.innerHTML = ""; // Clear existing previews
+
+            const files = event.target.files;
+            const maxFiles = 3;
+            const filesToPreview = Array.from(files).slice(0, maxFiles); // Limit to 3 files
+
+            filesToPreview.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.style.maxWidth = '100px';
+                    img.style.maxHeight = '100px';
+                    img.src = e.target.result;
+                    imagePreviewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
+
+            // If more than 3 files are selected, show an alert
+            if (files.length > maxFiles) {
+                alert('You can only upload a maximum of 3 images.');
+            }
+        }
+    </script>
 @endsection

@@ -1,5 +1,5 @@
 {{-- @dd($productlist); --}}
-@dd($categorylist);
+{{-- @dd($categorylist); --}}
 @extends('layouts.CustomerLayout')
 @section('title')
     Shop
@@ -59,7 +59,7 @@
                     <a href="#">Link 2</a>
                     <a href="#">Link 3</a>
                 </div> --}}
-                <form action="{{ route('customer.shop.sortCategory') }}" method="GET" id="sortCateForm">
+                {{-- <form action="{{ route('customer.shop.sortCategory') }}" method="GET" id="sortCateForm">
                     @csrf
                     <select name="sort" id="sortCate" onchange="document.getElementById('sortCateForm').submit()">
                         @foreach ($collection as $item)
@@ -68,7 +68,7 @@
                         @endforeach
 
                     </select>
-                </form>
+                </form> --}}
             </div>
             <div class="shop-dropdown">
                 <form action="{{ route('customer.shop.sortPrice') }}" method="GET" id="sortPriceForm">
