@@ -31,13 +31,13 @@
     </div>
     <div class="item-detail">
         <div class="detail-img">
-
-            <img src="{{ asset('img/products/' . $product_image[0]->image) }}" alt="">
+            <img src="{{ asset('img/products/' . $productImages[0]->image) }}" alt="">
         </div>
 
+
         <div class="detail-info">
-            <h2>{{ $products->name }}</h2>
-            <p class="item-price-detail"><b>{{ $products->price }} MMK</b></p>
+            <h2>{{ $product->name }}</h2>
+            <p class="item-price-detail"><b>{{ $product->price }} MMK</b></p>
             <p class="item-text">
                 The All in One Fully Upholstered Shelter Queen Bed upholstered bed is designed to add a contemporary
                 flair to many of today's modern homes. The button tufted headboard is inset w/two wings, giving it a
@@ -49,21 +49,17 @@
                 </div>
 
                 <div class="detail-btn">
-                    <form action="{{ route('cart.add', $products->id) }}" method="POST">
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
                         @csrf
                         <button type="submit">Add To Cart</button>
                     </form>
-
-                    {{-- <button type="submit">ADD TO CART</button> --}}
-
-
                     <button><a href="">BUY IT NOW</a></button>
                 </div>
             </div>
 
             <p>
-                SKU: {{ $products->code_name }}<br>
-                Categories:{{ $categorylist->name }} <br>
+                SKU: {{ $product->code_name }}<br>
+                Categories:{{ $category->name }} <br>
                 Tags: theme-sky, upstore, WooCommerce, WordPress
             </p>
             <div class="detail-social-icon">
@@ -75,11 +71,19 @@
 
             </div>
         </div>
+        @if (isset($productImages[1]->image) && $productImages[2]->image)
+            <div class="sm-img">
+                <div class="detail-img">
+                    <img src="{{ asset('img/products/' . $productImages[1]->image) }}" alt="">
+                </div>
+                <div class="detail-img">
+                    <img src="{{ asset('img/products/' . $productImages[2]->image) }}" alt="">
+                </div>
+            </div>
+        @else
+            <div></div>
+        @endif
 
-        {{-- <div class="sm-img">
-            <img src="/images/Detail/modway olivia bed detail.png" alt="">
-            <img src="/images/shop/modwayy.jpg" alt="">
-        </div> --}}
 
     </div>
 
@@ -91,7 +95,7 @@
 
         <div id="description" class="menu">
             <p>
-                {{ $products->description }}
+                {{ $product->description }}
                 <br>
                 <b>Features</b> <br>
             </p>
@@ -108,7 +112,7 @@
         </div>
         <div id="additional" class="menu" style="display: none">
             <p class="cutoff-text">
-                {{ $products->additionalinfo }}
+                {{ $product->additionalinfo }}
             </p>
             <input class="expand-btn" type="checkbox">
         </div>

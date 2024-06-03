@@ -20,7 +20,7 @@
         <div class="input">
             <form
                 action="{{ $updatestatus == true ? route('CategoryUpdate', $categorydata->id) : route('CategoryCreateProcess') }}"
-                method="post">
+                method="post" enctype="multipart/form-data">
                 @csrf
                 @if ($updatestatus == true)
                     @method('PATCH')
@@ -29,6 +29,10 @@
                 <div class="category-name">
                     <label>Category Name</label>
                     <input type="text" name="name" value="{{ $updatestatus == true ? $categorydata->name : '' }}">
+                </div>
+                <div class="category-image">
+                    <label>Category Image</label>
+                    <input type="file" name="image" value="{{ $updatestatus == true ? $categorydata->image : '' }}">
                 </div>
                 <div class="btn-2">
                     <a class="button-link" href="{{ route('Category') }}">Cancle</a>

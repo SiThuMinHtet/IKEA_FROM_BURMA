@@ -39,6 +39,18 @@ class CodeSeeder extends Seeder
                 'name' => "CAB -",
             ],
 
+            [
+                'name' => "BLK -",
+            ],
+
+            [
+                'name' => "CHR -",
+            ],
+
+            [
+                'name' => "PLO -",
+            ],
+
         ];
         DB::table('codes')->insert($data);
     }

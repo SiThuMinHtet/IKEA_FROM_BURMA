@@ -24,37 +24,23 @@ class ProductImageRepository
     public function saveRecords($img, $uuid)
     {
         $total_img = count($img);
-        $product_data  = DB::table('products')->where('uuid', '=', $uuid)->get();
-        // dd($uuid);
+        $product_data  = DB::table('products')->where('uuid', '=', $uuid)->first();
 
         for ($i = 0; $i < $total_img; $i++) {
             $uuid = Str::uuid()->toString();
 
             $image = $uuid . '.' . $img[$i]->getClientOriginalExtension();
             $img[$i]->move(public_path('img/products/'), $image);
-            // dd($image);
-            if ($i == 0) {
-                $primary_img = new Product_photo();
-                $primary_img->product_id = $product_data[0]->id;
-                $primary_img->name = $product_data[0]->name;
-                $primary_img->primaryphoto     = true;
-                $primary_img->image = $image;
-                $primary_img->uuid = $uuid;
-                $primary_img->status = 'Active';
-                $primary_img->save();
-            } else {
-                $sec_img = new Product_photo();
-                $sec_img->product_id = $product_data[0]->id;
-                $sec_img->name = $product_data[0]->name;
-                $sec_img->primaryphoto     = false;
-                $sec_img->image = $image;
-                $sec_img->uuid = $uuid;
-                $sec_img->status = 'Active';
-                $sec_img->save();
-            }
-        }
 
-        return redirect()->route('ProductList');
+            $primary_img = new Product_photo();
+            $primary_img->product_id = $product_data->id;
+            $primary_img->name = $product_data->name;
+            $primary_img->primaryphoto = $i === 0;
+            $primary_img->image = $image;
+            $primary_img->uuid = $uuid;
+            $primary_img->status = 'Active';
+            $primary_img->save();
+        }
     }
 
     public function search(Request $request)

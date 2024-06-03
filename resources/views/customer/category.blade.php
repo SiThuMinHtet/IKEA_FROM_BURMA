@@ -16,7 +16,7 @@
     <div class="cata-nav">
         <a href="{{ route('CustomerHome') }}">Home</a>
         <a href="{{ route('Shop') }}">Shop</a>
-        <a href="{{ route('Category') }}">Bed</a>
+        <a href="{{ route('ShopCategory') }}">Bed</a>
 
         <h2>BED</h2>
     </div>
@@ -76,7 +76,7 @@
     <div class="shop-product-grid">
         <div id="bed" class="menu">
             <div class="shop-product-item shop-item-1">
-                <a href="{{ route('Detail') }}"><img src="images/shop/modwayy.jpg" alt="" />
+                <a href=""><img src="images/shop/modwayy.jpg" alt="" />
                     <p>Modway Olivia Bed</p>
                     <p>$1,200.00</p>
                 </a>

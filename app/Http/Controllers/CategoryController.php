@@ -41,7 +41,7 @@ class CategoryController extends Controller
     {
         // dd($id);
         $categorydata = DB::table('category')
-            ->select('id', 'name')
+            ->select('id', 'name', 'image')
             ->where('status', '=', 'Active')
             ->where('id', '=', $id)
             ->first();
@@ -52,8 +52,12 @@ class CategoryController extends Controller
     public function categoryupdate(Request $request)
     {
         $uuid = Str::uuid()->toString();
+
+        $image = $uuid . '.' . $request->image->extension();
+        $request->image->move(public_path('image/admin/categoryinfo'), $image);
         $categoryedit = Category::find($request->id);
         $categoryedit->name = $request->name;
+        $categoryedit->image = $image;
         $categoryedit->status = "Active";
         $categoryedit->uuid = $uuid;
         $categoryedit->update();

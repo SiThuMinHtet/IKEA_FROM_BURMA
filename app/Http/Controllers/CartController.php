@@ -16,55 +16,62 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            // Authenticated user
-            $userId = $user->id;
-
-            $product = Product::findOrFail($productId);
-            $productPhotos = $product->image;
-
-            $cartItem = Cart::where('customer_id', $userId)
-                ->where('product_id', $productId)
-                ->first();
-
-            if ($cartItem) {
-                $cartItem->quantity += 1;
-                $cartItem->totalprice = $cartItem->quantity * $product->price;
-            } else {
-                $cartItem = new Cart();
-                $cartItem->customer_id = $userId;
-                $cartItem->product_id = $productId;
-                $cartItem->quantity = 1;
-                $cartItem->totalprice = $product->price;
-                $cartItem->paymentmethod = 'not specified';
-                $cartItem->uuid = (string) Str::uuid();
-                $cartItem->status = 'pending';
-            }
-
-            $cartItem->save();
+            $this->handleAuthenticatedUserAddToCart($user->id, $productId);
         } else {
-            // Guest user
-            $cart = session()->get('cart', []);
-            $product = Product::findOrFail($productId);
-            $productPhotos = Product_photo::where('product_id', $productId)->get();
-
-            if (isset($cart[$productId])) {
-                $cart[$productId]['quantity'] += 1;
-                $cart[$productId]['totalprice'] = $cart[$productId]['quantity'] * $cart[$productId]['price'];
-            } else {
-                $cart[$productId] = [
-                    'product_id' => $productId,
-                    'quantity' => 1,
-                    'price' => $product->price,
-                    'totalprice' => $product->price,
-                    'name' => $product->name,
-                    'photos' => $productPhotos->pluck('image')->toArray(),
-                ];
-            }
-
-            session()->put('cart', $cart);
+            $this->handleGuestUserAddToCart($productId);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+        return redirect()->route('Shop')->with('success', 'Product added to cart!');
+    }
+
+    private function handleAuthenticatedUserAddToCart($userId, $productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        $cartItem = Cart::where('customer_id', $userId)
+            ->where('product_id', $productId)
+            ->first();
+
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->totalprice = $cartItem->quantity * $product->price;
+        } else {
+            $cartItem = new Cart([
+                'customer_id' => $userId,
+                'product_id' => $productId,
+                'quantity' => 1,
+                'totalprice' => $product->price,
+                'paymentmethod' => 'not specified',
+                'uuid' => (string) Str::uuid(),
+                'status' => 'pending',
+            ]);
+        }
+
+        $cartItem->save();
+        session()->put('cart', Cart::where('customer_id', $userId)->get());
+    }
+
+    private function handleGuestUserAddToCart($productId)
+    {
+        $cart = session()->get('cart', []);
+        $product = Product::findOrFail($productId);
+        $productPhotos = Product_photo::where('product_id', $productId)->pluck('image')->toArray();
+
+        if (isset($cart[$productId])) {
+            $cart[$productId]['quantity'] += 1;
+            $cart[$productId]['totalprice'] = $cart[$productId]['quantity'] * $cart[$productId]['price'];
+        } else {
+            $cart[$productId] = [
+                'product_id' => $productId,
+                'quantity' => 1,
+                'price' => $product->price,
+                'totalprice' => $product->price,
+                'name' => $product->name,
+                'photos' => $productPhotos,
+            ];
+        }
+
+        session()->put('cart', $cart);
     }
 
     public function increaseQuantity(Request $request, $id)
@@ -72,19 +79,9 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            $cartItem = Cart::find($id);
-            if ($cartItem) {
-                $cartItem->quantity += 1;
-                $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
-                $cartItem->save();
-            }
+            $this->handleAuthenticatedUserQuantityChange($id, 1);
         } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id])) {
-                $cart[$id]['quantity'] += 1;
-                $cart[$id]['totalprice'] = $cart[$id]['quantity'] * $cart[$id]['price'];
-                session()->put('cart', $cart);
-            }
+            $this->handleGuestUserQuantityChange($id, 1);
         }
 
         return redirect()->back();
@@ -95,22 +92,32 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            $cartItem = Cart::find($id);
-            if ($cartItem && $cartItem->quantity > 1) {
-                $cartItem->quantity -= 1;
-                $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
-                $cartItem->save();
-            }
+            $this->handleAuthenticatedUserQuantityChange($id, -1);
         } else {
-            $cart = session()->get('cart', []);
-            if (isset($cart[$id]) && $cart[$id]['quantity'] > 1) {
-                $cart[$id]['quantity'] -= 1;
-                $cart[$id]['totalprice'] = $cart[$id]['quantity'] * $cart[$id]['price'];
-                session()->put('cart', $cart);
-            }
+            $this->handleGuestUserQuantityChange($id, -1);
         }
 
         return redirect()->back();
+    }
+
+    private function handleAuthenticatedUserQuantityChange($id, $amount)
+    {
+        $cartItem = Cart::find($id);
+        if ($cartItem && ($amount > 0 || $cartItem->quantity > 1)) {
+            $cartItem->quantity += $amount;
+            $cartItem->totalprice = $cartItem->quantity * $cartItem->product->price;
+            $cartItem->save();
+        }
+    }
+
+    private function handleGuestUserQuantityChange($id, $amount)
+    {
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id]) && ($amount > 0 || $cart[$id]['quantity'] > 1)) {
+            $cart[$id]['quantity'] += $amount;
+            $cart[$id]['totalprice'] = $cart[$id]['quantity'] * $cart[$id]['price'];
+            session()->put('cart', $cart);
+        }
     }
 
     public function index()
@@ -118,8 +125,7 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            $userId = $user->id;
-            $cartItems = Cart::where('customer_id', $userId)->with('product')->get();
+            $cartItems = Cart::where('customer_id', $user->id)->with('product')->get();
         } else {
             $cartItems = session()->get('cart', []);
         }
@@ -132,8 +138,7 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            $cartItem = Cart::findOrFail($cartItemId);
-            $cartItem->delete();
+            Cart::findOrFail($cartItemId)->delete();
         } else {
             $cart = session()->get('cart', []);
             if (isset($cart[$cartItemId])) {
@@ -143,5 +148,18 @@ class CartController extends Controller
         }
 
         return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
+    }
+
+    public function checkout()
+    {
+        $user = Auth::guard('customer')->user();
+
+        if ($user) {
+            $cartItems = Cart::where('customer_id', $user->id)->with('product')->get();
+        } else {
+            $cartItems = session()->get('cart', []);
+        }
+
+        return view('customer.checkout', compact('cartItems', 'user'));
     }
 }

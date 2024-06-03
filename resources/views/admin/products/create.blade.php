@@ -45,22 +45,23 @@
                             @endif
                         </div> --}}
                         <div class="image">
-                            @if ($updateStatus == true && !empty($product_images))
-                                @foreach ($product_image as $image)
-                                    <img style="max-width: 100px; max-height: 100px"
-                                        src="{{ asset('img/products/' . $image->image) }}" alt="">
-                                @endforeach
-                            @endif
+                            <div id="existing-images" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                @if ($updateStatus == true && !empty($product_image))
+                                    @foreach ($product_image as $image)
+                                        <img style="max-width: 100px; max-height: 100px"
+                                            src="{{ asset('img/products/' . $image->image) }}" alt="">
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <!-- Preview of newly uploaded images will be displayed here -->
+                            </div>
 
-                            <label for="image">Images</label>
+                            <label for="image">Upload Images</label>
                             <input type="file" id="image" name="image[]" multiple onchange="previewImages(event)">
 
-                            <div id="image-preview" style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                <!-- Preview of uploaded images will be displayed here -->
-                            </div>
+
                         </div>
-
-
 
                         <div class="input product-name">
                             <label for="name">Product Name</label>
@@ -140,8 +141,14 @@
 @section('js')
     <script>
         function previewImages(event) {
+            const existingImagesContainer = document.getElementById('existing-images');
             const imagePreviewContainer = document.getElementById('image-preview');
-            imagePreviewContainer.innerHTML = ""; // Clear existing previews
+
+            // Hide existing images
+            existingImagesContainer.style.display = 'none';
+
+            // Clear the previous previews
+            imagePreviewContainer.innerHTML = "";
 
             const files = event.target.files;
             const maxFiles = 3;

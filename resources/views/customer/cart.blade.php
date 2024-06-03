@@ -1,5 +1,3 @@
-{{-- @dd($cartItems); --}}
-{{-- {{ dd($cart) }} --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +17,7 @@
 
     <div class="table-wrapper">
         <table>
-            <caption>Your selection(1 item)</caption>
+            <caption>Your selection({{ count($cartItems) }} items)</caption>
             <tr>
                 <th id="product">Product</th>
                 <th>Price</th>
@@ -27,114 +25,110 @@
                 <th>Total</th>
             </tr>
 
-            @if (auth('customer')->check())
-                @foreach ($cartItems as $cartItem)
-                    <tr>
-                        <td class="product_image">
-                            <div>
-                                <form action="{{ route('cart.removeItem', $cartItem->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit">Remove</button>
-                                </form>
-                            </div>
-                            <div>
-                                @foreach ($cartItem->product->photos as $photo)
-                                    <img src="{{ asset('img/products/' . $photo->image) }}" alt="{{ $photo->name }}"
-                                        width="100">
-                                @endforeach
-                            </div>
-                            <div>
-                                <p>{{ $cartItem->product->name }}</p>
-                            </div>
-                        </td>
-                        <td>
-                            {{ $cartItem->product->price }}
-                        </td>
-                        <td>
-                            <div class="quantity">
+            @if (count($cartItems) > 0)
+                @if (auth('customer')->check())
+                    @foreach ($cartItems as $cartItem)
+                        <tr>
+                            <td class="product_image">
                                 <div>
-                                    {{ $cartItem->quantity }}
-                                </div>
-                                <div class="plusminus">
-                                    <form action="{{ route('cart.increase', $cartItem->id) }}" method="POST">
+                                    <form action="{{ route('cart.remove', $cartItem->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit">+</button>
-                                    </form>
-                                    <form action="{{ route('cart.decrease', $cartItem->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit">-</button>
+                                        <button type="submit">Remove</button>
                                     </form>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            {{ $cartItem->totalprice }}
-                        </td>
-                    </tr>
-                @endforeach
-            @else
-                {{-- @dd($productPhotos); --}}
-                @foreach ($cartItems as $productId => $cartItem)
-                    <tr>
-                        <td class="product_image">
-                            <div>
-                                <form action="{{ route('cart.removeItem', $productId) }}" method="POST">
-                                    @csrf
-                                    <button type="submit">Remove</button>
-                                </form>
-                            </div>
-                            <div>
-                                @if (isset($cartItem['photos']) && !empty($cartItem['photos']))
-                                    @foreach ($cartItem['photos'] as $photo)
-                                        <img src="{{ asset('img/products/' . $photo) }}" alt="Product Photo"
-                                            width="100">
+                                <div>
+                                    @foreach ($cartItem->product->photos as $photo)
+                                        <img src="{{ asset('img/products/' . $photo->image) }}"
+                                            alt="{{ $photo->name }}" width="100">
                                     @endforeach
-                                @else
-                                    <p>No photos available</p>
-                                @endif
-                            </div>
-                            <div>
-                                <p>{{ $cartItem['name'] }}</p>
-                            </div>
-                        </td>
-                        <td>
-                            {{ $cartItem['price'] }}
-                        </td>
-                        <td>
-                            <div class="quantity">
+                                </div>
                                 <div>
-                                    {{ $cartItem['quantity'] }}
+                                    <p>{{ $cartItem->product->name }}</p>
                                 </div>
-                                <div class="plusminus">
-                                    <form action="{{ route('cart.increase', $productId) }}" method="POST">
+                            </td>
+                            <td>{{ $cartItem->product->price }}</td>
+                            <td>
+                                <div class="quantity">
+                                    <div>{{ $cartItem->quantity }}</div>
+                                    <div class="plusminus">
+                                        <form action="{{ route('cart.increase', $cartItem->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit">+</button>
+                                        </form>
+                                        <form action="{{ route('cart.decrease', $cartItem->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit">-</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ $cartItem->totalprice }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    @foreach ($cartItems as $productId => $cartItem)
+                        <tr>
+                            <td class="product_image">
+                                <div>
+                                    <form action="{{ route('cart.remove', $productId) }}" method="POST">
                                         @csrf
-                                        <button type="submit">+</button>
-                                    </form>
-                                    <form action="{{ route('cart.decrease', $productId) }}" method="POST">
-                                        @csrf
-                                        <button type="submit">-</button>
+                                        <button type="submit">Remove</button>
                                     </form>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            {{ $cartItem['totalprice'] }}
-                        </td>
-                    </tr>
-                @endforeach
+                                <div>
+                                    @if (isset($cartItem['photos']) && !empty($cartItem['photos']))
+                                        @foreach ($cartItem['photos'] as $photo)
+                                            <img src="{{ asset('img/products/' . $photo) }}" alt="Product Photo"
+                                                width="100">
+                                        @endforeach
+                                    @else
+                                        <p>No photos available</p>
+                                    @endif
+                                </div>
+                                <div>
+                                    <p>{{ $cartItem['name'] }}</p>
+                                </div>
+                            </td>
+                            <td>{{ $cartItem['price'] }}</td>
+                            <td>
+                                <div class="quantity">
+                                    <div>{{ $cartItem['quantity'] }}</div>
+                                    <div class="plusminus">
+                                        <form action="{{ route('cart.increase', $productId) }}" method="POST">
+                                            @csrf
+                                            <button type="submit">+</button>
+                                        </form>
+                                        <form action="{{ route('cart.decrease', $productId) }}" method="POST">
+                                            @csrf
+                                            <button type="submit">-</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ $cartItem['totalprice'] }}</td>
+                        </tr>
+                    @endforeach
+                @endif
+            @else
+                <tr>
+                    <td colspan="4" style="text-align: center;">
+                        <h1>Your Cart is Empty</h1>
+                    </td>
+                </tr>
             @endif
         </table>
     </div>
 
     <div class="cart-product-btn">
-        <div class="cart-left-btn">
-            <button><a href="{{ route('Checkout') }}">Proceed to Checkout</a></button>
-        </div>
-        <div class="cart-right-btn">
-            <button class="cart-right-btn-first">Clear All</button>
-            <button class="cart-right-btn-sec">Update Cart</button>
-        </div>
+        @if (count($cartItems) > 0)
+            <div class="cart-left-btn">
+                <button><a href="{{ route('checkout') }}" class="btn btn-primary">Proceed to Checkout</a></button>
+            </div>
+            <div class="cart-right-btn">
+                <button class="cart-right-btn-first">Clear All</button>
+                <button class="cart-right-btn-sec">Update Cart</button>
+            </div>
+        @endif
     </div>
 
     <div class="cart-wrapper">

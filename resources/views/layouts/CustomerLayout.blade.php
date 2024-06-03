@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    {{-- {{dd( count((array)session()->get('cart')))}} --}}
     <nav class="nav-link">
         <ul>
             <li>
@@ -40,7 +41,7 @@
 
             <div class="dropdown">
                 <button class="dropbtn">
-                    <a href="{{ route('Category') }}">Catagory</a>
+                    <a href="{{ route('ShopCategory') }}">Catagory</a>
                     <img src="images/greater-than-symbol.png" alt="" />
                 </button>
                 <div class="dropdown-content">
@@ -93,7 +94,25 @@
             </a>
             <a class="cart-img" href="{{ route('cart.index') }}">
                 <img src="{{ asset('image/customer/cart.png') }}" alt="" />
-                {{-- <span>{{count()}}</span> --}}
+                @if (session()->get('cart') == null)
+
+                    {{-- <span>{{count($number)}}</span> --}}
+                    @if (session()->get('cart') == null)
+                        <span>0</span>
+                    @else
+                        <span>{{ count((array) session()->get('cart')) }}</span>
+                    @endif
+                @else
+                    {{-- <span>{{count($number)}}</span> --}}
+                    @if (session()->get('cart') == null)
+                        <span>0</span>
+                    @else
+                        <span>{{ count(session()->get('cart')) }}</span>
+                    @endif
+                @endif
+
+
+
             </a>
         </div>
 

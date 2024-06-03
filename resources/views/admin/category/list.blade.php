@@ -29,6 +29,9 @@
                         Admin Name
                     </th>
                     <th>
+                        Image
+                    </th>
+                    <th>
                         Action
                     </th>
                 </tr>
@@ -36,6 +39,10 @@
                     <tr>
                         <td>
                             {{ $category->name }}
+                        </td>
+                        <td>
+                            <img style="max-height: 50px; max-width: 80px;"
+                                src="{{ asset('image/admin/categoryinfo/' . $category->image) }}" />
                         </td>
                         <td>
                             {{ auth('admin')->user()->name }}

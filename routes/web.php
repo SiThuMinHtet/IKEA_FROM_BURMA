@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\StripePaymentController;
 
 // Route::get('/', function () {
 //     return view('admin.dashboard');
@@ -23,12 +24,19 @@ Auth::routes();
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-//Route start
-// Route::middleware('auth')->group(function () {
-// });
+//Payment start
+Route::controller(StripePaymentController::class)->group(
+    function () {
+        Route::get('stripe', 'stripe');
+        Route::post('stripe', 'stripePost')->name('stripe.post');
+    }
+);
 
+//Payment end
 
-//Route end
+// web.php
+Route::get('/home/showlist', [CustomerHomeController::class, 'showlist'])->name('products.showlist');
+
 
 
 Route::get('/', [CustomerHomeController::class, 'customerhome'])->name('CustomerHome');
@@ -42,20 +50,25 @@ Route::post('/customerlist/create/process', [CustomerController::class, 'custome
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
-// Route::post('/cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.removeItem');
+
 Route::post('/cart/increase/{id}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
 Route::post('/cart/decrease/{id}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
-Route::post('/cart/remove/{id}', [CartController::class, 'removeItem'])->name('cart.removeItem');
+Route::post('cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.remove');
+
+Route::get('/shop/checkout', [CartController::class, 'checkout'])->name('checkout');
+
+Route::post('/checkout/process', [StripePaymentController::class, 'processPayment'])->name('checkout.process');
+Route::get('/order/success', [StripePaymentController::class, 'success'])->name('order.success');
 
 Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
-Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('Category');
+Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('ShopCategory');
 Route::get('/shop/blog', [CustomerHomeController::class, 'blog'])->name('Blog');
 Route::get('/shop/detail/{id}', [CustomerHomeController::class, 'detail'])->name('Detail');
 Route::get('/shop/detail/process', [CustomerHomeController::class, 'detailprocess'])->name('DetailProcess');
 Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About');
 Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
 Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');
-Route::get('/shop/checkout', [CustomerHomeController::class, 'checkout'])->name('Checkout');
+
 Route::get('/shop/sort', [CustomerHomeController::class, 'sort'])->name('customer.shop.sort');
 Route::get('/shop/sort/price', [CustomerHomeController::class, 'sortprice'])->name('customer.shop.sortPrice');
 Route::get('/shop/sort/category', [CustomerHomeController::class, 'sortcategory'])->name('customer.shop.sortCategory');

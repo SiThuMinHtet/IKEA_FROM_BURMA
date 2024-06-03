@@ -18,4 +18,14 @@ class Cart extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
+
+    protected $fillable = [
+        'customer_id',
+        'product_id',
+        'quantity',
+        'totalprice',
+        'paymentmethod',
+        'uuid',
+        'status',
+    ];
 }

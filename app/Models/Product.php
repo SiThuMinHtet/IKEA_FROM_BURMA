@@ -12,4 +12,9 @@ class Product extends Model
     {
         return $this->hasMany(Product_Photo::class);
     }
+
+    public function code()
+    {
+        return $this->belongsTo(Code::class);
+    }
 }
