@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-   
+
 
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/carousel.css') }}">
@@ -19,7 +19,7 @@
 
 <body>
     <div class="about-home">
-        <a href="{{route('CustomerHome')}}">HOME</a>
+        <a href="{{ route('CustomerHome') }}">HOME</a>
     </div>
 
     <div class="our-story">
@@ -34,7 +34,7 @@
         </div>
 
         <div>
-            <img src="images/about/stool.png" alt="">
+            <img src="{{ asset('image/customer/about/stool.png') }}" alt="">
         </div>
     </div>
 
@@ -42,27 +42,27 @@
         <h1>OUR GREAT TEAM</h1>
         <div class="our-great-team-grid">
             <div class="grid-img">
-                <img src="images/about/frances.png" alt="">
+                <img src="{{ asset('image/customer/about/frances.png') }}" alt="">
                 <h4>Frances Rodriguez <br> Designer</h4>
             </div>
             <div class="grid-img">
-                <img src="images/about/martha.png" alt="">
+                <img src="{{ asset('image/customer/about/martha.png') }}" alt="">
                 <h4>Martha Garza <br> CEO</h4>
             </div>
             <div class="grid-img">
-                <img src="images/about/willie.jpg" alt="">
+                <img src="{{ asset('image/customer/about/willie.jpg') }}" alt="">
                 <h4>Willie Robertson <br> Photographer</h4>
             </div>
             <div class="grid-img">
-                <img src="images/about/jean.jpg" alt="">
+                <img src="{{ asset('image/customer/about/jean.jpg') }}" alt="">
                 <h4>Jean Kelley <br> Co-Founder</h4>
             </div>
             <div class="grid-img">
-                <img src="images/about/douglas.jpg" alt="">
+                <img src="{{ asset('image/customer/about/douglas.jpg') }}" alt="">
                 <h4>Douglas Dean <br> Technical Manager</h4>
             </div>
             <div class="grid-img">
-                <img src="images/about/alexander.jpg" alt="">
+                <img src="{{ asset('image/customer/about/alexander.jpg') }}" alt="">
                 <h4>Alexander Fields <br> Art Director</h4>
             </div>
 
@@ -71,7 +71,7 @@
 
     <div class="testimonial">
         <div class="testimonial-img">
-            <img src="images/about/douglas.jpg" alt="">
+            <img src="{{ asset('image/customer/about/douglas.jpg') }}" alt="">
         </div>
         <div>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia praesentium similique saepe tenetur velit
@@ -88,28 +88,28 @@
         <h1>OUR SERVICES</h1>
         <div class="our-services-grid">
             <div class="our-service-item grid-1">
-                <img src="images/about/easy payment.png" alt="">
+                <img src="{{ asset('image/customer/about/easy payment.png') }}" alt="">
                 <h2>EASY PAYMENT</h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum voluptatum excepturi sunt cumque
                     ipsam.
                 </p>
             </div>
             <div class="our-service-item grid-2">
-                <img src="images/about/worldwide shipping.png" alt="">
+                <img src="{{ asset('image/customer/about/worldwide shipping.png') }}" alt="">
                 <h2>WORLDWIDE SHIPPING</h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum voluptatum excepturi sunt cumque
                     ipsam.
                 </p>
             </div>
             <div class="our-service-item grid-3">
-                <img src="images/about/24 7 support.png" alt="">
+                <img src="{{ asset('image/customer/about/24 7 support.png') }}" alt="">
                 <h2>24/7 SUPPORT</h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum voluptatum excepturi sunt cumque
                     ipsam.
                 </p>
             </div>
             <div class="our-service-item grid-4">
-                <img src="images/about/amazing offers.png" alt="">
+                <img src="{{ asset('image/customer/about/amazing offers.png') }}" alt="">
                 <h2>AMAZING offers</h2>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum voluptatum excepturi sunt cumque
                     ipsam.

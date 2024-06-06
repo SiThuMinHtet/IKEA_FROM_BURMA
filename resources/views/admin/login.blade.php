@@ -31,9 +31,7 @@
                     <label for="password">Password</label> <br>
                     <input type="password" name="password" id="password" size="40">
                 </div>
-                <!-- <button><a href="dashboard.html">Login</a></button> -->
                 <div>
-                    {{-- <a href="dashboard.html">Login</a> --}}
                     <button type="submit">Login</button>
                 </div>
 

@@ -53,7 +53,18 @@
 
         <div class="shop-nav-right">
             <div class="shop-dropdown">
-
+                <form action="{{ route('customer.shop.sortCategory') }}" method="GET" id="sortCateForm">
+                    @csrf
+                    <select name="sortCate" id="sortCate" onchange="document.getElementById('sortCateForm').submit()">
+                        <option value="category" {{ request('sortCate') == 'category' ? 'selected' : '' }}>Category
+                        </option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"
+                                {{ request('sortCate') == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
             <div class="shop-dropdown">
                 <form action="{{ route('customer.shop.sortPrice') }}" method="GET" id="sortPriceForm">
@@ -69,8 +80,18 @@
                     </select>
                 </form>
             </div>
+            <div class="shop-dropdown">
+                <form action="{{ route('customer.shop.sort') }}" method="GET" id="sortForm">
+                    @csrf
+                    <select name="sort" id="sortSelect" onchange="document.getElementById('sortForm').submit()">
+                        <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Sort by Latest</option>
+                        <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Sort by Popularity
+                        </option>
+                    </select>
+                </form>
+            </div>
         </div>
-        <div class="shop-dropdown">
+        {{-- <div class="shop-dropdown">
             <button class="shop-dropbtn">COLOR <img src="images/greater-than-symbol.png" alt=""></button>
             <div class="shop-dropdown-content">
                 <a href="#">Link 1</a>
@@ -85,17 +106,8 @@
                 <a href="#">Link 2</a>
                 <a href="#">Link 3</a>
             </div>
-        </div>
-        <div class="shop-dropdown">
-            <form action="{{ route('customer.shop.sort') }}" method="GET" id="sortForm">
-                @csrf
-                <select name="sort" id="sortSelect" onchange="document.getElementById('sortForm').submit()">
-                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Sort by Latest</option>
-                    <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Sort by Popularity
-                    </option>
-                </select>
-            </form>
-        </div>
+        </div> --}}
+
     </div>
     </div>
     {{-- @dd($productList[0]->image); --}}

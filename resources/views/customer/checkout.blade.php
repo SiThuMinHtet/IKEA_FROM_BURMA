@@ -20,8 +20,8 @@
 
     <div class="checkout-left">
         <div class="billing-details">
-            <p><b>Billing Details</b></p>
-            <form action="{{ route('checkout.process') }}" method="POST" id="payment-form">
+            <p><b>Billing Details</b> <b>Have an account? <a href="{{ route('CustomerLogin') }}">Login</a></b></p>
+            <form action="{{ route('checkout.store') }}" method="POST">
                 @csrf
                 <div>
                     <label for="name">User Name</label>
@@ -44,13 +44,7 @@
                     <input type="tel" id="phone" name="phone" value="{{ old('phone', $user->phone ?? '') }}">
                 </div>
 
-                <div class="form-group">
-                    <label for="card-element">Credit or Debit Card</label>
-                    <div id="card-element"></div>
-                    <div id="card-errors" role="alert"></div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit Payment</button>
+                <button type="submit" class="btn btn-primary">Place Order</button>
             </form>
         </div>
 
@@ -99,71 +93,13 @@
                 <p>${{ $subtotal }}</p>
             </div>
 
-            <input id="check-payment" type="radio">
-            <label for="check-payment">Check Payments</label>
-
             <div class="your-order-img">
                 <img src="{{ asset('image/customer/visa.png') }}" alt="">
                 <img src="{{ asset('image/customer/master.png') }}" alt="">
                 <img src="{{ asset('image/customer/mpu.png') }}" alt="">
             </div>
-
-            <div class="your-order-btn">
-                <button>Place Order</button>
-            </div>
         </div>
     </div>
-
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log('Stripe script loaded'); // Debug statement
-
-            var stripe = Stripe('{{ env('STRIPE_KEY') }}');
-            var elements = stripe.elements();
-            var card = elements.create('card');
-            card.mount('#card-element');
-
-            card.addEventListener('change', function(event) {
-                var displayError = document.getElementById('card-errors');
-                if (event.error) {
-                    displayError.textContent = event.error.message;
-                } else {
-                    displayError.textContent = '';
-                }
-            });
-
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                console.log('Form submitted'); // Debug statement
-
-                stripe.createToken(card).then(function(result) {
-                    if (result.error) {
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        console.log('Token created:', result.token); // Debug statement
-                        stripeTokenHandler(result.token);
-                    }
-                });
-            });
-
-            function stripeTokenHandler(token) {
-                console.log('Handling token:', token); // Debug statement
-
-                var form = document.getElementById('payment-form');
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-
-                form.submit();
-            }
-        });
-    </script>
-
 </body>
 
 </html>

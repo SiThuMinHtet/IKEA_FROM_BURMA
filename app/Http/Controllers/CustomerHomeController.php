@@ -42,8 +42,9 @@ class CustomerHomeController extends Controller
             ->select('products.*', 'category.name as category', 'product_photos.image')
             ->orderBy('id', 'desc')
             ->get();
-
-        return view('customer.shop.shop', compact('productList'));
+        $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
+        // dd($categories);
+        return view('customer.shop.shop', compact('productList', 'categories'));
     }
 
     public function category()
@@ -88,6 +89,25 @@ class CustomerHomeController extends Controller
         dd($request->sort);
     }
 
+    // public function sort(Request $request)
+    // {
+    //     $productList = DB::table('products')
+    //         ->join('category', 'category.id', '=', 'products.category_id')
+    //         ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
+    //         ->select('products.*', 'category.name as category', 'product_photos.image');
+
+    //     if ($request->sortPrice === 'High2Low') {
+    //         $productList = $productList->orderBy('price', 'desc');
+    //     } elseif ($request->sortPrice === 'Low2High') {
+    //         $productList = $productList->orderBy('price', 'asc');
+    //     }
+
+    //     $productList = $productList->get();
+    //     $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
+    //     return view('customer.shop.shop', compact('productList', 'categories'));
+    // }
+
+
     public function sortprice(Request $request)
     {
         $productList = DB::table('products')
@@ -100,18 +120,28 @@ class CustomerHomeController extends Controller
         } elseif ($request->sortPrice === 'Low2High') {
             $productList = $productList->orderBy('price', 'asc');
         }
+        $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
 
         $productList = $productList->get();
 
-        return view('customer.shop.shop', compact('productList'));
+        return view('customer.shop.shop', compact('productList','categories'));
     }
 
     public function sortcategory(Request $request)
     {
-        $categoryList = Category::select('category.id', 'category.name')
-            ->join('products', 'category.id', '=', 'products.category_id')
+        $category = $request->sortCate;
+        $productList = DB::table('products')
+            ->join('category', 'category.id', '=', 'products.category_id')
+            ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
+            ->where('products.category_id', '=', $category)
+            ->select('products.*', 'category.name as category', 'product_photos.image')
             ->get();
 
-        return view('customer.shop.shop', compact('categoryList'));
+        // dd(
+        //     $productList
+        // );
+        $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
+
+        return view('customer.shop.shop', compact('productList','categories'));
     }
 }

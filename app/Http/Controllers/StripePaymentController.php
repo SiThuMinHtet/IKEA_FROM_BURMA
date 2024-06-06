@@ -16,17 +16,28 @@ use Illuminate\Support\Str;
 
 class StripePaymentController extends Controller
 {
+
+    public function index()
+    {
+        $user = Auth::guard('customer')->user();
+        $cartItems = $user ? Cart::where('customer_id', $user->id)->with('product')->get() : session()->get('cart', []);
+        $checkoutDetails = session()->get('checkout_details', []);
+        // dd($checkoutDetails);
+        return view('customer.payment', compact('cartItems', 'checkoutDetails', 'user'));
+    }
+
     public function processPayment(Request $request)
     {
-        Log::info('Processing payment');  // Debug statement
+        Log::info('Processing payment', ['request_data' => $request->all()]);  // Debug statement
 
         $user = Auth::guard('customer')->user();
         $cartItems = $user ? Cart::where('customer_id', $user->id)->with('product')->get() : session()->get('cart', []);
-        // dd($cartItems);
+        $checkoutDetails = session()->get('checkout_details', []);
+        // dd($checkoutDetails['name']);
 
         // Calculate total price
+        // dd($cartItems);
         $totalPrice = 0;
-
         foreach ($cartItems as $item) {
             if (is_array($item) && isset($item)) {
                 $totalPrice += $item['quantity'] * $item['price'];
@@ -45,16 +56,19 @@ class StripePaymentController extends Controller
                 'metadata' => ['order_id' => Str::uuid()->toString()],
             ]);
 
+            $OTP = false;
             $customer = $user;
             if (!$user) {
+
+                $OTP = true;
                 // Create Customer for guest user
                 Log::info('Creating customer');  // Debug statement
                 $uuid = Str::uuid()->toString();
                 $customer = new Customer();
-                $customer->name = $request->name;
-                $customer->email = $request->email;
-                $customer->address = $request->address;
-                $customer->phone = $request->phone;
+                $customer->name = $checkoutDetails['name'];
+                $customer->email = $checkoutDetails['email'];
+                $customer->address = $checkoutDetails['address'];
+                $customer->phone = $checkoutDetails['phone'];
                 $customer->uuid = $uuid;
                 $customer->joining_date = Carbon::now();
                 $customer->password = '123456';
@@ -62,30 +76,36 @@ class StripePaymentController extends Controller
                 $customer->save();
             }
 
+            if ($OTP == true) {
+                $payment = "OTP";
+            } else {
+                $payment = "CARD";
+            }
+
             // Create Order
             Log::info('Creating order');  // Debug statement
             $order = new Order();
-            $order->paymentmethod = 'stripe';
+            $order->paymentmethod = $payment;
             $order->customer_id = $customer ? $customer->id : null;
             $order->totalprice = $totalPrice;
-            $order->name = $request->name;
-            $order->deliveryaddress = $request->address;
-            $order->buyerphone = $request->phone;
-            $order->buyeremail = $request->email;
-            $order->buyername = $request->name;
+            $order->name = $checkoutDetails['name'];
+            $order->deliveryaddress = $checkoutDetails['address'];
+            $order->buyerphone = $checkoutDetails['phone'];
+            $order->buyeremail = $checkoutDetails['email'];
+            $order->buyername = $checkoutDetails['name'];
             $order->uuid = (string) Str::uuid();
-            $order->status = 'completed';
+            $order->status = 'pending';
             $order->save();
 
             // Create OrderProduct entries
             Log::info('Creating order products');  // Debug statement
             foreach ($cartItems as $item) {
-                if (is_array($item) && isset($item['product'])) {
+                if (is_array($item) && isset($item)) {
                     $orderProduct = new OrderProduct();
                     $orderProduct->order_id = $order->id;
                     $orderProduct->product_id = $item['product_id'];
                     $orderProduct->qty = $item['quantity'];
-                    $orderProduct->price = $item['product']['price'];
+                    $orderProduct->price = $item['price'];
                     $orderProduct->uuid = (string) Str::uuid();
                     $orderProduct->status = 'completed';
                     $orderProduct->save();

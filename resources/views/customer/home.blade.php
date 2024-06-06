@@ -5,50 +5,9 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        .tab-menu {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-            cursor: pointer;
-        }
-
-        .tab-menu li {
-            padding: 10px 20px;
-            margin-right: 10px;
-        }
-
-        .tab-menu li.active {
-            color: red;
-        }
-
-        .products {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            /* padding: 0 100px; */
-        }
-
-        .products a {
-            text-decoration: none;
-            color: black;
-            transition: transform .2s;
-        }
-
-        .products a:hover {
-            transform: scale(1.1);
-        }
-
-        .product {
-            width: 300px;
-            margin: 10px;
-            padding: 10px;
-        }
-
-        .product img {
-            width: 100%;
-        }
     </style>
 @endsection
 
@@ -56,20 +15,21 @@
 @section('content')
     <!-- Hero Section -->
     <div class="hero-container">
-        @foreach (['hero-img.jpg', 'blue sofa.jpg', 'gray sofa.jpg'] as $image)
+        @foreach (['hero-img.jpg', 'blue sofa.jpg', 'gray sofa.jpg', 'hero.jpg'] as $image)
             <div class="mySlides fade">
                 <img src="{{ asset('image/customer/' . $image) }}" alt="" />
             </div>
         @endforeach
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <a class="next" onclick="plusSlides(-1)"><i class="fa-solid fa-circle-arrow-right"
+                style="color: #ff0000;"></i></a>
+        <a class="prev" onclick="plusSlides(1)"><i class="fa-solid fa-circle-arrow-left" style="color: #ff0000;"></i></a>
         <div class="hero-container-inner">
             <h3>SALE OFF 30%</h3>
             <h1>Classic 2023 Interior Designs</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <a href="{{ route('Shop') }}">
-                <div>Shop Now</div>
-                <div><i class="fa-solid fa-arrow-right-long"></i></div>
+                Shop Now
+                <i class="fa-solid fa-arrow-right-long"></i>
             </a>
         </div>
     </div>
@@ -92,6 +52,7 @@
     <div class="new-product">
         <h1>NEW PRODUCTS</h1>
         <ul class="tab-menu">
+            {{-- @dd($categories); --}}
             @foreach ($categories as $category)
                 <li data-category-id="{{ $category->id }}">{{ $category->name }}</li>
             @endforeach
@@ -105,16 +66,23 @@
                             <img src="{{ asset('img/products/' . $photo->image) }}" alt="{{ $product->name }}"
                                 width="100">
                         @endforeach
+
+                        <div class="overlay">
+                            <i class="fa-solid fa-eye"></i>
+                            <p>Quick View</p>
+                        </div>
+
                         <h3>{{ $product->name }}</h3>
                         <p>${{ $product->price }}</p>
+
                     </div>
+
                 </a>
             @endforeach
-        </div>
-    </div>
 
-    <div class="new-product-grid">
-        {{-- New product items will be displayed here --}}
+
+
+        </div>
     </div>
 
     <!-- Up to 60% Off Section -->
@@ -133,7 +101,7 @@
                 </div>
             </div>
             <div class="couch-img">
-                <img src="images/brown-couch.png" alt="" />
+                <img src="{{ asset('image/customer/brown-couch.png') }}" alt="" />
             </div>
         </div>
     </div>
@@ -144,7 +112,7 @@
         <div class="last-blog-grid">
             @foreach ([['card1.jpg', 'Nov 7, 2023', 'Blog.html', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'], ['card2.jpg', 'Nov 7, 2023', 'Blog.html', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.']] as $blog)
                 <div class="last-blog-card{{ $loop->iteration }}">
-                    <img src="images/{{ $blog[0] }}" alt="" />
+                    <img src="image/customer/{{ $blog[0] }}" alt="" />
                     <p>{{ $blog[1] }}</p>
                     <a href="{{ $blog[2] }}">
                         <h4>{{ $blog[3] }}</h4>
@@ -154,16 +122,18 @@
                         voluptatibus rem nam earum.</p>
                 </div>
             @endforeach
+
+
         </div>
     </div>
-
     <!-- Footer Section -->
     <footer class="footer-container">
         <div class="social-icon">
             @foreach (['facebook-line.svg', 'twitter-line.svg', 'flickr.svg', 'instagram.svg'] as $social)
-                <a href="#"><img src="images/{{ $social }}" alt="" /></a>
+                <a href="#"><img src="image/customer/{{ $social }}" alt="" /></a>
             @endforeach
         </div>
+
         <div class="social-middle">
             @foreach (['home.html' => 'Home', 'shop.html' => 'Shop', 'Blog.html' => 'Blog', 'about.html' => 'About Us', 'contact.html' => 'Contact Us'] as $link => $name)
                 <a href="{{ $link }}">{{ $name }}</a>
@@ -183,7 +153,7 @@
         </div>
         <div class="sec-footer-img">
             @foreach (['visa.svg', 'american express.svg', 'discover-2-removebg-preview.png', 'master.svg', 'paypal.svg'] as $payment)
-                <a href="#"><img src="images/{{ $payment }}" alt="" /></a>
+                <a href="#"><img src="image/customer/{{ $payment }}" alt="" /></a>
             @endforeach
         </div>
     </div>

@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\StripePaymentController;
 
 // Route::get('/', function () {
@@ -57,7 +58,14 @@ Route::post('cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->
 
 Route::get('/shop/checkout', [CartController::class, 'checkout'])->name('checkout');
 
-Route::post('/checkout/process', [StripePaymentController::class, 'processPayment'])->name('checkout.process');
+// Route::post('/checkout/process', [StripePaymentController::class, 'processPayment'])->name('checkout.process');
+
+
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/payment', [StripePaymentController::class, 'index'])->name('payment');
+Route::post('/process-payment', [StripePaymentController::class, 'processPayment'])->name('checkout.process');
 Route::get('/order/success', [StripePaymentController::class, 'success'])->name('order.success');
 
 Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
@@ -85,11 +93,6 @@ Route::middleware(['customer'])->group(function () {
 
 
 
-// Route::get('/login', [CustomerHomeController::class, 'login'])->name('CustomerLogin');
-// Route::get('/shop/cart', [CustomerHomeController::class, 'cart'])->name('Cart');
-// Route::get('product/list', [CustomerHomeController::class, 'productlist'])->name('ProductList');
-
-
 Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('AdminLogin');
 Route::post('/admin/loginprocess', [LoginController::class, 'login'])->name('LoginProcess');
 
@@ -99,6 +102,7 @@ Route::middleware(['admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         //order
         Route::get('/orderlist', [OrderController::class, 'list'])->name('OrderList');
+        Route::post('/updateorderstatus', [OrderController::class, 'updateOrderstatus'])->name('updateOrderstatus');
 
         Route::get('/logout', [loginController::class, 'Adminlogout'])->name('Admin.logout');
         //product

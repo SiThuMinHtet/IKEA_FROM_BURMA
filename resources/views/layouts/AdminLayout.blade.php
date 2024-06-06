@@ -22,7 +22,7 @@
 
         <ul class="nav_list">
             <li>
-                <a href="">
+                <a href="{{ route('Dashboard') }}">
                     <img src="{{ asset('image/admin/icons/dashboard.png') }}" alt="">
                     <span class="links_name">Dashboard</span>
                 </a>

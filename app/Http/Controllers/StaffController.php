@@ -6,6 +6,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Staff;
 use App\Repositories\StaffRepository;
 
@@ -105,7 +108,41 @@ class StaffController extends Controller
 
     public function showdashboard()
     {
-        return view('admin.dashboard');
+        $totalSales = Order::sum('totalprice');
+        $totalItems = OrderProduct::sum('qty');
+        $totalCustomers = Customer::count('id');
+        $totalOrders =  $totalItems;
+        $orderlist = DB::table('order_product')
+            ->join('orders', 'orders.id', '=', 'order_product.order_id')
+            ->join('products', 'products.id', '=', 'order_product.product_id')
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')
+            ->orderBy('orders.id', 'desc')
+            ->select('order_product.*', 'products.name as productname', 'customers.name as customername')
+            ->get();
+        // dd($totalCustomers);
+
+
+        // doughnut
+        $onetimeorder = Order::where('paymentmethod', '=', 'OTP')->count('id');
+        $ReguserOrder = Order::where('paymentmethod', '=', 'CARD')->count('id');
+
+
+        $salesData = DB::table('orders')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(totalprice) as total_amount'))
+            ->groupBy('month')
+            ->get();
+        // dd($salesData);
+
+        // array_fill(start_index, count, value)
+        $monthlySales = array_fill(0, 12, 0);
+
+        foreach ($salesData as $data) {
+            $monthlySales[$data->month - 1] = $data->total_amount;
+        }
+        // dd($monthlySales);
+        // dd($ReguserOrder);
+
+        return view('admin.dashboard', compact('totalSales', 'totalItems', 'totalCustomers', 'totalOrders', 'orderlist', 'onetimeorder', 'ReguserOrder', 'monthlySales'));
     }
 
     public function staffdelete($id)
