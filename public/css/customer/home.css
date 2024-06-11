@@ -172,8 +172,8 @@ body {
     width: 20px;
     align-items: center;
     justify-content: center;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 5px;
     z-index: 1;
     color: white;
  }
@@ -224,7 +224,7 @@ body {
 
 .hero-container-inner {
     top: 20px;
-    left: 600px;
+    left: 650px;
     position: absolute;
     width: 500px;
     height: 500px;

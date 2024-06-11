@@ -11,6 +11,14 @@
 </head>
 
 <body>
+    @php
+        $user = auth('customer')->user();
+        $updatestatus = false;
+        if (isset($user)) {
+            $updatestatus = true;
+        }
+        // dd($updatestatus);
+    @endphp
     <div class="detail-nav">
         <a href="{{ route('CustomerHome') }}">Home</a>
         <a href="">My Account</a>
@@ -18,70 +26,105 @@
 
 
     <div class="log-in-container">
-        <div class="log-in">
-            <h2>Login</h2>
-            <form action="{{ route('LoginProcess') }}" method="POST">
-                @csrf
-                <input type="hidden" value="customer" name="usertype">
-                <div>
-                    <label>Email address</label>
-                    <input type="text" required name="email">
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="text" required name="password">
-                </div>
+        @if ($updatestatus == false)
+            <div class="log-in">
+                <h2>Login</h2>
+                <form action="{{ route('LoginProcess') }}" method="POST">
+                    @csrf
+                    <input type="hidden" value="customer" name="usertype">
+                    <div>
+                        <label>Email address</label>
+                        <input type="text" name="email" value="{{ $updatestatus == true ? $user->email : '' }}">
+                    </div>
+                    @error('email')
+                        <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                    @enderror
+                    <div>
+                        <label>Password</label>
+                        <input type="text" name="password">
+                    </div>
+                    @error('password')
+                        <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                    @enderror
+                    <div>
+                        <button class="first-log-btn" type="submit">LOG IN</button>
+                        <button class="sec-log-btn">Remember me</button>
+                    </div>
+                    <a href="">Lost your password?</a>
+                </form>
+            </div>
+        @else
+            <div class="log-in">
+                <img src="{{ asset('image/customer/banner-9.png') }}" alt="">
+            </div>
+        @endif
 
-                <div>
-                    <button class="first-log-btn" type="submit">LOG IN</button>
-                    <button class="sec-log-btn">Remember me</button>
-                </div>
-                <a href="">Lost your password?</a>
-            </form>
 
-        </div>
 
         <div class="Register">
-            <h2>Register</h2>
-            <form action="{{ route('CustomerCreateProcess') }}" method="post" enctype="multipart/form-data">
+            <h2> {{ $updatestatus == true ? 'Update Profile' : 'Register' }}</h2>
+            <form action="{{ $updatestatus == true ? route('CustomerEditProcess') : route('CustomerCreateProcess') }}"
+                method="post" enctype="multipart/form-data">
                 @csrf
+                @if ($updatestatus == true)
+                    @method('PATCH')
+                @endif
+                <input type="hidden" name="id">
                 <div>
                     <label>Name</label>
-                    <input type="text" required name="name">
+                    <input type="text" name="name" value="{{ $updatestatus == true ? $user->name : '' }}">
                 </div>
+                @error('name')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label>Email address</label>
-                    <input type="text" required name="email">
+                    <input type="text" name="email" value="{{ $updatestatus == true ? $user->email : '' }}">
                 </div>
+                @error('email')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label>Password</label>
-                    <input type="text" required name="password">
+                    <input type="text" name="password">
                 </div>
+                @error('password')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label>Phone</label>
-                    <input type="text" required name="phone">
+                    <input type="text" name="phone" value="{{ $updatestatus == true ? $user->phone : '' }}">
                 </div>
+                @error('phone')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label>Image</label>
                     <input type="file" name="image">
                 </div>
+                @error('image')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label>Address</label>
-                    {{-- <textarea name="address" id="" cols="30" rows="10"></textarea> --}}
-                    <input type="text" required name="address">
+                    <input type="text" name="address" value="{{ $updatestatus == true ? $user->address : '' }}">
                 </div>
+                @error('address')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
 
                 <div>
                     <label>Joining Date</label>
-                    <input type="date" required name="joining_date">
+                    <input type="date" name="joining_date" {{ $updatestatus == true ? 'disabled' : '' }}>
                 </div>
+                @error('joining_date')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
 
                 <div>
-                    <button type="submit">REGISTER</button>
+                    <button type="submit">{{ $updatestatus == true ? 'UPDATE' : 'REGISTER' }}</button>
                 </div>
             </form>
-
-
         </div>
     </div>
 

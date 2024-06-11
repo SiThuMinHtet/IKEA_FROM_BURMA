@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.CustomerLayout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://js.stripe.com/v3/"></script>
-</head>
+<link rel="stylesheet" href="{{ asset('css/customer/home.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/customer/payment.css') }}" />
 
-<body>
-    {{-- @dd($checkoutDetails); --}}
-    <div class="container mt-5">
-        <h2 class="mb-4">Payment Information</h2>
-        <form action="{{ route('checkout.process') }}" method="POST" id="payment-form">
-            @csrf
-            <div class="form-group">
-                <label for="card-element">Credit or Debit Card</label>
-                <div id="card-element" class="form-control"></div>
-                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+@section('content')
+    <div class="container">
+        <div class="inner_container">
+            <h2>Payment Information</h2>
+            <div>
+                <form action="{{ route('checkout.process') }}" method="POST" id="payment-form">
+                    @csrf
+                    <div class="form-group">
+
+                            <label for="card-element">Credit or Debit Card</label>
+                            <div id="card-element" class="form-control"></div>
+                        
+                            <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                        
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">Submit Payment</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary mt-4">Submit Payment</button>
-        </form>
+        </div>
     </div>
+@endsection
 
+@section('js')
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var stripe = Stripe('{{ env('STRIPE_KEY') }}');
@@ -64,6 +66,5 @@
             }
         });
     </script>
-</body>
-
-</html>
+    <script src="https://js.stripe.com/v3/"></script>
+@endsection

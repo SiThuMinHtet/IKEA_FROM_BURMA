@@ -26,22 +26,15 @@
             <div class="add-staff-name">
 
                 <div class="add-staff">
-                    {{-- <div>
-                        <label for="name">Name</label> <br>
-                        <input type="text" placeholder="First Name" name="fname"
-                            value="{{ $updatestatus == true ? $staffdata->fname : '' }}">
-                    </div>
-
-                    <div>
-                        <br>
-                        <input type="text" placeholder="Last Name" name="lname">
-                    </div> --}}
                     <input type="hidden" name="id" value="{{ $updatestatus == true ? $staffdata->id : '' }}">
                     <div>
                         <label for="name" id="name">Name</label>
                         <input type="text" name="name" placeholder="Enter Name"
                             value="{{ $updatestatus == true ? $staffdata->name : '' }}">
                     </div>
+                    @error('name')
+                        <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                    @enderror
                 </div>
 
 
@@ -50,6 +43,9 @@
                         <label for="">Age</label> <br>
                         <input type="number" name="age" value="{{ $updatestatus == true ? $staffdata->age : '' }}">
                     </div>
+                    @error('age')
+                        <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                    @enderror
                 </div>
 
             </div>
@@ -60,6 +56,9 @@
                     {{ $updatestatus == true ? $staffdata->address : '' }}
                 </textarea>
             </div>
+            @error('address')
+                <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+            @enderror
 
             <div class="city">
                 <div>
@@ -79,10 +78,16 @@
                     <label for="">Phone Number</label> <br>
                     <input type="text" name="phone" value="{{ $updatestatus == true ? $staffdata->phone : '' }}">
                 </div>
+                @error('phone')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label for="">Email</label> <br>
                     <input type="text" name="email" value="{{ $updatestatus == true ? $staffdata->email : '' }}">
                 </div>
+                @error('email')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
             </div>
             {{-- <img src="{{asset('image/admin/staffinfo/' .$staffdata->image)}}"/> --}}
 
@@ -112,11 +117,17 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('role_id')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
 
                         <div class="add-stuff-password">
                             <label for="">Password</label> <br>
-                            <input type="text">
+                            <input type="text" name="password">
                         </div>
+                        @error('password')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
                     </div>
                 </div>
             </div>

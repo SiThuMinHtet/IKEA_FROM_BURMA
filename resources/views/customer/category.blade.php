@@ -28,7 +28,7 @@
 
         <div class="shop-nav-right">
             <div class="shop-dropdown">
-                <button class="shop-dropbtn">CATAGORIES <img src="images/greater-than-symbol.png"
+                <button class="shop-dropbtn">CATAGORIES <img src="{{ asset('image/customer/greater-than-symbol.png') }}"
                         alt=""></button>
                 <div class="shop-dropdown-content">
                     <a href="#">Link 1</a>
@@ -37,32 +37,35 @@
                 </div>
             </div>
             <div class="shop-dropdown">
-                <button class="shop-dropbtn">PRICE <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn">COLOR <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn">MATERIAL <img src="images/greater-than-symbol.png" alt=""></button>
-                <div class="shop-dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                </div>
-            </div>
-            <div class="shop-dropdown">
-                <button class="shop-dropbtn-last">SORT BY LATEST <img src="images/greater-than-symbol.png"
+                <button class="shop-dropbtn">PRICE <img src="{{ asset('image/customer/greater-than-symbol.png') }}"
                         alt=""></button>
+                <div class="shop-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <div class="shop-dropdown">
+                <button class="shop-dropbtn">COLOR <img src="{{ asset('image/customer/greater-than-symbol.png') }}"
+                        alt=""></button>
+                <div class="shop-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <div class="shop-dropdown">
+                <button class="shop-dropbtn">MATERIAL <img src="{{ asset('image/customer/greater-than-symbol.png') }}"
+                        alt=""></button>
+                <div class="shop-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
+            <div class="shop-dropdown">
+                <button class="shop-dropbtn-last">SORT BY LATEST <img
+                        src="{{ asset('image/customer/greater-than-symbol.png') }}" alt=""></button>
                 <div class="shop-dropdown-content">
                     <a href="#">Link 1</a>
                     <a href="#">Link 2</a>
@@ -76,28 +79,28 @@
     <div class="shop-product-grid">
         <div id="bed" class="menu">
             <div class="shop-product-item shop-item-1">
-                <a href=""><img src="images/shop/modwayy.jpg" alt="" />
+                <a href=""><img src="{{ asset('image/customer/shop/modwayy.jpg') }}" alt="" />
                     <p>Modway Olivia Bed</p>
                     <p>$1,200.00</p>
                 </a>
             </div>
             <div class="shop-product-item shop-item-2">
                 <a href="">
-                    <img src="images/shop/velvet.jpg" alt="" />
+                    <img src="{{ asset('image/customer/shop/velvet.jpg') }}" alt="" />
                     <p>Gwyneth Velvet King Bed</p>
                     <p>$1,200.00</p>
                 </a>
             </div>
             <div class="shop-product-item shop-item-3">
                 <a href="">
-                    <img src="images/Catagory/upholstered Bed.png" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/upholstered Bed.png') }}" alt="" />
                     <p>Upholstered Bed</p>
                     <p>$1,200.00</p>
                 </a>
             </div>
             <div class="shop-product-item shop-item-4">
                 <a href="">
-                    <img src="images/Catagory/Montana.png" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/Montana.png') }}" alt="" />
                     <p>Monatana King Bed</p>
                     <div class="shop-price">
                         <p style="opacity: .5;">$1,000.00</p>
@@ -107,14 +110,14 @@
             </div>
             <div class="shop-product-item shop-item-5">
                 <a href="">
-                    <img src="images/Catagory/Jervis.jpg" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/Jervis.jpg') }}" alt="" />
                     <p>Jervis Single Bed</p>
                     <p>$1,100.00</p>
                 </a>
             </div>
             <div class="shop-product-item shop-item-6">
                 <a href="">
-                    <img src="images/Catagory/Storage Bed Frame.png" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/Storage Bed Frame.png') }}" alt="" />
                     <p>Storage Bed Frame</p>
                     <p>$1,200.00</p>
 
@@ -122,7 +125,7 @@
             </div>
             <div class="shop-product-item shop-item-7">
                 <a href="">
-                    <img src="images/Catagory/Chaise Corner Sofa.png" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/Chaise Corner Sofa.png') }}" alt="" />
                     <p>Chaise Corner Sofa Bed</p>
                     <p>$1500.00</p>
                 </a>
@@ -130,7 +133,7 @@
             <div class="shop-product-item cata-item-8">
                 <a href="">
                     <span>-17%</span>
-                    <img src="images/Catagory/Fabric Sofa Bed.png" alt="" />
+                    <img src="{{ asset('image/customer/Catagory/Fabric Sofa Bed.png') }}" alt="" />
                     <p>Fabric Sofa Bed</p>
                     <div class="shop-price">
                         <p style="opacity: .5;">$1,200.00</p>

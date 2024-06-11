@@ -10,17 +10,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
     /**
@@ -39,74 +28,69 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
     public function login(Request $request)
     {
-        // dd($request->all());
+        // Validate the request data
         $validateData = $request->validate(
             [
-                'email' => 'required',
-                'password' => 'required'
+                'email' => 'required|email',
+                'password' => 'required|min:6'
             ],
             [
                 'email.required' => 'Email field is required.',
+                'email.email' => 'Please enter a valid email address.',
                 'password.required' => 'Password field is required.',
+                'password.min' => 'Password must be at least 6 characters long.'
             ]
         );
 
-        $validateData['password'] = bcrypt($validateData['password']);
-        // dd($validateData['password']);
         $input = $request->all();
-        $userdata = array('email' => $input['email'], 'password' => $input['password']);
+        $userdata = ['email' => $input['email'], 'password' => $input['password']];
 
         if ($input['usertype'] == 'admin') {
-            if (auth('admin')->attempt($userdata)) {
-                // dd($userdata);
-                $user = auth('admin')->user();
+            if (Auth::guard('admin')->attempt($userdata)) {
+                $user = Auth::guard('admin')->user();
 
                 if ($user->status == "Active") {
                     return redirect()->route('Dashboard');
                 } else {
-                    Auth::logout();
+                    Auth::guard('admin')->logout();
                     return redirect()->route('AdminLogin')->with('error', 'You don\'t have Admin Account Access!');
                 }
             } else {
-                Auth::logout();
                 return redirect()->route('AdminLogin')->with('error', 'Wrong Email and Password');
             }
         }
 
         if ($input['usertype'] == 'customer') {
-            // dd('hi mom');
-            if (auth('customer')->attempt($userdata)) {
-                // dd($userdata);
-                $user = auth('customer')->user();
+            if (Auth::guard('customer')->attempt($userdata)) {
+                $user = Auth::guard('customer')->user();
+
                 if ($user->status == "Active") {
-                    // dd($user);
                     return redirect()->route('CustomerHome');
                 } else {
-                    Auth::logout();
+                    Auth::guard('customer')->logout();
                     return redirect()->route('CustomerLogin')->with('error', 'You don\'t have Customer Account Access!');
                 }
             } else {
-                Auth::logout();
                 return redirect()->route('CustomerLogin')->with('error', 'Wrong Email and Password');
             }
         } else {
-            // dd('reach here');
-            return redirect('CustomerLogin')->with('error', 'You don\'t have Account Access!');
+            return redirect()->route('CustomerLogin')->with('error', 'You don\'t have Account Access!');
         }
     }
 
     public function Customerlogout()
     {
-        Auth::logout();
+        Auth::guard('customer')->logout();
         Session::flush();
         return redirect()->route('CustomerHome');
     }
 
     public function Adminlogout()
     {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         Session::flush();
         return redirect()->route('AdminLogin');
     }

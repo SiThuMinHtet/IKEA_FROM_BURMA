@@ -84,28 +84,44 @@ class CustomerHomeController extends Controller
         return view('customer.contact');
     }
 
-    public function sort(Request $request)
+    public function sortpopular(Request $request)
     {
-        dd($request->sort);
+        $sort = $request->input('sort');
+        $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
+
+        if ($sort == 'popular') {
+            $productList = Product::select(
+                'products.id',
+                'products.name',
+                'products.description',
+                'products.price',
+                'products.created_at',
+                'product_photos.image',
+                DB::raw('SUM(order_product.qty) as total_sold')
+            )
+                ->leftJoin('order_product', 'products.id', '=', 'order_product.product_id')
+                ->leftJoin('product_photos', function ($join) {
+                    $join->on('product_photos.product_id', '=', 'products.id')
+                        ->where('product_photos.primaryphoto', '=', 1)
+                        ->where('product_photos.status', '=', 'Active');
+                })
+                ->groupBy('products.id', 'products.name', 'products.description', 'products.price', 'products.created_at', 'product_photos.image')
+                ->orderBy('total_sold', 'desc')
+                ->get();
+        } else {
+            $productList = Product::leftJoin('product_photos', function ($join) {
+                $join->on('product_photos.product_id', '=', 'products.id')
+                    ->where('product_photos.primaryphoto', '=', 1)
+                    ->where('product_photos.status', '=', 'Active');
+            })
+                ->select('products.*', 'product_photos.image')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        return view('customer.shop.shop', compact('productList', 'categories'));
     }
 
-    // public function sort(Request $request)
-    // {
-    //     $productList = DB::table('products')
-    //         ->join('category', 'category.id', '=', 'products.category_id')
-    //         ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
-    //         ->select('products.*', 'category.name as category', 'product_photos.image');
-
-    //     if ($request->sortPrice === 'High2Low') {
-    //         $productList = $productList->orderBy('price', 'desc');
-    //     } elseif ($request->sortPrice === 'Low2High') {
-    //         $productList = $productList->orderBy('price', 'asc');
-    //     }
-
-    //     $productList = $productList->get();
-    //     $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
-    //     return view('customer.shop.shop', compact('productList', 'categories'));
-    // }
 
 
     public function sortprice(Request $request)
@@ -123,8 +139,8 @@ class CustomerHomeController extends Controller
         $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
 
         $productList = $productList->get();
-
-        return view('customer.shop.shop', compact('productList','categories'));
+        // dd($categories);
+        return view('customer.shop.shop', compact('productList', 'categories'));
     }
 
     public function sortcategory(Request $request)
@@ -136,12 +152,8 @@ class CustomerHomeController extends Controller
             ->where('products.category_id', '=', $category)
             ->select('products.*', 'category.name as category', 'product_photos.image')
             ->get();
-
-        // dd(
-        //     $productList
-        // );
         $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
 
-        return view('customer.shop.shop', compact('productList','categories'));
+        return view('customer.shop.shop', compact('productList', 'categories'));
     }
 }

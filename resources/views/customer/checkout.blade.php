@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="{{ asset('css/customer/checkout.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
 </head>
 
 <body>
@@ -18,9 +19,15 @@
         <a href="{{ route('checkout') }}">Check Out</a>
     </div>
 
+    <div class="checkout_heading">
+        <h2 class="checkout_head">Checkout</h2>
+        <h3>Have an account? <a href="{{ route('CustomerLogin') }}">Login</a></h3>
+    </div>
+
+
     <div class="checkout-left">
         <div class="billing-details">
-            <p><b>Billing Details</b> <b>Have an account? <a href="{{ route('CustomerLogin') }}">Login</a></b></p>
+            <p><b>Billing Details</b> </p>
             <form action="{{ route('checkout.store') }}" method="POST">
                 @csrf
                 <div>
@@ -49,55 +56,79 @@
         </div>
 
         <div class="your-order-container">
-            <h3>Your Order</h3>
-            <div class="order-detail order-heading">
-                <p>PRODUCT</p>
-                <p>SUBTOTAL</p>
-            </div>
-            @foreach ($cartItems as $cartItem)
-                @if (is_array($cartItem))
-                    @if (isset($cartItem))
-                        <div class="order-detail order-list">
-                            <p>{{ $cartItem['name'] }} x {{ $cartItem['quantity'] }}</p>
-                            <p>${{ $cartItem['quantity'] * $cartItem['price'] }}</p>
+            <h3>Order Items</h3>
+            <div class="order_item_container">
+                @foreach ($cartItems as $cartItem)
+                    @if (is_array($cartItem))
+                        @if (isset($cartItem))
+                            <div class="order_items">
+                                <div>
+                                    @if (isset($cartItem['photos']) && !empty($cartItem['photos']))
+                                        @foreach ($cartItem['photos'] as $photo)
+                                            <img src="{{ asset('img/products/' . $photo) }}" alt="Product Photo"
+                                                width="100">
+                                        @endforeach
+                                    @else
+                                        <p>No photos available</p>
+                                    @endif
+                                </div>
+                                <div class="order_items_detail">
+                                    <div class="order-detail order-list">
+                                        <p>{{ $cartItem['name'] }} x {{ $cartItem['quantity'] }}</p>
+                                    </div>
+                                    <div>
+                                        <p>${{ $cartItem['quantity'] * $cartItem['price'] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        @endif
+                    @else
+                        <div class="order_items">
+                            <div>
+                                @foreach ($cartItem->product->photos as $photo)
+                                    <img src="{{ asset('img/products/' . $photo->image) }}" alt="{{ $photo->name }}"
+                                        width="100">
+                                @endforeach
+                            </div>
+                            <div class="order_items_detail">
+                                <div class="order-detail order-list">
+                                    <p>{{ $cartItem->product->name }} x {{ $cartItem->quantity }}</p>
+                                </div>
+                                <div>
+                                    <p>${{ $cartItem->quantity * $cartItem->product->price }}</p>
+                                </div>
+
+                            </div>
                         </div>
+
                     @endif
-                @else
-                    <div class="order-detail order-list">
-                        <p>{{ $cartItem->product->name }} x {{ $cartItem->quantity }}</p>
-                        <p>${{ $cartItem->quantity * $cartItem->product->price }}</p>
-                    </div>
-                @endif
-            @endforeach
-            <div class="order-detail order-list">
-                <p>Subtotal</p>
-                <p>
-                    @php
-                        $subtotal = 0;
-                        foreach ($cartItems as $cartItem) {
-                            if (is_array($cartItem) && isset($cartItem)) {
-                                $subtotal += $cartItem['quantity'] * $cartItem['price'];
-                            } elseif (!is_array($cartItem)) {
-                                $subtotal += $cartItem->quantity * $cartItem->product->price;
+                @endforeach
+            </div>
+            <div class="total_container">
+                <div class="order-detail total_list">
+                    <p>Subtotal</p>
+                    <p>
+                        @php
+                            $subtotal = 0;
+                            foreach ($cartItems as $cartItem) {
+                                if (is_array($cartItem) && isset($cartItem)) {
+                                    $subtotal += $cartItem['quantity'] * $cartItem['price'];
+                                } elseif (!is_array($cartItem)) {
+                                    $subtotal += $cartItem->quantity * $cartItem->product->price;
+                                }
                             }
-                        }
-                        echo '$' . $subtotal;
-                    @endphp
-                </p>
-            </div>
-            <div class="order-detail order-list">
-                <p>Shipping</p>
-            </div>
-            <div class="order-detail order-list">
-                <p>Total</p>
-                <p>${{ $subtotal }}</p>
+                            echo '$' . $subtotal;
+                        @endphp
+                    </p>
+                </div>
+                <hr>
+                <div class="order-detail total_list">
+                    <p>Total</p>
+                    <p>${{ $subtotal }}</p>
+                </div>
             </div>
 
-            <div class="your-order-img">
-                <img src="{{ asset('image/customer/visa.png') }}" alt="">
-                <img src="{{ asset('image/customer/master.png') }}" alt="">
-                <img src="{{ asset('image/customer/mpu.png') }}" alt="">
-            </div>
         </div>
     </div>
 </body>

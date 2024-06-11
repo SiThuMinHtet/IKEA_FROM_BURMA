@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     @yield('css')
+    <style>
+        .sec-nav-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .user_profile {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .user_profile_info {
+            background-color: white;
+            display: none;
+            position: absolute;
+            border: 1px solid black;
+            border-radius: 3px;
+            z-index: 2;
+        }
+
+        .profile a:hover {
+            color: black;
+            font-weight: bold;
+        }
+
+        .log_in_out a:hover {
+            color: black;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    {{-- {{dd( count((array)session()->get('cart')))}} --}}
     <nav class="nav-link">
         <ul>
             <li>
@@ -78,44 +108,70 @@
             <a href="{{ route('About') }}">About Us</a>
             <a href="{{ route('Contact') }}">Contact Us</a>
 
-            @if (auth('customer')->user() != null)
-                <a href="{{ route('Customer.logout') }}">Log Out</a>
-            @else
-                <a href="{{ route('CustomerLogin') }}">Log In</a>
-            @endif
-        </div>
 
+        </div>
         <div class="sec-nav-icon">
-            <a href="">
-                <img src="{{ asset('image/customer/search.svg') }}" alt="" />
-            </a>
-            <a href="{{ route('CustomerLogin') }}">
-                <img src="{{ asset('image/customer/user.svg') }}" alt="" />
-            </a>
-            <a class="cart-img" href="{{ route('cart.index') }}">
-                <img src="{{ asset('image/customer/cart.png') }}" alt="" />
-                @if (session()->get('cart') == null)
-
-                    {{-- <span>{{count($number)}}</span> --}}
-                    @if (session()->get('cart') == null)
-                        <span>0</span>
+            <div class="user_profile">
+                <div>
+                    @if (auth('customer')->user() != null)
+                        <img src="{{ asset('image/customer/customerinfo/' . auth('customer')->user()->image) }}"
+                            alt="" style="max-height: 50px; max-width:50px;border-radius: 100%;">
                     @else
-                        <span>{{ count((array) session()->get('cart')) }}</span>
+                        <img src="{{ asset('image/customer/user.svg') }}" alt="" />
                     @endif
-                @else
-                    {{-- <span>{{count($number)}}</span> --}}
-                    @if (session()->get('cart') == null)
-                        <span>0</span>
+                </div>
+                <div class="user_profile_info">
+                    <div class="profile">
+                        @if (auth('customer')->user())
+                            <a href="{{ route('CustomerLogin') }}">Edit Profile</a>
+                        @endif
+                    </div>
+
+
+                    <div class="log_in_out">
+                        @if (auth('customer')->user() != null)
+                            <a href="{{ route('Customer.logout') }}">Log Out</a>
+                        @else
+                            <a href="{{ route('CustomerLogin') }}">Log In</a>
+                        @endif
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div>
+                <a class="cart-img" href="{{ route('cart.index') }}">
+                    <img src="{{ asset('image/customer/cart.png') }}" alt="" />
+                    {{-- @if (session()->get('cart') == null)
+                        @if (session()->get('cart') == null)
+                            <span>0</span>
+                        @else
+                            <span>{{ count((array) session()->get('cart')) }}</span>
+                        @endif
                     @else
-                        <span>{{ count(session()->get('cart')) }}</span>
-                    @endif
-                @endif
+                        @if (session()->get('cart') == null)
+                            <span>0</span>
+                        @else
+                            <span>{{ count(session()->get('cart')) }}</span>
+                        @endif
+                    @endif --}}
+                    @php
+                        $user = Auth('customer')->user();
+                        if ($user) {
+                            // Get cart items count from the database for logged-in users
+                            $cartCount = App\Models\Cart::where('customer_id', $user->id)->count();
+                        } else {
+                            // Get cart items count from the session for guest users
+                            $cartCount = count((array) session()->get('cart', []));
+                        }
+                    @endphp
+                    <span>{{ $cartCount }}</span>
+                </a>
+            </div>
 
 
-
-            </a>
         </div>
-
     </div>
 
     <div class="hamburger">
@@ -126,6 +182,26 @@
     @yield('content')
     @yield('js')
     <script src="{{ asset('js/customer/script.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const profile = document.querySelector(".user_profile");
+            const profileInfo = document.querySelector(".user_profile_info");
+
+            profile.addEventListener("click", () => {
+                if (profileInfo.style.display === "none" || profileInfo.style.display === "") {
+                    profileInfo.style.display = "inline-block";
+                } else {
+                    profileInfo.style.display = "none";
+                }
+            });
+
+            document.addEventListener("click", (event) => {
+                if (!profile.contains(event.target) && !profileInfo.contains(event.target)) {
+                    profileInfo.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

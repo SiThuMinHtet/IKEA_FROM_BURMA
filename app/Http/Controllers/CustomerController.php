@@ -40,8 +40,70 @@ class CustomerController extends Controller
         return view('customer.login');
     }
 
+    // public function customeredit($id)
+    // {
+    //     $customerdata = Customer::find('id');
+    //     return view('customer.login' ,compact('customerdata'));
+    // }
+
+    public function customerteditprocess(Request $request)
+    {
+        // dd($request);
+        $uuid = Str::uuid()->toString();
+        $customerupdate = Customer::find($request->id);
+        $customerupdate->name = $request->name;
+        $customerupdate->email = $request->email;
+        $customerupdate->address = $request->address;
+        $customerupdate->phone = $request->phone;
+        $customerupdate->uuid = $uuid;
+
+        if ($request->password && $request->image == null) {
+            $customerupdate->update();
+        } else {
+            if ($request->password != null) {
+                $customerupdate->password = bcrypt($request->password);
+            }
+            if ($request->image != null) {
+                $image = $uuid . '.' . $request->image->extension();
+                $request->image->move(public_path('image/customer/customerinfo'), $image);
+                $customerupdate->image = $image;
+            }
+            $customerupdate->update();
+            // dd($customerupdate);
+        }
+        return redirect()->route('CustomerHome');
+    }
+
     public function customercreateprocess(Request $request)
     {
+        $validateData = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+                'phone' => 'required|string|max:15',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'address' => 'required|string|max:255',
+                'joining_date' => 'required|date'
+            ],
+            [
+                'name.required' => 'Name field is required.',
+                'email.required' => 'Email field is required.',
+                'email.email' => 'Please enter a valid email address.',
+                'password.required' => 'Password field is required.',
+                'password.min' => 'Password must be at least 6 characters long.',
+                'phone.required' => 'Phone field is required.',
+                'image.required' => 'Image field is required.',
+                'image.image' => 'The file must be an image.',
+                'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
+                'image.max' => 'The image size must not be greater than 2048 kilobytes.',
+                'address.required' => 'Address field is required.',
+                'joining_date.required' => 'Joining date field is required.',
+                'joining_date.date' => 'Joining date must be a valid date.'
+            ]
+        );
+
+
         // dd($request);
         $uuid = Str::uuid()->toString();
         $image = $uuid . '.' . $request->image->extension();
@@ -57,6 +119,7 @@ class CustomerController extends Controller
         $customer->image = $image;
         $customer->uuid = $uuid;
         $customer->save();
+        // dd($customer);
         return redirect()->route('CustomerHome');
     }
 

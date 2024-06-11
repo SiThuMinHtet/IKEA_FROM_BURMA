@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Product;  // Ensure this is imported
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,27 +17,23 @@ use Illuminate\Support\Str;
 
 class StripePaymentController extends Controller
 {
-
     public function index()
     {
         $user = Auth::guard('customer')->user();
         $cartItems = $user ? Cart::where('customer_id', $user->id)->with('product')->get() : session()->get('cart', []);
         $checkoutDetails = session()->get('checkout_details', []);
-        // dd($checkoutDetails);
         return view('customer.payment', compact('cartItems', 'checkoutDetails', 'user'));
     }
 
     public function processPayment(Request $request)
     {
-        Log::info('Processing payment', ['request_data' => $request->all()]);  // Debug statement
+        Log::info('Processing payment', ['request_data' => $request->all()]);
 
         $user = Auth::guard('customer')->user();
         $cartItems = $user ? Cart::where('customer_id', $user->id)->with('product')->get() : session()->get('cart', []);
         $checkoutDetails = session()->get('checkout_details', []);
-        // dd($checkoutDetails['name']);
 
         // Calculate total price
-        // dd($cartItems);
         $totalPrice = 0;
         foreach ($cartItems as $item) {
             if (is_array($item) && isset($item)) {
@@ -59,10 +56,8 @@ class StripePaymentController extends Controller
             $OTP = false;
             $customer = $user;
             if (!$user) {
-
                 $OTP = true;
-                // Create Customer for guest user
-                Log::info('Creating customer');  // Debug statement
+                Log::info('Creating customer');
                 $uuid = Str::uuid()->toString();
                 $customer = new Customer();
                 $customer->name = $checkoutDetails['name'];
@@ -76,14 +71,9 @@ class StripePaymentController extends Controller
                 $customer->save();
             }
 
-            if ($OTP == true) {
-                $payment = "OTP";
-            } else {
-                $payment = "CARD";
-            }
+            $payment = $OTP ? "OTP" : "CARD";
 
-            // Create Order
-            Log::info('Creating order');  // Debug statement
+            Log::info('Creating order');
             $order = new Order();
             $order->paymentmethod = $payment;
             $order->customer_id = $customer ? $customer->id : null;
@@ -97,32 +87,36 @@ class StripePaymentController extends Controller
             $order->status = 'pending';
             $order->save();
 
-            // Create OrderProduct entries
-            Log::info('Creating order products');  // Debug statement
+            Log::info('Creating order products');
             foreach ($cartItems as $item) {
+                $orderProduct = new OrderProduct();
                 if (is_array($item) && isset($item)) {
-                    $orderProduct = new OrderProduct();
                     $orderProduct->order_id = $order->id;
                     $orderProduct->product_id = $item['product_id'];
                     $orderProduct->qty = $item['quantity'];
                     $orderProduct->price = $item['price'];
                     $orderProduct->uuid = (string) Str::uuid();
                     $orderProduct->status = 'completed';
-                    $orderProduct->save();
-                } elseif (!is_array($item)) {
-                    $orderProduct = new OrderProduct();
+                } else {
                     $orderProduct->order_id = $order->id;
                     $orderProduct->product_id = $item->product_id;
                     $orderProduct->qty = $item->quantity;
                     $orderProduct->price = $item->product->price;
                     $orderProduct->uuid = (string) Str::uuid();
                     $orderProduct->status = 'completed';
-                    $orderProduct->save();
+                }
+                $orderProduct->save();
+
+                // Update stock
+                Log::info('Updating product stock', ['product_id' => $orderProduct->product_id, 'qty' => $orderProduct->qty]);
+                $product = Product::find($orderProduct->product_id);
+                if ($product) {
+                    $product->stock -= $orderProduct->qty;
+                    $product->save();
                 }
             }
 
-            // Clear cart
-            Log::info('Clearing cart');  // Debug statement
+            Log::info('Clearing cart');
             if ($user) {
                 Cart::where('customer_id', $user->id)->delete();
             } else {
@@ -131,7 +125,7 @@ class StripePaymentController extends Controller
 
             return redirect()->route('order.success')->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
-            Log::error('Payment failed: ' . $e->getMessage());  // Debug statement
+            Log::error('Payment failed: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Payment failed! Please try again.']);
         }
     }

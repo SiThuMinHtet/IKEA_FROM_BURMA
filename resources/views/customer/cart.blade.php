@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="{{ asset('css/customer/cart 2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -18,7 +20,7 @@
     <div class="table-wrapper">
         <table>
             <caption>Your selection({{ count($cartItems) }} items)</caption>
-            <tr>
+            <tr class="cart_heading">
                 <th id="product">Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -33,7 +35,8 @@
                                 <div>
                                     <form action="{{ route('cart.remove', $cartItem->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit">Remove</button>
+                                        <button class="remove_cart" type="submit"><i
+                                                class="fa-solid fa-circle-xmark"></i></button>
                                     </form>
                                 </div>
                                 <div>
@@ -49,15 +52,15 @@
                             <td>{{ $cartItem->product->price }}</td>
                             <td>
                                 <div class="quantity">
-                                    <div>{{ $cartItem->quantity }}</div>
                                     <div class="plusminus">
-                                        <form action="{{ route('cart.increase', $cartItem->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit">+</button>
-                                        </form>
                                         <form action="{{ route('cart.decrease', $cartItem->id) }}" method="POST">
                                             @csrf
-                                            <button type="submit">-</button>
+                                            <button type="submit"><i class="fa-solid fa-circle-minus"></i></button>
+                                        </form>
+                                        <div>{{ $cartItem->quantity }}</div>
+                                        <form action="{{ route('cart.increase', $cartItem->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"><i class="fa-solid fa-circle-plus"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -72,7 +75,8 @@
                                 <div>
                                     <form action="{{ route('cart.remove', $productId) }}" method="POST">
                                         @csrf
-                                        <button type="submit">Remove</button>
+                                        <button class="remove_cart" type="submit"><i
+                                                class="fa-solid fa-circle-xmark"></i></button>
                                     </form>
                                 </div>
                                 <div>
@@ -92,15 +96,15 @@
                             <td>{{ $cartItem['price'] }}</td>
                             <td>
                                 <div class="quantity">
-                                    <div>{{ $cartItem['quantity'] }}</div>
                                     <div class="plusminus">
-                                        <form action="{{ route('cart.increase', $productId) }}" method="POST">
-                                            @csrf
-                                            <button type="submit">+</button>
-                                        </form>
                                         <form action="{{ route('cart.decrease', $productId) }}" method="POST">
                                             @csrf
-                                            <button type="submit">-</button>
+                                            <button type="submit"><i class="fa-solid fa-circle-minus"></i></button>
+                                        </form>
+                                        <div>{{ $cartItem['quantity'] }}</div>
+                                        <form action="{{ route('cart.increase', $productId) }}" method="POST">
+                                            @csrf
+                                            <button type="submit"><i class="fa-solid fa-circle-plus"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -126,7 +130,6 @@
             </div>
             <div class="cart-right-btn">
                 <button class="cart-right-btn-first">Clear All</button>
-                <button class="cart-right-btn-sec">Update Cart</button>
             </div>
         @endif
     </div>

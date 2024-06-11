@@ -1,7 +1,5 @@
 @extends('layouts.AdminLayout')
 
-{{-- @dd($product_image); --}}
-{{-- @dd($product_data); --}}
 @php
     $updateStatus = false;
     if (isset($product_data)) {
@@ -59,8 +57,6 @@
 
                             <label for="image">Upload Images</label>
                             <input type="file" id="image" name="image[]" multiple onchange="previewImages(event)">
-
-
                         </div>
 
                         <div class="input product-name">
@@ -68,6 +64,10 @@
                             <input id="name" type="text" name="name"
                                 value="{{ $updateStatus == true ? $product_data->name : '' }}">
                         </div>
+                        @error('name')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
+
                         <div class="input">
                             <label for="catagory">Catagory</label>
                             <select name="category" id="category" class="category">
@@ -80,6 +80,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('category')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
 
 
                         <div class="input">
@@ -95,6 +98,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('code')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
                     </div>
 
                     <div class="product_grid_2">
@@ -106,6 +112,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('supplier')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
 
 
                         <div class="input stock">
@@ -113,6 +122,9 @@
                             <input id="stock" type="text" name="stock"
                                 value="{{ $updateStatus == true ? $product_data->stock : '' }}">
                         </div>
+                        @error('stock')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
 
 
 
@@ -121,10 +133,16 @@
                             <input id="price" type="text" name="price"
                                 value="{{ $updateStatus == true ? $product_data->price : '' }}">
                         </div>
+                        @error('price')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
                         <div class="input Description">
                             <label for="description">Description</label>
                             <textarea id="description" name="description">{{ $updateStatus == true ? $product_data->description : '' }}</textarea>
                         </div>
+                        @error('description')
+                            <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                        @enderror
                         <div class="add-product-btn">
                             <button class="cancle-btn">Cancle</button>
                             <button class="publish-btn" type="submit">Publish Product</button>

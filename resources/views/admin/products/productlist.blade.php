@@ -13,8 +13,8 @@
     <div class="product-mng-container">
         <div class="product-mng">
             <div class="product_search">
-                <form action="{{ route('ProductSearch') }}" method="POST">
-                    @csrf
+                <form action="{{ route('ProductSearch') }}" method="GET">
+
                     <input name="search" type="text" placeholder="Search">
                     <button type="submit">Search</button>
                 </form>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="Pagination">
-        {{ $productlist->links('pagination::bootstrap-4') }}
+        {{ $productlist->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

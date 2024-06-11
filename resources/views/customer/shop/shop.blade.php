@@ -1,5 +1,6 @@
 {{-- @dd($productlist); --}}
 {{-- @dd($categorylist); --}}
+{{-- @dd($products); --}}
 
 @extends('layouts.CustomerLayout')
 @section('title')
@@ -91,24 +92,6 @@
                 </form>
             </div>
         </div>
-        {{-- <div class="shop-dropdown">
-            <button class="shop-dropbtn">COLOR <img src="images/greater-than-symbol.png" alt=""></button>
-            <div class="shop-dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-        </div>
-        <div class="shop-dropdown">
-            <button class="shop-dropbtn">MATERIAL <img src="images/greater-than-symbol.png" alt=""></button>
-            <div class="shop-dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-            </div>
-        </div> --}}
-
-    </div>
     </div>
     {{-- @dd($productList[0]->image); --}}
     <!-- shop-product-grid -->
@@ -129,8 +112,9 @@
             <p>You've viewed 16 or 50 products</p>
             <button>LOAD MORE</button>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @section('js')
-        <script src="{{ asset('js/customer/shop.js') }}"></script>
-    @endsection
+@section('js')
+    <script src="{{ asset('js/customer/shop.js') }}"></script>
+@endsection

@@ -17,8 +17,8 @@
         </div>
 
         <div class="search-sort">
-            <form action="{{ route('StaffSearch') }}" method="POST">
-                @csrf
+            <form action="{{ route('StaffSearch') }}" method="GET">
+
                 <div class="search">
                     <input type="text" name="search" placeholder="Search...">
                     <button type="submit">Search</button>
@@ -96,12 +96,10 @@
                             <div>
                                 <img style="max-height: 80px; max-width: 100px;"
                                     src="{{ asset('image/admin/staffinfo/' . $staff->image) }}" />
-                                {{-- {{ $staff->image }} --}}
                             </div>
                             <div>
                                 {{ $staff->name }}
                             </div>
-
                         </td>
                         <td>
                             {{ $staff->email }}
@@ -118,8 +116,6 @@
                         <td>
                             {{ $staff->rolename }}
                         </td>
-
-
                         <td>
                             {{ $staff->status }}
                         </td>
@@ -135,19 +131,15 @@
                                             src="{{ asset('image/admin/icons/bin.png') }}" alt=""></a>
                                 </div>
                             </div>
-
-
                         </td>
                     </tr>
                 @endforeach
-
-
             </table>
         </div>
     </div>
 
     <div class="Pagination">
-        {{ $stafflist->links('pagination::bootstrap-4') }}
+        {{ $stafflist->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

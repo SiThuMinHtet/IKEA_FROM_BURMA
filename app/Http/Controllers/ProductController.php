@@ -58,6 +58,39 @@ class ProductController extends Controller
 
     public function createprocess(Request $request)
     {
+        $validateData = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'category' => 'required|exists:category,id',
+                'code' => 'required|exists:codes,id',
+                'supplier' => 'required|exists:suppliers,id',
+                'stock' => 'required|numeric|min:0',
+                'price' => 'required|numeric|min:0',
+                'description' => 'required|string'
+            ],
+            [
+                'name.required' => 'Product Name is required.',
+                'category.required' => 'Category is required.',
+                'category.exists' => 'Selected category is invalid.',
+                'code.required' => 'Product Code is required.',
+                'code.exists' => 'Selected product code is invalid.',
+                'supplier.required' => 'Supplier is required.',
+                'supplier.exists' => 'Selected supplier is invalid.',
+                'stock.required' => 'Stock is required.',
+                'stock.numeric' => 'Stock must be a number.',
+                'stock.min' => 'Stock must be at least 0.',
+                'price.required' => 'Price is required.',
+                'price.numeric' => 'Price must be a number.',
+                'price.min' => 'Price must be at least 0.',
+                'description.required' => 'Description is required.',
+                'image.required' => 'At least one image is required.',
+                'image.image' => 'Each file must be an image.',
+                'image.mimes' => 'Images must be of type jpeg, png, jpg, gif, svg.',
+                'image.max' => 'Each image must be less than 2MB.'
+            ]
+        );
+
+
         $uuid = Str::uuid()->toString();
         $product = new Product();
 

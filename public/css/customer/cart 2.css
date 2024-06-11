@@ -2,16 +2,28 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 body {
-    margin: 5rem 3rem;
+    margin: 3rem 3rem;
 }
 
-/* .detail-nav {
-    margin: 5rem 3rem;
-} */
+.remove_cart {
+    background-color: transparent; /* Make the button background transparent */
+    border: none;
+    color: black; /* Red color for the 'X' */
+    font-size: 30px; /* Increase font size */
+    font-weight: bold; /* Make the 'X' bold */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 5px 10px; /* Add some padding */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.cart_heading th{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 .detail-nav a {
     text-decoration: none;
@@ -60,10 +72,6 @@ input {
     height: 2rem;
 }
 
-/* .table-wrapper {
-    padding: 0 50px;
-} */
-
 #product {
     text-align: left;
     padding-left: 6rem;
@@ -92,11 +100,6 @@ input {
     cursor: pointer;
     background-color: white;
     border: 1px solid black;
-}
-
-.cart-right-btn-sec {
-    cursor: pointer;
-    border: none;
 }
 
 .cart-right-btn button {
@@ -156,11 +159,24 @@ input {
     align-items: center;
     justify-content: center;
     gap: 20px;
+    
+}
+
+.plusminus{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .plusminus div{
     padding: 7px;
-    border: 1px solid grey;
+}
+
+.plusminus form button{
+    cursor: pointer;
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
 }
 
 @media(max-width:844px) {

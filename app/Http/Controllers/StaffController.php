@@ -50,6 +50,41 @@ class StaffController extends Controller
 
     public function createprocess(Request $request)
     {
+
+        $validatedData = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'age' => 'required|integer|min:18|max:65',
+                'address' => 'required|string',
+                'phone' => 'required|regex:/^[0-9]{10}$/',
+                'email' => 'required|email|unique:staff,email',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'role_id' => 'required|exists:roles,id',
+                'password' => 'required|min:6',
+            ],
+            [
+                'name.required' => 'Name is required.',
+                'age.required' => 'Age is required.',
+                'age.integer' => 'Age must be an integer.',
+                'age.min' => 'Age must be at least 18.',
+                'age.max' => 'Age must be at most 65.',
+                'address.required' => 'Address is required.',
+                'phone.required' => 'Phone number is required.',
+                'phone.regex' => 'Phone number must be 10 digits.',
+                'email.required' => 'Email is required.',
+                'email.email' => 'Please enter a valid email address.',
+                'email.unique' => 'This email is already taken.',
+                'image.required' => 'Profile image is required.',
+                'image.image' => 'Each file must be an image.',
+                'image.mimes' => 'Images must be of type jpeg, png, jpg, gif, svg.',
+                'image.max' => 'Each image must be less than 2MB.',
+                'role_id.required' => 'Role is required.',
+                'role_id.exists' => 'Selected role is invalid.',
+                'password.required' => 'Password is required.',
+                'password.min' => 'Password must be at least 6 characters long.'
+            ]
+        );
+
         // dd($request);
         $uuid = Str::uuid()->toString();
         $image = $uuid . '.' . $request->image->extension();
@@ -91,7 +126,6 @@ class StaffController extends Controller
         $adminupdate->phone = $request->phone;
         $adminupdate->password = bcrypt($request->password);
         $adminupdate->status = "Active";
-
         $adminupdate->uuid = $uuid;
         if ($request->image == null) {
             $adminupdate->update();

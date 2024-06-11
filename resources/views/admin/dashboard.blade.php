@@ -122,7 +122,7 @@
         </div> --}}
         <div class="doughnut-container">
             <div class="chart-title">Monthly Orders</div>
-            <div id="donutchart" style="width: 100%; height: 100%;"></div>
+            <div id="donutchart" style="width: 70%; height: 70%;"></div>
         </div>
 
 

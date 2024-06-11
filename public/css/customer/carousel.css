@@ -76,16 +76,27 @@ body {
     object-fit: cover;
     user-select: none;
   }
+
+
+  
   
   @media screen and (max-width: 900px) {
     .carousel img {
       width: calc(100% / 2);
     }
+
+
   }
   
   @media screen and (max-width: 550px) {
     .carousel img {
       width: 100%;
+    }
+
+    .shop-nav-right{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
   }
 
@@ -133,8 +144,7 @@ body {
   }
 
   .shop-dropdown select:hover{
-    background-color: black;
-    color: white;
+    border-bottom: 1px solid black;
     transition: 0.5s;
   }
   

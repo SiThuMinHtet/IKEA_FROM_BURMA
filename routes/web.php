@@ -45,10 +45,12 @@ Route::get('/', [CustomerHomeController::class, 'customerhome'])->name('Customer
 Route::get('/customer/login', [CustomerController::class, 'showLoginForm'])->name('CustomerLogin');
 Route::post('/customer/loginprocess', [LoginController::class, 'login'])->name('LoginProcess');
 
+Route::get('/customer/create', [CustomerController::class, 'customercreate'])->name('CustomerCreate');
+Route::post('/customer/create/process', [CustomerController::class, 'customercreateprocess'])->name('CustomerCreateProcess');
+Route::patch('/customer/edit/process', [CustomerController::class, 'customerteditprocess'])->name('CustomerEditProcess');
 
-Route::get('/customerlist/create', [CustomerController::class, 'customercreate'])->name('CustomerCreate');
-Route::post('/customerlist/create/process', [CustomerController::class, 'customercreateprocess'])->name('CustomerCreateProcess');
 
+// Route::get('/customerlist/edit/{id}', [CustomerController::class, 'customeredit'])->name('CustomerEdit');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
 
@@ -77,7 +79,7 @@ Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About
 Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
 Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');
 
-Route::get('/shop/sort', [CustomerHomeController::class, 'sort'])->name('customer.shop.sort');
+Route::get('/shop/sort', [CustomerHomeController::class, 'sortpopular'])->name('customer.shop.sort');
 Route::get('/shop/sort/price', [CustomerHomeController::class, 'sortprice'])->name('customer.shop.sortPrice');
 Route::get('/shop/sort/category', [CustomerHomeController::class, 'sortcategory'])->name('customer.shop.sortCategory');
 
@@ -115,9 +117,9 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/product/delete/{id}', [ProductController::class, 'productdelete'])->name('ProductDelete');
 
         //search
-        Route::post('/staff/search', [StaffController::class, 'search'])->name('StaffSearch');
-        Route::post('/product/search', [ProductController::class, 'search'])->name('ProductSearch');
-        Route::post('/customer/search', [CustomerController::class, 'search'])->name('CustomerSearch');
+        Route::get('/staff/search', [StaffController::class, 'search'])->name('StaffSearch');
+        Route::get('/product/search', [ProductController::class, 'search'])->name('ProductSearch');
+        Route::get('/customer/search', [CustomerController::class, 'search'])->name('CustomerSearch');
 
         //supplier
         Route::get('/supplierlist', [SupplierController::class, 'supplierlist'])->name('Supplier.List');

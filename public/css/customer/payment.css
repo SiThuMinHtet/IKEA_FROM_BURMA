@@ -1,0 +1,36 @@
+.container{
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.inner_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    text-align: center;
+    /* border: 1px solid red; */
+}
+
+.inner_container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+}
+
+.inner_container form button{
+    height: 50px;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+#card-element{
+    border: 1px solid grey;
+    border-radius: 4px;
+    height: 30px;
+    padding: 10px;
+}

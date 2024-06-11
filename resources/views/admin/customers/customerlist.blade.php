@@ -18,8 +18,7 @@
 
         <div class="search-sort">
             <div class="customer_search">
-                <form action="{{ route('CustomerSearch') }}" method="POST">
-                    @csrf
+                <form action="{{ route('CustomerSearch') }}" method="GET">
                     <input name="search" type="text" placeholder="Search...">
                     <button type="submit">Search</button>
                     <img src="icons/search.png" alt="">
@@ -123,8 +122,9 @@
         </div>
 
     </div>
+
     <div class="Pagination">
-        {{ $customerlist->links('pagination::bootstrap-4') }}
+        {{ $customerlist->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

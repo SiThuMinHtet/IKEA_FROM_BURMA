@@ -155,7 +155,9 @@ class CartController extends Controller
         $user = Auth::guard('customer')->user();
 
         if ($user) {
-            $cartItems = Cart::where('customer_id', $user->id)->with('product')->get();
+            $cartItems = Cart::where('customer_id', $user->id)
+                ->with('product')
+                ->get();
         } else {
             $cartItems = session()->get('cart', []);
         }
