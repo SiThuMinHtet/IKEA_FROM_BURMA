@@ -34,6 +34,9 @@
                     <label for="name">User Name</label>
                     <input type="text" name="name" id="name" value="{{ old('name', $user->name ?? '') }}">
                 </div>
+                @error('name')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div class="form-select">
                     <label for="country">Country / Region</label>
                     <input type="text" name="country" value="Myanmar">
@@ -42,14 +45,23 @@
                     <label for="address">Address</label>
                     <textarea name="address" id="address" cols="45" rows="5">{{ old('address', $user->address ?? '') }}</textarea>
                 </div>
+                @error('address')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" value="{{ old('email', $user->email ?? '') }}">
                 </div>
+                @error('email')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
                 <div>
                     <label for="phone">Phone</label>
                     <input type="tel" id="phone" name="phone" value="{{ old('phone', $user->phone ?? '') }}">
                 </div>
+                @error('phone')
+                    <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
+                @enderror
 
                 <button type="submit" class="btn btn-primary">Place Order</button>
             </form>

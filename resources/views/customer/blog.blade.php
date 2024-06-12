@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.CustomerLayout')
+@section('title', 'Blog')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
+@section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/customer/carousel.css') }}">
-    <link
-        rel="stylesheet"href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/customer/category.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/customer/detail.css') }}" />
+    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer/blog.css') }}" />
-</head>
+@endsection
 
-<body>
+
+@section('content')
     <div class="container">
-        <div class="blog-home">
-            <a href="{{ route('CustomerHome') }}">HOME</a>
-        </div>
         <div class="card-galley">
             <div class="card-column">
                 <div class="card">
@@ -138,14 +127,11 @@
             </div>
         </div>
     </div>
-    <hr>
+   
+@endsection
 
-    <div class="load-more-btn">
-        <button>LOAD MORE</button>
-    </div>
 
+@section('js')
     <script src="./js/script.js"></script>
     <script src="./js/shop.js"></script>
-</body>
-
-</html>
+@endsection

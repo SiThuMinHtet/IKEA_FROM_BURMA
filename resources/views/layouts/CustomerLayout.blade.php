@@ -65,48 +65,53 @@
 
     <div class="navbar">
         <div class="first-nav-icon">
-            <a href="home.html">LOGO</a>
-            <a href="{{ route('CustomerHome') }}">Home</a>
-            <a href="{{ route('Shop') }}">Shop</a>
+            <div>
+                <a href="home.html">LOGO</a>
+            </div>
+            <div>
+                <a href="{{ route('CustomerHome') }}">Home</a>
+            </div>
+            <div>
+                <a href="{{ route('Shop') }}">Shop</a>
+            </div>
 
             <div class="dropdown">
-                <button class="dropbtn">
-                    <a href="{{ route('ShopCategory') }}">Catagory</a>
-                    <img src="images/greater-than-symbol.png" alt="" />
-                </button>
+                <p>Category</p>
+
                 <div class="dropdown-content">
                     <div class="row">
                         <h3>CATEGORY ONE</h3>
                         <div class="column">
                             <div>
-                                <a href="#">Bed</a>
-                                <a href="#">Cabinet</a>
-                                <a href="#">Sofa</a>
-                                <a href="#">Kitchen</a>
-                                <a href="#">Office</a>
-                                <a href="#">Chair</a>
-                            </div>
-                            <div>
-                                <a href="#">Bed</a>
-                                <a href="#">Cabinet</a>
-                                <a href="#">Sofa</a>
-                                <a href="#">Kitchen</a>
-                                <a href="#">Office</a>
-                                <a href="#">Chair</a>
+                                <a href="{{ route('ShopCategory', ['category' => '1']) }}">Bed</a>
+                                <a href="{{ route('ShopCategory', ['category' => '2']) }}">Sofa</a>
+                                <a href="{{ route('ShopCategory', ['category' => '3']) }}">Lamp</a>
+                                <a href="{{ route('ShopCategory', ['category' => '4']) }}">Cabinet</a>
+                                <a href="{{ route('ShopCategory', ['category' => '5']) }}">Table</a>
+                                <a href="{{ route('ShopCategory', ['category' => '6']) }}">Blanket</a>
+                                <a href="{{ route('ShopCategory', ['category' => '7']) }}">Chair</a>
+                                <a href="{{ route('ShopCategory', ['category' => '8']) }}">Pillow</a>
                             </div>
                         </div>
                         <div class="column-2">
-                            <img src="images/banner.jpg" alt="" />
+                            <img src="{{ asset('image/customer/banner.jpg') }}" alt="" />
                             <br />
-                            <img src="images/Rectangle 48.jpg" alt="" />
+                            <img src="{{ asset('image/customer/Rectangle 48.jpg') }}" alt="" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <a href="{{ route('Blog') }}">Blog</a>
-            <a href="{{ route('About') }}">About Us</a>
-            <a href="{{ route('Contact') }}">Contact Us</a>
+            <div>
+                <a href="{{ route('Blog') }}">Blog</a>
+            </div>
+            <div>
+                <a href="{{ route('About') }}">About Us</a>
+            </div>
+            <div>
+                <a href="{{ route('Contact') }}">Contact Us</a>
+            </div>
+
 
 
         </div>
@@ -143,19 +148,6 @@
             <div>
                 <a class="cart-img" href="{{ route('cart.index') }}">
                     <img src="{{ asset('image/customer/cart.png') }}" alt="" />
-                    {{-- @if (session()->get('cart') == null)
-                        @if (session()->get('cart') == null)
-                            <span>0</span>
-                        @else
-                            <span>{{ count((array) session()->get('cart')) }}</span>
-                        @endif
-                    @else
-                        @if (session()->get('cart') == null)
-                            <span>0</span>
-                        @else
-                            <span>{{ count(session()->get('cart')) }}</span>
-                        @endif
-                    @endif --}}
                     @php
                         $user = Auth('customer')->user();
                         if ($user) {
@@ -180,6 +172,38 @@
         <span class="bar"></span>
     </div>
     @yield('content')
+
+    <!-- Footer Section -->
+    <footer class="footer-container">
+        <div class="social-icon">
+            @foreach (['facebook-line.svg', 'twitter-line.svg', 'flickr.svg', 'instagram.svg'] as $social)
+                <a href="#"><img src="image/customer/{{ $social }}" alt="" /></a>
+            @endforeach
+        </div>
+
+        <div class="social-middle">
+            @foreach (['home.html' => 'Home', 'shop.html' => 'Shop', 'Blog.html' => 'Blog', 'about.html' => 'About Us', 'contact.html' => 'Contact Us'] as $link => $name)
+                <a href="{{ $link }}">{{ $name }}</a>
+            @endforeach
+        </div>
+        <div class="newsletter">
+            <h2>NEWSLETTER</h2>
+            <p>Enjoy our newsletter to stay updated with the latest news and special sales.</p>
+            <input type="text" placeholder="Enter your email address" />
+            <hr />
+        </div>
+    </footer>
+
+    <div class="sec-footer">
+        <div>
+            <p>&copy; 2023 All Rights Reserved.</p>
+        </div>
+        <div class="sec-footer-img">
+            @foreach (['visa.svg', 'american express.svg', 'discover-2-removebg-preview.png', 'master.svg', 'paypal.svg'] as $payment)
+                <a href="#"><img src="image/customer/{{ $payment }}" alt="" /></a>
+            @endforeach
+        </div>
+    </div>
     @yield('js')
     <script src="{{ asset('js/customer/script.js') }}"></script>
     <script>

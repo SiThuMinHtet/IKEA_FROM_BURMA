@@ -47,9 +47,18 @@ class CustomerHomeController extends Controller
         return view('customer.shop.shop', compact('productList', 'categories'));
     }
 
-    public function category()
+    public function category(Request $request)
     {
-        return view('customer.category');
+        $categorylist = $request->category;
+        $productList = DB::table('products')
+            ->join('category', 'category.id', '=', 'products.category_id')
+            ->leftJoin('product_photos', 'product_photos.product_id', '=', 'products.id')
+            ->where('products.category_id', '=', $categorylist)
+            ->select('products.*', 'category.name as category', 'product_photos.image')
+            ->get();
+        // $categories = Category::where('status', '=', 'Active')->select('id', 'name')->get();
+
+        return view('customer.category', compact('productList', 'categorylist'));
     }
 
     public function blog()

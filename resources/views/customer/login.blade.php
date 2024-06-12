@@ -43,6 +43,7 @@
                         <label>Password</label>
                         <input type="text" name="password">
                     </div>
+
                     @error('password')
                         <div class="alert alert-danger error"><small><b>*{{ $message }}*</b></small></div>
                     @enderror

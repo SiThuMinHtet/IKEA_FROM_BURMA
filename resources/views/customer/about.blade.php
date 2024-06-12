@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.CustomerLayout')
+@section('title')
+    About
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
+@section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/carousel.css') }}">
-    <link
-        rel="stylesheet"href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
+    <link rel="stylesheet"href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer/category.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/detail.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/blog.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/about.css') }}" />
-</head>
+@endsection
 
-<body>
-    <div class="about-home">
-        <a href="{{ route('CustomerHome') }}">HOME</a>
-    </div>
-
+@section('content')
     <div class="our-story">
         <div class="out-story-text">
             <h1>Our Story</h1>
@@ -117,11 +109,10 @@
             </div>
         </div>
     </div>
+@endsection
 
 
-
+@section('js')
     <script src="./js/script.js"></script>
     <script src="./js/shop.js"></script>
-</body>
-
-</html>
+@endsection

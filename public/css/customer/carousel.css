@@ -141,6 +141,7 @@ body {
     cursor: pointer;
     padding: 5px;
     border-radius: 3px;
+    text-align: center;
   }
 
   .shop-dropdown select:hover{

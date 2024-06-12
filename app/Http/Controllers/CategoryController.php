@@ -66,9 +66,6 @@ class CategoryController extends Controller
 
     public function categorydelete($id)
     {
-        // $categorydelete = Category::find($id);
-        // $categorydelete->status = "Inactive";
-        // $categorydelete->update();
         Category::destroy($id);
         return redirect()->route('Category');
     }

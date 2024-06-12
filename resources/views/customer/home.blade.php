@@ -7,11 +7,8 @@
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer/home-responsive.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-    </style>
 @endsection
 
-{{-- @dd($products->photo[0]); --}}
 @section('content')
     <!-- Hero Section -->
     <div class="hero-container">
@@ -36,7 +33,6 @@
 
     <!-- Hero Grid Section -->
     <div class="hero-grid-container">
-        {{-- @dd($products[0]->id); --}}
         @foreach ($gridItems as $index => $item)
             <div class="grid-item item-{{ $index + 1 }}">
                 <p>{{ $item['name'] }}<br />{{ $item['products_count'] }} Products</p>
@@ -52,7 +48,6 @@
     <div class="new-product">
         <h1>NEW PRODUCTS</h1>
         <ul class="tab-menu">
-            {{-- @dd($categories); --}}
             @foreach ($categories as $category)
                 <li data-category-id="{{ $category->id }}">{{ $category->name }}</li>
             @endforeach
@@ -74,14 +69,9 @@
 
                         <h3>{{ $product->name }}</h3>
                         <p>${{ $product->price }}</p>
-
                     </div>
-
                 </a>
             @endforeach
-
-
-
         </div>
     </div>
 
@@ -126,37 +116,7 @@
 
         </div>
     </div>
-    <!-- Footer Section -->
-    <footer class="footer-container">
-        <div class="social-icon">
-            @foreach (['facebook-line.svg', 'twitter-line.svg', 'flickr.svg', 'instagram.svg'] as $social)
-                <a href="#"><img src="image/customer/{{ $social }}" alt="" /></a>
-            @endforeach
-        </div>
 
-        <div class="social-middle">
-            @foreach (['home.html' => 'Home', 'shop.html' => 'Shop', 'Blog.html' => 'Blog', 'about.html' => 'About Us', 'contact.html' => 'Contact Us'] as $link => $name)
-                <a href="{{ $link }}">{{ $name }}</a>
-            @endforeach
-        </div>
-        <div class="newsletter">
-            <h2>NEWSLETTER</h2>
-            <p>Enjoy our newsletter to stay updated with the latest news and special sales.</p>
-            <input type="text" placeholder="Enter your email address" />
-            <hr />
-        </div>
-    </footer>
-
-    <div class="sec-footer">
-        <div>
-            <p>&copy; 2023 All Rights Reserved.</p>
-        </div>
-        <div class="sec-footer-img">
-            @foreach (['visa.svg', 'american express.svg', 'discover-2-removebg-preview.png', 'master.svg', 'paypal.svg'] as $payment)
-                <a href="#"><img src="image/customer/{{ $payment }}" alt="" /></a>
-            @endforeach
-        </div>
-    </div>
 @endsection
 
 <script>

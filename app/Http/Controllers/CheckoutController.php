@@ -18,6 +18,14 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {
+        $validateData = $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'address' => 'required|string|max:500',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:155'
+            ]
+        );
         session()->put('checkout_details', $request->all());
         // dd($request->all());
         return redirect()->route('payment');

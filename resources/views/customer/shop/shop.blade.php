@@ -1,7 +1,3 @@
-{{-- @dd($productlist); --}}
-{{-- @dd($categorylist); --}}
-{{-- @dd($products); --}}
-
 @extends('layouts.CustomerLayout')
 @section('title')
     Shop
@@ -39,18 +35,11 @@
 
     <!-- hero-grid -->
     <div class="shop-nav-heading">
-        <div class="mini-heading">
-            <p>Home</p>
-            <p>Shop</p>
-        </div>
 
         <p id="shop">SHOP</p>
     </div>
 
     <div class="shop-nav">
-        <div class="shop-nav-left">
-            <p>view <b>16</b> per page</p>
-        </div>
 
         <div class="shop-nav-right">
             <div class="shop-dropdown">
@@ -106,11 +95,6 @@
                     </a>
                 </div>
             @endforeach
-        </div>
-
-        <div class="shop-last-section">
-            <p>You've viewed 16 or 50 products</p>
-            <button>LOAD MORE</button>
         </div>
     </div>
 @endsection
