@@ -28,7 +28,7 @@ body {
     opacity: 0.5;
 }
 
-.detail-btn {
+.detail-btn form{
     display: flex;
     justify-content: center;
     align-items: center;

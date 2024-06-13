@@ -37,18 +37,15 @@
                 contemporary shelter feel. Also features a matching low profile tootboard and hinged/folding side rails.
             </p>
             <div class="detail_btn_group">
-                <div>
-                    <input type="number" name="quantity" id="quantity" min="1" value="1">
-                </div>
-
                 <div class="detail-btn">
-                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST" id="cartForm">
                         @csrf
-                        <input type="hidden" name="quantity" id="form-quantity" value="1">
-                        <button type="submit">Add To Cart</button>
-                        <button type="submit"><a href="{{ route('cart.add', $product->id) }}">BUY IT NOW</a></button>
+                        <div>
+                            <input type="number" name="quantity" id="quantity" min="1" value="1">
+                        </div>
+                        <button type="submit" onclick="submitCartForm(false)">Add To Cart</button>
+                        <button type="submit" onclick="submitCartForm(true)">BUY IT NOW</button>
                     </form>
-
                 </div>
             </div>
 
@@ -150,16 +147,7 @@
         </div>
     </div>
 
-    {{-- <script>
-        function openMenu(menuItem) {
-            var i;
-            var x = document.getElementsByClassName("menu");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(menuItem).style.display = "grid";
-        }
-    </script> --}}
+
     <script>
         document.getElementById('quantity').addEventListener('input', function() {
             document.getElementById('form-quantity').value = this.value;
@@ -174,6 +162,34 @@
             document.getElementById(menuItem).style.display = "grid";
         }
     </script>
+
+
+
+    {{--  --}}
+    <script>
+        function submitCartForm(redirectToCart) {
+            const form = document.getElementById('cartForm');
+
+            // Remove existing redirect_to_cart input if it exists
+            let redirectInput = document.querySelector('input[name="redirect_to_cart"]');
+            if (redirectInput) {
+                redirectInput.remove();
+            }
+
+            // Add redirect_to_cart input if redirectToCart is true
+            if (redirectToCart) {
+                redirectInput = document.createElement('input');
+                redirectInput.type = 'hidden';
+                redirectInput.name = 'redirect_to_cart';
+                redirectInput.value = 'true';
+                form.appendChild(redirectInput);
+            }
+
+            // Submit the form
+            form.submit();
+        }
+    </script>
+
 </body>
 
 </html>

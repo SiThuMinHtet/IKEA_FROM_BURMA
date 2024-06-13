@@ -29,6 +29,7 @@
 
             @if (count($cartItems) > 0)
                 @if (auth('customer')->check())
+                    {{-- @dd($cartItems); --}}
                     @foreach ($cartItems as $cartItem)
                         <tr>
                             <td class="product_image">

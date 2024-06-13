@@ -17,17 +17,27 @@ class CartController extends Controller
         $quantity = $request->quantity;
         $user = Auth::guard('customer')->user();
 
-        if ($user) {
-            $this->handleAuthenticatedUserAddToCart($user->id, $productId, $quantity);
-        } else {
-            $this->handleGuestUserAddToCart($productId, $quantity);
-        }
 
-        return redirect()->route('Shop')->with('success', 'Product added to cart!');
+        if ($request->redirect_to_cart == 'true') {
+            if ($user) {
+                $this->handleAuthenticatedUserAddToCart($user->id, $productId, $quantity);
+            } else {
+                $this->handleGuestUserAddToCart($productId, $quantity);
+            }
+            return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+        } else {
+            if ($user) {
+                $this->handleAuthenticatedUserAddToCart($user->id, $productId, $quantity);
+            } else {
+                $this->handleGuestUserAddToCart($productId, $quantity);
+            }
+            return redirect()->route('Shop')->with('success', 'Product added to cart!');
+        }
     }
 
     private function handleAuthenticatedUserAddToCart($userId, $productId, $quantity)
     {
+
         $product = Product::findOrFail($productId);
 
         $cartItem = Cart::where('customer_id', $userId)
@@ -55,7 +65,6 @@ class CartController extends Controller
 
     private function handleGuestUserAddToCart($productId, $quantity)
     {
-        // dd($quantity);
         $cart = session()->get('cart', []);
         $product = Product::findOrFail($productId);
         $productPhotos = Product_photo::where('product_id', $productId)->pluck('image')->toArray();
@@ -73,7 +82,7 @@ class CartController extends Controller
                 'photos' => $productPhotos,
             ];
         }
-
+        // dd($cart);
         session()->put('cart', $cart);
     }
 
