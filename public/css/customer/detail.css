@@ -82,6 +82,12 @@ body {
     text-align: center;
 }
 
+.product-nav button{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
 .menu {
     margin: 0 50px;
 }
@@ -147,8 +153,8 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 60px;
-    width: 50px;
+    left: 30px;
+    width:100px;
     height: 0.1em;
     background-color: black;
     opacity: 0;

@@ -21,6 +21,12 @@
                 <div class="shop-product-item shop-item-1">
                     <a href="{{ route('Detail', $product->id) }}">
                         <img src="{{ asset('img/products/' . $product->image) }}" alt="" />
+
+                        <div class="overlay">
+                            <i class="fa-solid fa-eye"></i>
+                            <p>Quick View</p>
+                        </div>
+
                         <p>{{ $product->name }}</p>
                         <p>{{ $product->price }}</p>
                     </a>

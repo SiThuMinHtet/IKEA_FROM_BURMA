@@ -112,8 +112,6 @@
                         voluptatibus rem nam earum.</p>
                 </div>
             @endforeach
-
-
         </div>
     </div>
 

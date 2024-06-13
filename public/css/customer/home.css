@@ -171,6 +171,7 @@ body {
   /* Add a background color on hover */
   .column a:hover {
     background-color: #ddd;
+    background-image: linear-gradient(to right,rgba(128, 128, 128, 0.199),#f6f6f6);
     color: black;
   }
   .row {

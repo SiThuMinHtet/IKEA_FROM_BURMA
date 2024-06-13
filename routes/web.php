@@ -57,6 +57,7 @@ Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name
 Route::post('/cart/increase/{id}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
 Route::post('/cart/decrease/{id}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 Route::post('cart/remove/{cartItemId}', [CartController::class, 'removeItem'])->name('cart.remove');
+Route::post('cart/remove', [CartController::class, 'removeAll'])->name('cart.removeall');
 
 Route::get('/shop/checkout', [CartController::class, 'checkout'])->name('checkout');
 
@@ -74,7 +75,7 @@ Route::get('/shop', [CustomerHomeController::class, 'shop'])->name('Shop');
 Route::get('/shop/category', [CustomerHomeController::class, 'category'])->name('ShopCategory');
 Route::get('/shop/blog', [CustomerHomeController::class, 'blog'])->name('Blog');
 Route::get('/shop/detail/{id}', [CustomerHomeController::class, 'detail'])->name('Detail');
-Route::get('/shop/detail/process', [CustomerHomeController::class, 'detailprocess'])->name('DetailProcess');
+
 Route::get('/shop/about', [CustomerHomeController::class, 'about'])->name('About');
 Route::get('/shop/contact', [CustomerHomeController::class, 'contact'])->name('Contact');
 Route::get('/productlist', [CustomerHomeController::class, 'showlist'])->name('ShowList');

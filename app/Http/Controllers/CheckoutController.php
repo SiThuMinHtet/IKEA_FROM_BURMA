@@ -12,7 +12,6 @@ class CheckoutController extends Controller
     {
         $user = Auth::guard('customer')->user();
         $cartItems = $user ? Cart::where('customer_id', $user->id)->with('product')->get() : session()->get('cart', []);
-        // dd($cartItems);
         return view('customer.checkout', compact('cartItems', 'user'));
     }
 
@@ -27,7 +26,6 @@ class CheckoutController extends Controller
             ]
         );
         session()->put('checkout_details', $request->all());
-        // dd($request->all());
         return redirect()->route('payment');
     }
 }

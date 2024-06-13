@@ -1,9 +1,3 @@
-{{-- @dd($products); --}}
-{{-- @dd($categorylist); --}}
-{{-- @dd($codelist); --}}
-{{-- @dd($product_image); --}}
-{{-- @dd($primary_image); --}}
-{{-- @dd(session()->all()); --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +13,6 @@
         rel="stylesheet"href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer/category.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/detail.css') }}" />
-
 </head>
 
 <body>
@@ -45,15 +38,17 @@
             </p>
             <div class="detail_btn_group">
                 <div>
-                    <input type="number">
+                    <input type="number" name="quantity" id="quantity" min="1" value="1">
                 </div>
 
                 <div class="detail-btn">
                     <form action="{{ route('cart.add', $product->id) }}" method="POST">
                         @csrf
+                        <input type="hidden" name="quantity" id="form-quantity" value="1">
                         <button type="submit">Add To Cart</button>
+                        <button type="submit"><a href="{{ route('cart.add', $product->id) }}">BUY IT NOW</a></button>
                     </form>
-                    <button><a href="">BUY IT NOW</a></button>
+
                 </div>
             </div>
 
@@ -155,7 +150,21 @@
         </div>
     </div>
 
+    {{-- <script>
+        function openMenu(menuItem) {
+            var i;
+            var x = document.getElementsByClassName("menu");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(menuItem).style.display = "grid";
+        }
+    </script> --}}
     <script>
+        document.getElementById('quantity').addEventListener('input', function() {
+            document.getElementById('form-quantity').value = this.value;
+        });
+
         function openMenu(menuItem) {
             var i;
             var x = document.getElementsByClassName("menu");

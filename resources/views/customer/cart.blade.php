@@ -129,7 +129,11 @@
                 <button><a href="{{ route('checkout') }}" class="btn btn-primary">Proceed to Checkout</a></button>
             </div>
             <div class="cart-right-btn">
-                <button class="cart-right-btn-first">Clear All</button>
+                <form action="{{ route('cart.removeall') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="cart-right-btn-first">Clear
+                        All</button>
+                </form>
             </div>
         @endif
     </div>

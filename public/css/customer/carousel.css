@@ -217,8 +217,37 @@ body {
     background: white;
   }
   
+  .shop-product-item a:hover .overlay {
+    /* transform: scale(1.1); */
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    color: white ;
+    background-color: black;
+  }
+  
+  .overlay{
+    position: absolute;
+    bottom: 0;
+    top: 330px;
+    visibility: hidden;
+    padding: 0.8rem 1rem;
+    transform: translateY(3rem);
+    opacity: 0;
+    display: flex;
+    width: 90%;
+    height: 20px;
+    transition: all 0.3s;
+    background: grey;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    overflow: hidden;
+    gap: 5px;
+  }
   .shop-product-item a {
     text-decoration: none;
+    color: black;
   }
   
   .shop-product-item span {
