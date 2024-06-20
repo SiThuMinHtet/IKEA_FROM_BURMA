@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.CustomerLayout')
+@section('title')
+    detail
+@endsection
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-
+@section('css')
     <link rel="stylesheet" href="{{ asset('css/customer/home.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/carousel.css') }}">
-    <link
-        rel="stylesheet"href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/customer/category.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/customer/detail.css') }}" />
-</head>
+@endsection
 
-<body>
-    <div class="detail-nav">
-        <a href="{{ route('CustomerHome') }}">Home</a>
-        <a href="{{ route('Shop') }}">Shop</a>
-        <a href="{{ route('Category') }}">Bed</a>
-        <a href="">Modway Olivia Bed</a>
-    </div>
+@section('content')
     <div class="item-detail">
         <div class="detail-img">
             <img src="{{ asset('img/products/' . $productImages[0]->image) }}" alt="">
@@ -113,23 +103,23 @@
 
     <h2 class="detail-heading">YOU MAY ALSO LIKE...</h2>
     <div class="detail-grid">
-        <div class="new-product-item new-item-1">
-
-            <a href=""><img src="images/Detail/haiku.png" alt="" />
+        <div class="shop-product-item shop-item-1">
+            <a href="">
+                <img src="{{ asset('image/customer/Detail/haiku.png') }}" alt="" />
                 <p>Haiku 2-Seater Sofa</p>
                 <p>$999.00 - $1,499.00</p>
             </a>
         </div>
         <div class="shop-product-item shop-item-2">
             <a href="">
-                <img src="images/Detail/solid wood .png" alt="" />
+                <img src="{{ asset('image/customer/Detail/solid wood .png') }}" alt="" />
                 <p>Solid Wood Side Tables</p>
                 <p>$350.00</p>
             </a>
         </div>
         <div class="shop-product-item shop-item-3">
             <a href="">
-                <img src="images/Detail/vipp pillow.png" alt="" />
+                <img src="{{ asset('image/customer/Detail/vipp pillow.png') }}" alt="" />
                 <p>Vipp Wool Pillow</p>
                 <p>$79.00</p>
             </a>
@@ -137,7 +127,7 @@
         <div class="shop-product-item grid-item-3">
             <a href="">
                 <span>-20%</span>
-                <img src="images/Detail/wool blanket.png" alt="" />
+                <img src="{{ asset('image/customer/Detail/wool blanket.png') }}" alt="" />
                 <p>Vipp Wool Blanket</p>
                 <div class="shop-price">
                     <p style="opacity: .5;">$100.00</p>
@@ -146,8 +136,10 @@
             </a>
         </div>
     </div>
+@endsection
 
 
+@section('js')
     <script>
         document.getElementById('quantity').addEventListener('input', function() {
             document.getElementById('form-quantity').value = this.value;
@@ -164,8 +156,6 @@
     </script>
 
 
-
-    {{--  --}}
     <script>
         function submitCartForm(redirectToCart) {
             const form = document.getElementById('cartForm');
@@ -189,7 +179,4 @@
             form.submit();
         }
     </script>
-
-</body>
-
-</html>
+@endsection

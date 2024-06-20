@@ -25,7 +25,6 @@ class CustomerController extends Controller
             ->where('customers.status', '=', 'Active')
             ->select('customers.*')
             ->paginate(2);
-        // dd($customerlist);
         return view('admin.customers.customerlist', compact('customerlist'));
     }
 
@@ -39,12 +38,6 @@ class CustomerController extends Controller
     {
         return view('customer.login');
     }
-
-    // public function customeredit($id)
-    // {
-    //     $customerdata = Customer::find('id');
-    //     return view('customer.login' ,compact('customerdata'));
-    // }
 
     public function customerteditprocess(Request $request)
     {
@@ -134,5 +127,24 @@ class CustomerController extends Controller
     public function showLoginForm()
     {
         return view('customer.login');
+    }
+
+    public function datefilter(Request $request)
+    {
+        $customerlist = DB::table('customers');
+
+        if ($request->has('start_date') && $request->start_date) {
+            $customerlist->where('products.created_at', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $customerlist->where('products.created_at', '<=', $request->end_date);
+        }
+
+        $customerlist = $customerlist
+            ->where('customers.status', '=', 'Active')
+            ->select('customers.*')
+            ->paginate(2);
+        return view('admin.customers.customerlist', compact('customerlist'));
     }
 }

@@ -66,7 +66,7 @@
     <div class="navbar">
         <div class="first-nav-icon">
             <div>
-                <a href="home.html">LOGO</a>
+                <a href="{{ route('CustomerHome') }}">LOGO</a>
             </div>
             <div>
                 <a href="{{ route('CustomerHome') }}">Home</a>

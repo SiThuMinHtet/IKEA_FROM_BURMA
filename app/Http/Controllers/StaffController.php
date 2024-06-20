@@ -186,4 +186,22 @@ class StaffController extends Controller
         $staffdelete->update();
         return redirect()->route('StaffList');
     }
+
+    public function datefilter(Request $request)
+    {
+        $stafflist = DB::table('staffs')
+            ->join('roles', 'roles.id', '=', 'staffs.role_id');
+        if ($request->has('start_date') && $request->start_date) {
+            $stafflist->where('staffs.created_at', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $stafflist->where('staffs.created_at', '<=', $request->end_date);
+        }
+        $stafflist = $stafflist
+            ->where('staffs.status', '=', 'Active')
+            ->select('staffs.*', 'roles.name as rolename')
+            ->paginate(1);
+        return view('admin.staffs.stafflist', compact('stafflist'));
+    }
 }

@@ -68,7 +68,11 @@
     <div class="date-search-sort">
 
         <div class="date">
-            <p>01/01/2023 - 01/01/2024</p> <img src="{{ asset('image/admin/icons/calendar.png') }}" alt="">
+            <form action="{{ route('OrderDatefilter') }}" method="GET">
+                <input type="date" name="start_date">
+                <input type="date" name="end_date">
+                <button type="submit">Filter</button>
+            </form>
         </div>
 
         <div class="search-sort">
@@ -79,14 +83,6 @@
             <div class="sort">
                 <select name="" id="">
                     <option value="">Status</option>
-                    <option value=""></option>
-                    <option value=""></option>
-                </select>
-            </div>
-
-            <div class="sort">
-                <select name="" id="">
-                    <option value="">Default Sorting</option>
                     <option value=""></option>
                     <option value=""></option>
                 </select>
@@ -173,18 +169,7 @@
     </div>
 
     <div class="Pagination">
-        <div>
-            <i class="fa-solid fa-less-than"></i>
-        </div>
-        <div>
-            1
-        </div>
-        <div id="blue">
-            2
-        </div>
-        <div>
-            <i class="fa-solid fa-greater-than"></i>
-        </div>
+        {{ $orderlist->appends(['search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links('pagination::bootstrap-4') }}
     </div>
 
     <div id="myModal" class="modal">

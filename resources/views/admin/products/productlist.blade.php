@@ -14,9 +14,15 @@
         <div class="product-mng">
             <div class="product_search">
                 <form action="{{ route('ProductSearch') }}" method="GET">
-
                     <input name="search" type="text" placeholder="Search">
                     <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="date">
+                <form action="{{ route('ProductDatefilter') }}" method="GET">
+                    <input name="start_date" type="date">
+                    <input name="end_date" type="date">
+                    <button type="submit">Filter</button>
                 </form>
             </div>
 
@@ -88,7 +94,7 @@
     </div>
 
     <div class="Pagination">
-        {{ $productlist->appends(['search' => request('search')])->links('pagination::bootstrap-4') }}
+        {{ $productlist->appends(['search' => request('search'), 'start_date' => request('start_date'), 'end_date' => request('end_date')])->links('pagination::bootstrap-4') }}
     </div>
 @endsection
 

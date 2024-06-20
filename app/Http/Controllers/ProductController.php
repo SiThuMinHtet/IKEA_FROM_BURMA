@@ -174,4 +174,34 @@ class ProductController extends Controller
 
         return redirect()->route('ProductList');
     }
+
+    public function datefilter(Request $request)
+    {
+        $productlist = DB::table('products')
+            ->join('category', 'category.id', '=', 'products.category_id')
+            ->leftJoin('product_photos', function ($join) {
+                $join->on('product_photos.product_id', '=', 'products.id')
+                    ->where('product_photos.status', '=', 'Active');
+            })
+            ->join('codes', 'codes.id', '=', 'products.code_id')
+            ->join('staffs', 'staffs.id', '=', 'products.staff_id')
+            ->join('suppliers', 'suppliers.id', '=', 'products.supplier_id');
+
+
+        if ($request->has('start_date') && $request->start_date) {
+            $productlist->where('products.created_at', '>=', $request->start_date);
+        }
+
+        if ($request->has('end_date') && $request->end_date) {
+            $productlist->where('products.created_at', '<=', $request->end_date);
+        }
+
+        $productlist = $productlist
+            ->where('product_photos.primaryphoto', '=', 1)
+            ->orderBy('products.id', 'asc')
+            ->select('products.*', 'category.name as category', 'product_photos.image')
+            ->paginate(6);
+
+        return view('admin.products.productlist', compact('productlist'));
+    }
 }

@@ -64,7 +64,6 @@ Route::get('/shop/checkout', [CartController::class, 'checkout'])->name('checkou
 // Route::post('/checkout/process', [StripePaymentController::class, 'processPayment'])->name('checkout.process');
 
 
-
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/payment', [StripePaymentController::class, 'index'])->name('payment');
@@ -105,11 +104,13 @@ Route::middleware(['admin'])->group(function () {
     Route::prefix('/admin')->group(function () {
         //order
         Route::get('/orderlist', [OrderController::class, 'list'])->name('OrderList');
+        Route::get('/orderlist/datefilter', [OrderController::class, 'datefilter'])->name('OrderDatefilter');
         Route::post('/updateorderstatus', [OrderController::class, 'updateOrderstatus'])->name('updateOrderstatus');
 
         Route::get('/logout', [loginController::class, 'Adminlogout'])->name('Admin.logout');
         //product
         Route::get('/productlist', [ProductController::class, 'productlist'])->name('ProductList');
+        Route::get('productlist/datefilter', [ProductController::class, 'datefilter'])->name('ProductDatefilter');
         Route::get('/productlist/create', [ProductController::class, 'productcreate'])->name('ProductCreate');
         Route::post('/product/data', [ProductController::class, 'productdata'])->name('ProductData');
         Route::post('/product/createprocess', [ProductController::class, 'createprocess'])->name('ProductCreateProcess');
@@ -140,11 +141,13 @@ Route::middleware(['admin'])->group(function () {
 
         //customer
         Route::get('/customerlist', [CustomerController::class, 'customerlist'])->name('CustomerList');
-
+        Route::get('customerlist/datefilter', [CustomerController::class, 'datefilter'])->name('CustomerDateFilter');
         Route::get('/customerlist/delete/{id}', [CustomerController::class, 'customerdelete'])->name('CustomerDelete');
 
         //staff
         Route::get('/stafflist', [StaffController::class, 'stafflist'])->name('StaffList');
+        Route::get('/stafflist/datefilter', [StaffController::class, 'datefilter'])->name('StaffListDateFilter');
+
         Route::get('/stafflist/create', [StaffController::class, 'staffcreate'])->name('StaffCreate');
         Route::post('/stafflist/create/process', [StaffController::class, 'createprocess'])->name('CreateProcess');
         Route::get('/staffedit/{id}', [StaffController::class, 'staffedit'])->name('staff.edit');

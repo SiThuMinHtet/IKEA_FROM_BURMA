@@ -13,7 +13,11 @@
     <div class="date-search-sort">
 
         <div class="date">
-            <p>01/01/2023 - 01/01/2024</p> <img src="icons/calendar.png" alt="">
+            <form action="{{ route('CustomerDateFilter') }}" method="GET">
+                <input name="start_date" type="date">
+                <input name="end_date" type="date">
+                <button type="submit">Filter</button>
+            </form>
         </div>
 
         <div class="search-sort">
