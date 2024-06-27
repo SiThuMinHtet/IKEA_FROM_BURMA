@@ -170,6 +170,7 @@
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
+        <span class="close-text">close</span>
     </div>
     @yield('content')
 
